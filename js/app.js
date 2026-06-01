@@ -43,6 +43,7 @@
 
   function bindEvents() {
     els.refreshButton.addEventListener("click", () => {
+      window.TwseApi.refresh();
       loadDashboard();
       loadAnalysis();
     });
@@ -66,13 +67,12 @@
 
   async function loadAnalysis() {
     try {
-      const response = await fetch("data/sample-analysis.json", { cache: "no-store" });
-      const data = await response.json();
+      const data = await window.TwseApi.getAnalysis();
       els.analysisDate.textContent = data.date || "--";
       els.analysisContent.innerHTML = markdownToHtml(data.markdown || "");
     } catch (error) {
       els.analysisDate.textContent = "範例";
-      els.analysisContent.innerHTML = markdownToHtml("### 盤後分析\n目前無法讀取範例報告，請稍後再試。");
+      els.analysisContent.innerHTML = markdownToHtml("### 盤後分析\n目前無法讀取分析資料，請稍後再試。");
     }
   }
 
@@ -111,7 +111,7 @@
     els.investmentNet.className = trendClass(values[1]);
     els.dealerNet.className = trendClass(values[2]);
     els.institutionalNote.textContent = institutional.isSample
-      ? "TWSE 或 CORS 暫時無法連線，已顯示範例資料。"
+      ? "尚未取得 TWSE 資料，目前顯示範例。等待下次 GitHub Actions 更新。"
       : institutional.note || "資料來源：TWSE 三大法人買賣超日報。";
 
     updateInstitutionalChart(values);
@@ -122,6 +122,11 @@
     els.watchlistBody.innerHTML = quotes
       .map((quote) => {
         const className = trendClass(quote.change);
+        const badge = quote.isSample
+          ? "範例資料"
+          : quote.source === "daily"
+          ? "盤後資料"
+          : "TWSE 即時";
 
         return `
           <tr>
@@ -129,7 +134,7 @@
             <td>
               <div class="stock-name">
                 ${escapeHtml(shortName(quote.name))}
-                <span>${quote.isSample ? "範例資料" : "TWSE 即時"}</span>
+                <span>${badge}</span>
               </div>
             </td>
             <td class="${className}">${formatNumber(quote.price, 2)}</td>
@@ -144,7 +149,15 @@
 
   function updateStatus(indexQuote, institutional, quotes) {
     const hasSample = indexQuote.isSample || institutional.isSample || quotes.some((quote) => quote.isSample);
-    els.marketStatus.textContent = hasSample ? "部分範例資料" : "TWSE 已更新";
+    if (hasSample) {
+      els.marketStatus.textContent = "部分範例資料";
+      return;
+    }
+    const usesDaily =
+      indexQuote.source === "daily" ||
+      institutional.source === "daily" ||
+      quotes.some((q) => q.source === "daily");
+    els.marketStatus.textContent = usesDaily ? "盤後資料" : "TWSE 即時";
   }
 
   function setupCharts() {
