@@ -1,0 +1,51 @@
+name: Update TWSE daily data
+
+on:
+  schedule:
+    # 台灣時間 14:30 (UTC 06:30) — 個股盤後第一波
+    - cron: "30 6 * * 1-5"
+    # 台灣時間 15:30 (UTC 07:30) — 三大法人公布後
+    - cron: "30 7 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch TWSE snapshot
+        run: python twse_daily.py
+
+      - name: Commit & push if data changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          git config user.name "smartmoney-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if [ -n "$(git status --porcelain data/daily.json)" ]; then
+            git add data/daily.json
+            git commit -m "chore(data): update daily snapshot ($(date -u +'%Y-%m-%d %H:%MZ'))"
+            git push
+            echo "✅ daily.json updated"
+          else
+            echo "ℹ️ no changes in daily.json — skipping commit"
+          fi
