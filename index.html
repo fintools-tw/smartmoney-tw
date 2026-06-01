@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="SmartMoney 台股 AI 分析，每日盤後報告與即時追蹤 Dashboard。"
+    />
+    <title>SmartMoney 台股 AI 分析</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <script src="js/twse-api.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">每日盤後報告 + 即時追蹤</p>
+        <h1>SmartMoney 台股 AI 分析</h1>
+      </div>
+      <div class="header-actions">
+        <span id="market-status" class="status-pill">讀取中</span>
+        <button id="refresh-button" class="icon-button" type="button" aria-label="重新整理資料" title="重新整理資料">
+          ↻
+        </button>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <section class="card market-card" aria-labelledby="market-title">
+        <div class="card-heading">
+          <div>
+            <p class="section-label">TAIEX</p>
+            <h2 id="market-title">大盤加權指數</h2>
+          </div>
+          <span id="market-time" class="muted">--:--:--</span>
+        </div>
+        <div class="index-quote">
+          <strong id="index-current">--</strong>
+          <span id="index-change" class="quote-change neutral">--</span>
+        </div>
+        <dl class="quote-grid">
+          <div>
+            <dt>開盤</dt>
+            <dd id="index-open">--</dd>
+          </div>
+          <div>
+            <dt>最高</dt>
+            <dd id="index-high">--</dd>
+          </div>
+          <div>
+            <dt>最低</dt>
+            <dd id="index-low">--</dd>
+          </div>
+          <div>
+            <dt>昨收</dt>
+            <dd id="index-yesterday">--</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="card chart-card" aria-labelledby="index-chart-title">
+        <div class="card-heading">
+          <div>
+            <p class="section-label">即時軌跡</p>
+            <h2 id="index-chart-title">大盤走勢</h2>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="index-chart" aria-label="大盤加權指數即時走勢圖"></canvas>
+        </div>
+      </section>
+
+      <section class="card institutional-card" aria-labelledby="institutional-title">
+        <div class="card-heading">
+          <div>
+            <p class="section-label">億元</p>
+            <h2 id="institutional-title">三大法人買賣超</h2>
+          </div>
+          <span id="institutional-date" class="muted">--</span>
+        </div>
+        <div class="institutional-list">
+          <div class="institutional-item">
+            <span>外資</span>
+            <strong id="foreign-net" class="neutral">--</strong>
+          </div>
+          <div class="institutional-item">
+            <span>投信</span>
+            <strong id="investment-net" class="neutral">--</strong>
+          </div>
+          <div class="institutional-item">
+            <span>自營商</span>
+            <strong id="dealer-net" class="neutral">--</strong>
+          </div>
+        </div>
+        <div class="chart-wrap compact">
+          <canvas id="institutional-chart" aria-label="三大法人買賣超長條圖"></canvas>
+        </div>
+        <p id="institutional-note" class="note"></p>
+      </section>
+
+      <section class="card watchlist-card" aria-labelledby="watchlist-title">
+        <div class="card-heading">
+          <div>
+            <p class="section-label">16 檔追蹤</p>
+            <h2 id="watchlist-title">追蹤個股</h2>
+          </div>
+          <span id="quotes-time" class="muted">--</span>
+        </div>
+        <div class="table-shell">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">代碼</th>
+                <th scope="col">名稱</th>
+                <th scope="col">現價</th>
+                <th scope="col">漲跌</th>
+                <th scope="col">漲跌幅</th>
+                <th scope="col">成交量</th>
+              </tr>
+            </thead>
+            <tbody id="watchlist-body">
+              <tr>
+                <td colspan="6" class="loading-cell">讀取追蹤清單中...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card analysis-card" aria-labelledby="analysis-title">
+        <div class="card-heading">
+          <div>
+            <p class="section-label">AI 盤後分析</p>
+            <h2 id="analysis-title">每日報告</h2>
+          </div>
+          <span id="analysis-date" class="muted">--</span>
+        </div>
+        <article id="analysis-content" class="markdown-body">
+          <p>讀取分析報告中...</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
