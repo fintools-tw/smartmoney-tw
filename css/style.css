@@ -404,3 +404,27 @@ tbody tr:hover {
     grid-column: span 4;
   }
 }
+
+/* AI/rule-based analysis source badges */
+.analysis-badge {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.analysis-badge-ai {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: #fff;
+}
+
+.analysis-badge-rule {
+  background: rgba(148, 163, 184, 0.22);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.32);
+}

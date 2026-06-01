@@ -232,7 +232,8 @@
   async function getAnalysis() {
     const snapshot = await loadSnapshot();
     if (snapshot && snapshot.analysis && snapshot.analysis.markdown) {
-      return { ...snapshot.analysis, source: "daily" };
+      // Preserve inner source ("ai" | "rule-based") from the snapshot.
+      return { ...snapshot.analysis };
     }
     return { ...SAMPLE_ANALYSIS, isSample: true };
   }

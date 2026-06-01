@@ -32,6 +32,8 @@ jobs:
           python-version: "3.11"
 
       - name: Fetch TWSE snapshot
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python twse_daily.py
 
       - name: Commit & push if data changed

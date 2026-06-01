@@ -249,8 +249,111 @@ def get_stock_quotes(watchlist):
 
 
 # ============================================================================
-# Analysis (rule-based; placeholder for future LLM upgrade)
+# Analysis — AI-powered (GPT) with rule-based fallback
 # ============================================================================
+
+OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
+OPENAI_MODEL = "gpt-4o-mini"
+DISCLAIMER = "本分析由 AI 自動生成，僅供參考，不構成投資建議。"
+
+
+def _summarise_inputs_for_prompt(index_quote, historical, institutional, quotes):
+    """把今日資料壓成精簡文字，餵給 GPT。"""
+    lines = []
+
+    if index_quote and index_quote.get("price") is not None:
+        lines.append(
+            f"加權指數：收盤 {index_quote['price']:.2f}，漲跌 {index_quote.get('change')}, "
+            f"漲跌幅 {index_quote.get('changePct')}%，開盤 {index_quote.get('open')}，"
+            f"最高 {index_quote.get('high')}，最低 {index_quote.get('low')}，昨收 {index_quote.get('yesterday')}"
+        )
+    elif historical and historical.get("close") is not None:
+        lines.append(f"上一交易日加權指數收盤 {historical['close']:.2f}")
+    else:
+        lines.append("加權指數資料尚未公布")
+
+    if institutional and institutional.get("data"):
+        inst_parts = []
+        for key in ("外資", "投信", "自營商"):
+            row = institutional["data"].get(key)
+            if row and row.get("net") is not None:
+                net_yi = row["net"] / 100_000_000.0
+                inst_parts.append(f"{key} 淨額 {net_yi:+.2f} 億元")
+        if inst_parts:
+            lines.append("三大法人：" + "；".join(inst_parts))
+    else:
+        lines.append("三大法人：資料尚未公布")
+
+    valid_quotes = [q for q in (quotes or []) if q.get("changePct") is not None]
+    if valid_quotes:
+        valid_quotes.sort(key=lambda q: q["changePct"], reverse=True)
+        stock_parts = []
+        for q in valid_quotes:
+            stock_parts.append(f"{q['name']}({q['code']}) {q['changePct']:+.2f}%")
+        lines.append("追蹤個股漲跌幅：" + "、".join(stock_parts))
+
+    return "\n".join(lines)
+
+
+def build_ai_analysis(index_quote, historical, institutional, quotes):
+    """用 OpenAI GPT 生成白話盤後分析。失敗時回傳 None，由呼叫端 fallback。"""
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        log("OPENAI_API_KEY not set — skipping AI analysis")
+        return None
+
+    today = now_taipei().strftime("%Y/%m/%d")
+    user_content = (
+        f"以下是 {today} 台股盤後資料，請依此撰寫盤後分析：\n\n"
+        + _summarise_inputs_for_prompt(index_quote, historical, institutional, quotes)
+        + "\n\n請輸出 Markdown 格式（用 ### 當標題），包含：\n"
+        "1. 一句話總結今天盤勢\n"
+        "2. 三大法人解讀（外資、投信在幹嘛，講出觀點）\n"
+        "3. 個股亮點（今天誰最強、誰最弱、可能原因）\n"
+        "4. 明天觀察重點\n\n"
+        "字數 300-500 字，最後一行請加上免責聲明：\n"
+        f"「{DISCLAIMER}」"
+    )
+
+    payload = {
+        "model": OPENAI_MODEL,
+        "messages": [
+            {
+                "role": "system",
+                "content": "你是台股分析師，用白話文為散戶寫盤後分析。語氣像 Threads 上的財經 KOL — 親切、有觀點、不廢話。",
+            },
+            {"role": "user", "content": user_content},
+        ],
+        "temperature": 0.7,
+        "max_tokens": 900,
+    }
+
+    try:
+        body = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(
+            OPENAI_API_URL,
+            data=body,
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=45) as resp:
+            raw = resp.read().decode("utf-8", errors="replace")
+        data = json.loads(raw)
+        markdown = data["choices"][0]["message"]["content"].strip()
+        if not markdown:
+            log("AI analysis returned empty content")
+            return None
+        if DISCLAIMER not in markdown:
+            markdown = markdown.rstrip() + f"\n\n{DISCLAIMER}\n"
+        log("AI analysis generated successfully")
+        return {"date": today, "markdown": markdown, "source": "ai"}
+    except Exception as exc:  # noqa: BLE001
+        log(f"AI analysis failed: {exc}")
+        return None
+
 
 def build_analysis(index_quote, historical, institutional, quotes):
     """組合一份基於今日資料的盤後摘要 (markdown)。"""
@@ -313,7 +416,7 @@ def build_analysis(index_quote, historical, institutional, quotes):
         "並務必設定停損。\n"
     )
 
-    return {"date": today, "markdown": markdown}
+    return {"date": today, "markdown": markdown, "source": "rule-based"}
 
 
 # ============================================================================
@@ -353,7 +456,10 @@ def main() -> int:
     except Exception as exc:  # noqa: BLE001
         log(f"watchlist error: {exc}")
 
-    analysis = build_analysis(index_quote, historical, institutional, quotes)
+    analysis = build_ai_analysis(index_quote, historical, institutional, quotes)
+    if not analysis:
+        analysis = build_analysis(index_quote, historical, institutional, quotes)
+    log(f"analysis source: {analysis.get('source')}")
 
     payload = {
         "schemaVersion": 1,

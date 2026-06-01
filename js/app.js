@@ -68,12 +68,32 @@
   async function loadAnalysis() {
     try {
       const data = await window.TwseApi.getAnalysis();
-      els.analysisDate.textContent = data.date || "--";
+      const badge = renderAnalysisBadge(data.source);
+      els.analysisDate.innerHTML = `${escapeHtml(data.date || "--")} ${badge}`;
       els.analysisContent.innerHTML = markdownToHtml(data.markdown || "");
     } catch (error) {
       els.analysisDate.textContent = "範例";
       els.analysisContent.innerHTML = markdownToHtml("### 盤後分析\n目前無法讀取分析資料，請稍後再試。");
     }
+  }
+
+  function renderAnalysisBadge(source) {
+    if (source === "ai") {
+      return '<span class="analysis-badge analysis-badge-ai" title="由 GPT 自動生成">🤖 AI 分析</span>';
+    }
+    if (source === "rule-based") {
+      return '<span class="analysis-badge analysis-badge-rule" title="規則式自動摘要">📊 自動摘要</span>';
+    }
+    return "";
+  }
+
+  function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   }
 
   function renderIndex(quote) {
