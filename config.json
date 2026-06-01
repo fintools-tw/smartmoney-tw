@@ -1,0 +1,25 @@
+{
+  "watchlist": [
+    {"code": "2330", "name": "台積電", "market": "tse"},
+    {"code": "2317", "name": "鴻海", "market": "tse"},
+    {"code": "2454", "name": "聯發科", "market": "tse"},
+    {"code": "2382", "name": "廣達", "market": "tse"},
+    {"code": "3443", "name": "創意", "market": "tse"},
+    {"code": "2603", "name": "長榮", "market": "tse"},
+    {"code": "6770", "name": "力積電", "market": "tse"},
+    {"code": "3661", "name": "世芯-KY", "market": "tse"},
+    {"code": "2615", "name": "萬海", "market": "tse"},
+    {"code": "2881", "name": "富邦金", "market": "tse"},
+    {"code": "2882", "name": "國泰金", "market": "tse"},
+    {"code": "2891", "name": "中信金", "market": "tse"},
+    {"code": "2886", "name": "兆豐金", "market": "tse"},
+    {"code": "00878", "name": "國泰永續高股息", "market": "tse"},
+    {"code": "00929", "name": "復華台灣科技優息", "market": "tse"},
+    {"code": "00940", "name": "元大台灣價值高息", "market": "tse"}
+  ],
+  "settings": {
+    "ai_analysis": true,
+    "ai_model": "gpt-4o-mini",
+    "language": "zh-TW"
+  }
+}

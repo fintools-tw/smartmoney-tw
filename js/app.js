@@ -34,6 +34,7 @@
       "institutional-note",
       "quotes-time",
       "watchlist-body",
+      "watchlist-count",
       "analysis-date",
       "analysis-content",
     ].forEach((id) => {
@@ -139,6 +140,9 @@
 
   function renderWatchlist(quotes) {
     els.quotesTime.textContent = getCurrentTime();
+    if (els.watchlistCount) {
+      els.watchlistCount.textContent = String(quotes.length);
+    }
     els.watchlistBody.innerHTML = quotes
       .map((quote) => {
         const className = trendClass(quote.change);

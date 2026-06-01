@@ -8,10 +8,12 @@
  */
 (function () {
   const DAILY_JSON_URL = "data/daily.json";
+  const CONFIG_JSON_URL = "config.json";
 
   const TWSE_REALTIME_URL = "https://mis.twse.com.tw/stock/api/getStockInfo.jsp";
 
-  const WATCHLIST = [
+  // 預設追蹤清單（向後相容：config.json 讀不到時使用）
+  const DEFAULT_WATCHLIST = [
     { code: "2330", name: "台積電", market: "tse" },
     { code: "2317", name: "鴻海", market: "tse" },
     { code: "2454", name: "聯發科", market: "tse" },
@@ -29,6 +31,51 @@
     { code: "00929", name: "復華台灣科技優息", market: "tse" },
     { code: "00940", name: "元大台灣價值高息", market: "tse" },
   ];
+
+  // Runtime watchlist (mutable; reloaded from config.json on init)
+  let WATCHLIST = DEFAULT_WATCHLIST.slice();
+
+  let configPromise = null;
+  let cachedConfig = null;
+
+  function loadConfig() {
+    if (cachedConfig) return Promise.resolve(cachedConfig);
+    if (configPromise) return configPromise;
+
+    configPromise = fetch(`${CONFIG_JSON_URL}?ts=${Date.now()}`, { cache: "no-store" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then((cfg) => {
+        const list = Array.isArray(cfg && cfg.watchlist) ? cfg.watchlist : null;
+        if (list && list.length) {
+          const parsed = list
+            .filter((item) => item && item.code && item.name)
+            .map((item) => ({
+              code: String(item.code),
+              name: String(item.name),
+              market: (String(item.market || "tse").toLowerCase() === "otc") ? "otc" : "tse",
+            }));
+          if (parsed.length) WATCHLIST = parsed;
+        }
+        cachedConfig = cfg || {};
+        return cachedConfig;
+      })
+      .catch((error) => {
+        console.warn("[twse-api] config.json unavailable:", error.message);
+        cachedConfig = {};
+        return cachedConfig;
+      })
+      .finally(() => {
+        configPromise = null;
+      });
+
+    return configPromise;
+  }
+
+  // Kick off config load immediately so subsequent API calls see the right list.
+  const configReady = loadConfig();
 
   // ---------------------------------------------------------------------------
   // SAMPLE fallback (showed only if everything else fails)
@@ -181,6 +228,7 @@
   // ---------------------------------------------------------------------------
 
   async function getRealtimeIndex() {
+    await configReady;
     // Try realtime first when market is plausibly open
     if (isMarketLikelyOpen()) {
       const rows = await tryRealtime([{ code: "t00", name: "加權指數", market: "tse" }]);
@@ -197,6 +245,7 @@
   }
 
   async function getWatchlistQuotes() {
+    await configReady;
     if (isMarketLikelyOpen()) {
       const rows = await tryRealtime(WATCHLIST);
       if (rows && rows.length) {
@@ -210,12 +259,27 @@
     if (snapshot && Array.isArray(snapshot.watchlist) && snapshot.watchlist.length) {
       // Ensure stable ordering vs WATCHLIST
       const map = new Map(snapshot.watchlist.map((row) => [row.code, row]));
-      return WATCHLIST.map((item, index) => {
+      return WATCHLIST.map((item) => {
         const row = map.get(item.code);
         if (row && row.price !== null && row.price !== undefined) {
           return { ...row, source: "daily" };
         }
-        return { ...SAMPLE_QUOTES[index], isSample: true };
+        // No live or snapshot data for this code; show placeholder row.
+        return {
+          code: item.code,
+          name: item.name,
+          price: null,
+          yesterday: null,
+          open: null,
+          high: null,
+          low: null,
+          volume: null,
+          change: null,
+          changePct: null,
+          time: "",
+          date: "",
+          isSample: true,
+        };
       });
     }
     return SAMPLE_QUOTES.map((quote) => ({ ...quote, isSample: true }));
@@ -245,6 +309,16 @@
 
   function refresh() {
     clearSnapshotCache();
+  }
+
+  async function getConfig() {
+    await configReady;
+    return cachedConfig || {};
+  }
+
+  async function getWatchlist() {
+    await configReady;
+    return WATCHLIST.slice();
   }
 
   // ---------------------------------------------------------------------------
@@ -280,12 +354,17 @@
   }
 
   window.TwseApi = {
-    WATCHLIST,
+    get WATCHLIST() {
+      return WATCHLIST.slice();
+    },
+    getWatchlist,
+    getConfig,
     getRealtimeIndex,
     getWatchlistQuotes,
     getInstitutionalInvestors,
     getAnalysis,
     getGeneratedAt,
     refresh,
+    configReady,
   };
 })();

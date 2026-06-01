@@ -28,8 +28,12 @@ from datetime import datetime, timedelta, timezone
 
 TAIPEI_TZ = timezone(timedelta(hours=8))
 
-# 追蹤個股（代碼、名稱、市場）
-WATCHLIST = [
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+CONFIG_PATH = os.path.join(SCRIPT_DIR, "config.json")
+OUTPUT_PATH = os.path.join(SCRIPT_DIR, "data", "daily.json")
+
+# 預設追蹤清單（向後相容：config.json 不存在或損毀時使用）
+DEFAULT_WATCHLIST = [
     ("2330", "台積電", "tse"),
     ("2317", "鴻海", "tse"),
     ("2454", "聯發科", "tse"),
@@ -48,13 +52,67 @@ WATCHLIST = [
     ("00940", "元大台灣價值高息", "tse"),
 ]
 
+DEFAULT_SETTINGS = {
+    "ai_analysis": True,
+    "ai_model": "gpt-4o-mini",
+    "language": "zh-TW",
+}
+
+
+def load_config():
+    """讀取 config.json；缺檔/格式錯誤時回退到預設值（向後相容）。
+
+    回傳 (watchlist, settings)：
+      - watchlist: List[Tuple[code, name, market]]
+      - settings: Dict (ai_analysis, ai_model, language)
+    """
+    if not os.path.exists(CONFIG_PATH):
+        log("config.json not found, using defaults")
+        return list(DEFAULT_WATCHLIST), dict(DEFAULT_SETTINGS)
+
+    try:
+        with open(CONFIG_PATH, "r", encoding="utf-8") as fh:
+            cfg = json.load(fh)
+    except (json.JSONDecodeError, OSError) as exc:
+        log(f"failed to read config.json ({exc}); using defaults")
+        return list(DEFAULT_WATCHLIST), dict(DEFAULT_SETTINGS)
+
+    # Parse watchlist
+    raw_list = cfg.get("watchlist")
+    watchlist = []
+    if isinstance(raw_list, list):
+        for item in raw_list:
+            if not isinstance(item, dict):
+                continue
+            code = str(item.get("code", "")).strip()
+            name = str(item.get("name", "")).strip()
+            market = str(item.get("market", "tse")).strip().lower() or "tse"
+            if market not in ("tse", "otc"):
+                log(f"unknown market '{market}' for {code}, defaulting to tse")
+                market = "tse"
+            if code and name:
+                watchlist.append((code, name, market))
+    if not watchlist:
+        log("config.json watchlist empty/invalid, using defaults")
+        watchlist = list(DEFAULT_WATCHLIST)
+
+    # Parse settings
+    settings = dict(DEFAULT_SETTINGS)
+    raw_settings = cfg.get("settings")
+    if isinstance(raw_settings, dict):
+        for key in ("ai_analysis", "ai_model", "language"):
+            if key in raw_settings:
+                settings[key] = raw_settings[key]
+
+    log(f"loaded config: {len(watchlist)} stocks, ai_model={settings.get('ai_model')}")
+    return watchlist, settings
+
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; SmartMoneyTW/1.0; +https://github.com/fintools-tw/smartmoney-tw)",
     "Accept": "application/json,text/plain,*/*",
     "Referer": "https://www.twse.com.tw/",
 }
-
-OUTPUT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "daily.json")
 
 
 # ============================================================================
@@ -253,7 +311,6 @@ def get_stock_quotes(watchlist):
 # ============================================================================
 
 OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
-OPENAI_MODEL = "gpt-4o-mini"
 DISCLAIMER = "本分析由 AI 自動生成，僅供參考，不構成投資建議。"
 
 
@@ -295,7 +352,7 @@ def _summarise_inputs_for_prompt(index_quote, historical, institutional, quotes)
     return "\n".join(lines)
 
 
-def build_ai_analysis(index_quote, historical, institutional, quotes):
+def build_ai_analysis(index_quote, historical, institutional, quotes, model="gpt-4o-mini"):
     """用 OpenAI GPT 生成白話盤後分析。失敗時回傳 None，由呼叫端 fallback。"""
     api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
@@ -316,7 +373,7 @@ def build_ai_analysis(index_quote, historical, institutional, quotes):
     )
 
     payload = {
-        "model": OPENAI_MODEL,
+        "model": model,
         "messages": [
             {
                 "role": "system",
@@ -426,6 +483,8 @@ def build_analysis(index_quote, historical, institutional, quotes):
 def main() -> int:
     log("starting daily snapshot")
 
+    watchlist, settings = load_config()
+
     index_quote = None
     historical = None
     institutional = None
@@ -452,11 +511,21 @@ def main() -> int:
 
     try:
         log("fetching watchlist quotes")
-        quotes = get_stock_quotes(WATCHLIST)
+        quotes = get_stock_quotes(watchlist)
     except Exception as exc:  # noqa: BLE001
         log(f"watchlist error: {exc}")
 
-    analysis = build_ai_analysis(index_quote, historical, institutional, quotes)
+    analysis = None
+    if settings.get("ai_analysis", True):
+        analysis = build_ai_analysis(
+            index_quote,
+            historical,
+            institutional,
+            quotes,
+            model=settings.get("ai_model", "gpt-4o-mini"),
+        )
+    else:
+        log("AI analysis disabled in config")
     if not analysis:
         analysis = build_analysis(index_quote, historical, institutional, quotes)
     log(f"analysis source: {analysis.get('source')}")
@@ -483,7 +552,7 @@ def main() -> int:
         f"index={'ok' if index_quote and index_quote.get('price') is not None else 'miss'}, "
         f"historical={'ok' if historical else 'miss'}, "
         f"institutional={'ok' if institutional and institutional.get('data') else 'miss'}, "
-        f"watchlist={sum(1 for q in quotes if q.get('price') is not None)}/{len(WATCHLIST)}"
+        f"watchlist={sum(1 for q in quotes if q.get('price') is not None)}/{len(watchlist)}"
     )
     return 0
 

@@ -109,11 +109,14 @@
       <section class="card watchlist-card" aria-labelledby="watchlist-title">
         <div class="card-heading">
           <div>
-            <p class="section-label">16 檔追蹤</p>
+            <p class="section-label"><span id="watchlist-count">--</span> 檔追蹤</p>
             <h2 id="watchlist-title">追蹤個股</h2>
           </div>
           <span id="quotes-time" class="muted">--</span>
         </div>
+        <p class="watchlist-hint muted">
+          📝 自訂追蹤清單：編輯根目錄的 <code>config.json</code>，修改 <code>watchlist</code> 陣列即可。
+        </p>
         <div class="table-shell">
           <table>
             <thead>

@@ -428,3 +428,18 @@ tbody tr:hover {
   color: #94a3b8;
   border: 1px solid rgba(148, 163, 184, 0.32);
 }
+
+.watchlist-hint {
+  margin: 0 0 0.85rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.watchlist-hint code {
+  padding: 0.05rem 0.35rem;
+  background: rgba(148, 163, 184, 0.14);
+  border-radius: 4px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.82rem;
+  color: #c9d1d9;
+}

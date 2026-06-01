@@ -53,11 +53,47 @@
 
 非交易日（六日、國定假日）不會排程。
 
-## 🧰 客製化
+## 🎯 自訂追蹤清單
 
-### 換追蹤個股
+編輯根目錄的 [`config.json`](config.json)，修改 `watchlist` 陣列即可，**不需動到任何程式碼**。
 
-編輯 [`twse_daily.py`](twse_daily.py) 與 [`js/twse-api.js`](js/twse-api.js) 的 `WATCHLIST` 變數，保持兩邊一致即可。
+### 步驟
+
+1. 開啟 `config.json`
+2. 新增或移除股票：
+   ```json
+   {"code": "2345", "name": "智邦", "market": "tse"}
+   ```
+3. 上市股票用 `"tse"`，上櫃用 `"otc"`
+4. 存檔後 push，下次 Actions 跑就會生效
+
+### `config.json` 格式說明
+
+```json
+{
+  "watchlist": [
+    {"code": "2330", "name": "台積電", "market": "tse"}
+  ],
+  "settings": {
+    "ai_analysis": true,
+    "ai_model": "gpt-4o-mini",
+    "language": "zh-TW"
+  }
+}
+```
+
+| 欄位 | 型別 | 說明 |
+| --- | --- | --- |
+| `watchlist[].code` | string | 股票代碼，例 `"2330"`、`"00878"` |
+| `watchlist[].name` | string | 顯示名稱 |
+| `watchlist[].market` | string | `"tse"` (上市) 或 `"otc"` (上櫃) |
+| `settings.ai_analysis` | boolean | 是否啟用 AI 分析，關閉時使用規則式摘要 |
+| `settings.ai_model` | string | OpenAI 模型名稱，預設 `"gpt-4o-mini"` |
+| `settings.language` | string | 分析語言，預設 `"zh-TW"` |
+
+> 如果 `config.json` 不存在或格式錯誤，程式會自動 fallback 到內建預設清單（向後相容）。
+
+## 🧰 其他客製化
 
 ### 換配色 / 排版
 
@@ -65,11 +101,12 @@
 
 ### 加強 AI 分析
 
-`twse_daily.py` 內 `build_analysis()` 目前是規則式摘要。如果要接 LLM (OpenAI / Anthropic 等)：
+`twse_daily.py` 內 `build_ai_analysis()` 已接上 OpenAI Chat Completions。要啟用：
 
-1. 把 API key 放到 GitHub Secrets
-2. 在 workflow 把 secret 傳給 Python：`env: OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}`
-3. 在 `build_analysis()` 用真正的模型呼叫取代規則式邏輯
+1. 把 API key 放到 GitHub Secrets (`OPENAI_API_KEY`)
+2. workflow 已預設帶 `env: OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}`
+3. 在 `config.json` 設定 `settings.ai_model` 換模型（例如 `gpt-4o`）
+4. 沒 key 或 `ai_analysis: false` 時會 fallback 到內建規則式摘要
 
 ## 🛠 本地開發
 
@@ -90,6 +127,7 @@ python3 -m http.server 8080
 ```
 .
 ├── .github/workflows/update-data.yml  ← GitHub Actions (每日抓資料)
+├── config.json                        ← 追蹤清單與設定 (可自訂)
 ├── twse_daily.py                      ← 資料抓取器
 ├── data/daily.json                    ← 自動產生的快照
 ├── index.html                         ← 入口頁
