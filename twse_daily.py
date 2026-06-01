@@ -231,6 +231,86 @@ def get_historical_index():
     return None
 
 
+def get_daily_history(days: int = 30):
+    """抓取最近 N 個交易日的大盤每日收盤資料。
+
+    回溯最近 3 個月的 FMTQIK 月統計，組成由舊到新的清單。
+    每筆：{date: 'YYYY/MM/DD', close, change, volume, transactions}
+    """
+    today = now_taipei()
+    rows_acc = []
+    seen_dates = set()
+
+    # 從最舊往最新走（3 個月前 → 當月），確保最後 slice 取得最近的
+    for offset in range(3, -1, -1):
+        # 取得 offset 個月前的第一天
+        ref = today.replace(day=1)
+        for _ in range(offset):
+            ref = (ref - timedelta(days=1)).replace(day=1)
+
+        url = (
+            "https://www.twse.com.tw/rwd/zh/afterTrading/FMTQIK"
+            f"?response=json&date={ref.strftime('%Y%m%d')}"
+        )
+        data = fetch_json(url)
+        if not data:
+            # 舊路徑備援
+            url = f"https://www.twse.com.tw/exchangeReport/FMTQIK?response=json&date={ref.strftime('%Y%m01')}"
+            data = fetch_json(url)
+
+        if not data or data.get("stat") != "OK":
+            log(f"FMTQIK miss for {ref.strftime('%Y-%m')}")
+            time.sleep(0.8)
+            continue
+        if isinstance(data.get("data"), list):
+            log(f"FMTQIK {ref.strftime('%Y-%m')}: {len(data['data'])} rows")
+            for row in data["data"]:
+                if not row or len(row) < 6:
+                    continue
+                roc_date = str(row[0]).strip()
+                # 民國年轉西元年："115/05/30" → "2026/05/30"
+                gregorian = roc_to_gregorian(roc_date)
+                if not gregorian or gregorian in seen_dates:
+                    continue
+                close = to_number(row[4])
+                if close is None:
+                    continue
+                change = to_number(row[5])
+                volume_shares = to_number(row[1])
+                transactions = to_number(row[3])
+                seen_dates.add(gregorian)
+                rows_acc.append({
+                    "date": gregorian,
+                    "close": close,
+                    "change": change,
+                    "volume": volume_shares,
+                    "transactions": transactions,
+                })
+        time.sleep(0.8)  # 避免被限速
+
+    if not rows_acc:
+        return []
+
+    # 排序（由舊到新）並取最後 N 筆
+    rows_acc.sort(key=lambda r: r["date"])
+    return rows_acc[-days:]
+
+
+def roc_to_gregorian(roc_date: str):
+    """民國年日期轉西元年。"""
+    try:
+        parts = roc_date.split("/")
+        if len(parts) != 3:
+            return None
+        roc_year = int(parts[0])
+        month = int(parts[1])
+        day = int(parts[2])
+        gregorian_year = roc_year + 1911
+        return f"{gregorian_year:04d}/{month:02d}/{day:02d}"
+    except (ValueError, AttributeError):
+        return None
+
+
 def get_institutional_investors():
     """三大法人買賣超：回溯最近 7 個自然日，找最近一筆有資料的。"""
     today = now_taipei()
@@ -502,6 +582,14 @@ def main() -> int:
     except Exception as exc:  # noqa: BLE001
         log(f"historical index error: {exc}")
 
+    daily_history = []
+    try:
+        log("fetching daily history (30 days)")
+        daily_history = get_daily_history(days=30)
+        log(f"daily history: {len(daily_history)} rows")
+    except Exception as exc:  # noqa: BLE001
+        log(f"daily history error: {exc}")
+
     try:
         log("fetching institutional investors")
         institutional = get_institutional_investors()
@@ -536,6 +624,7 @@ def main() -> int:
         "timezone": "Asia/Taipei",
         "index": index_quote,
         "historicalIndex": historical,
+        "dailyHistory": daily_history,
         "institutional": institutional,
         "watchlist": quotes,
         "analysis": analysis,
@@ -551,6 +640,7 @@ def main() -> int:
         "summary: "
         f"index={'ok' if index_quote and index_quote.get('price') is not None else 'miss'}, "
         f"historical={'ok' if historical else 'miss'}, "
+        f"dailyHistory={len(daily_history)}, "
         f"institutional={'ok' if institutional and institutional.get('data') else 'miss'}, "
         f"watchlist={sum(1 for q in quotes if q.get('price') is not None)}/{len(watchlist)}"
     )

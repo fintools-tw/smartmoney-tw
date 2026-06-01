@@ -302,6 +302,14 @@
     return { ...SAMPLE_ANALYSIS, isSample: true };
   }
 
+  async function getDailyHistory() {
+    const snapshot = await loadSnapshot();
+    if (snapshot && Array.isArray(snapshot.dailyHistory) && snapshot.dailyHistory.length) {
+      return snapshot.dailyHistory;
+    }
+    return [];
+  }
+
   async function getGeneratedAt() {
     const snapshot = await loadSnapshot();
     return snapshot ? snapshot.generatedAt || null : null;
@@ -362,6 +370,7 @@
     getRealtimeIndex,
     getWatchlistQuotes,
     getInstitutionalInvestors,
+    getDailyHistory,
     getAnalysis,
     getGeneratedAt,
     refresh,

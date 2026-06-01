@@ -2,7 +2,8 @@
   const state = {
     indexChart: null,
     institutionalChart: null,
-    indexSeries: loadIndexSeries(),
+    indexSeries: [],
+    dailyHistory: [],
   };
 
   const els = {};
@@ -53,15 +54,18 @@
   async function loadDashboard() {
     setLoading(true);
 
-    const [indexQuote, institutional, quotes] = await Promise.all([
+    const [indexQuote, institutional, quotes, dailyHistory] = await Promise.all([
       window.TwseApi.getRealtimeIndex(),
       window.TwseApi.getInstitutionalInvestors(),
       window.TwseApi.getWatchlistQuotes(),
+      window.TwseApi.getDailyHistory(),
     ]);
 
+    state.dailyHistory = Array.isArray(dailyHistory) ? dailyHistory : [];
     renderIndex(indexQuote);
     renderInstitutional(institutional);
     renderWatchlist(quotes);
+    updateIndexChart();
     updateStatus(indexQuote, institutional, quotes);
     setLoading(false);
   }
@@ -109,11 +113,6 @@
     els.indexLow.textContent = formatNumber(quote.low, 2);
     els.indexYesterday.textContent = formatNumber(quote.yesterday, 2);
     els.marketTime.textContent = quote.time || getCurrentTime();
-
-    if (quote.price !== null) {
-      pushIndexPoint(quote.price, quote.time || getCurrentTime());
-      updateIndexChart();
-    }
   }
 
   function renderInstitutional(institutional) {
@@ -188,24 +187,34 @@
     const gridColor = "rgba(139, 148, 158, 0.18)";
     const textColor = "#8b949e";
 
-    state.indexChart = new Chart(document.getElementById("index-chart"), {
+    const canvas = document.getElementById("index-chart");
+    const ctx = canvas.getContext("2d");
+    const gradient = ctx.createLinearGradient(0, 0, 0, 260);
+    gradient.addColorStop(0, "rgba(74, 158, 255, 0.32)");
+    gradient.addColorStop(1, "rgba(74, 158, 255, 0.02)");
+
+    state.indexChart = new Chart(canvas, {
       type: "line",
       data: {
-        labels: state.indexSeries.map((point) => point.label),
+        labels: [],
         datasets: [
           {
-            label: "加權指數",
-            data: state.indexSeries.map((point) => point.value),
-            borderColor: "#58a6ff",
-            backgroundColor: "rgba(88, 166, 255, 0.16)",
+            label: "收盤指數",
+            data: [],
+            borderColor: "#4a9eff",
+            backgroundColor: gradient,
             borderWidth: 2,
             fill: true,
-            tension: 0.35,
-            pointRadius: 2,
+            tension: 0.3,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointBackgroundColor: "#4a9eff",
+            pointBorderColor: "#0d1117",
+            pointBorderWidth: 2,
           },
         ],
       },
-      options: chartOptions(gridColor, textColor),
+      options: indexChartOptions(gridColor, textColor),
     });
 
     state.institutionalChart = new Chart(document.getElementById("institutional-chart"), {
@@ -233,6 +242,61 @@
         },
       },
     });
+  }
+
+  function indexChartOptions(gridColor, textColor) {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 450 },
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: "#161b22",
+          borderColor: "#30363d",
+          borderWidth: 1,
+          titleColor: "#e6edf3",
+          bodyColor: "#c9d1d9",
+          padding: 10,
+          callbacks: {
+            title: (items) => {
+              if (!items || !items.length) return "";
+              const idx = items[0].dataIndex;
+              const row = state.dailyHistory[idx];
+              return row ? row.date : items[0].label;
+            },
+            label: (item) => {
+              const idx = item.dataIndex;
+              const row = state.dailyHistory[idx];
+              const closeText = `收盤 ${formatNumber(item.parsed.y, 2)}`;
+              if (!row || !Number.isFinite(row.change)) return closeText;
+              const sign = row.change > 0 ? "+" : "";
+              const pct = row.close && row.change !== row.close
+                ? ` (${sign}${((row.change / (row.close - row.change)) * 100).toFixed(2)}%)`
+                : "";
+              return [closeText, `漲跌 ${sign}${formatNumber(row.change, 2)}${pct}`];
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColor,
+            maxRotation: 0,
+            autoSkip: true,
+            maxTicksLimit: 8,
+          },
+          grid: { color: "transparent" },
+        },
+        y: {
+          ticks: { color: textColor },
+          grid: { color: gridColor },
+          beginAtZero: false,
+        },
+      },
+    };
   }
 
   function chartOptions(gridColor, textColor) {
@@ -265,9 +329,54 @@
   }
 
   function updateIndexChart() {
-    state.indexChart.data.labels = state.indexSeries.map((point) => point.label);
-    state.indexChart.data.datasets[0].data = state.indexSeries.map((point) => point.value);
+    const history = state.dailyHistory || [];
+    if (!history.length) {
+      state.indexChart.data.labels = [];
+      state.indexChart.data.datasets[0].data = [];
+      state.indexChart.update();
+      return;
+    }
+
+    const labels = history.map((row) => formatShortDate(row.date));
+    const values = history.map((row) => row.close);
+
+    // 評估走勢：最後一天 vs 第一天
+    const first = values[0];
+    const last = values[values.length - 1];
+    const isUp = Number.isFinite(first) && Number.isFinite(last) && last >= first;
+    const lineColor = isUp ? "#00d4aa" : "#ff4757";
+
+    const canvas = state.indexChart.canvas;
+    const ctx = canvas.getContext("2d");
+    const height = canvas.height || 260;
+    const gradient = ctx.createLinearGradient(0, 0, 0, height);
+    const baseRgb = isUp ? "0, 212, 170" : "255, 71, 87";
+    gradient.addColorStop(0, `rgba(${baseRgb}, 0.32)`);
+    gradient.addColorStop(1, `rgba(${baseRgb}, 0.02)`);
+
+    const dataset = state.indexChart.data.datasets[0];
+    dataset.borderColor = lineColor;
+    dataset.backgroundColor = gradient;
+    dataset.pointBackgroundColor = lineColor;
+
+    state.indexChart.data.labels = labels;
+    dataset.data = values;
+
+    // Y 軸 padding，避免貼邊
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const pad = Math.max((max - min) * 0.12, 50);
+    state.indexChart.options.scales.y.min = Math.floor(min - pad);
+    state.indexChart.options.scales.y.max = Math.ceil(max + pad);
+
     state.indexChart.update();
+  }
+
+  function formatShortDate(value) {
+    if (!value) return "";
+    const parts = String(value).split("/");
+    if (parts.length === 3) return `${parts[1]}/${parts[2]}`;
+    return value;
   }
 
   function updateInstitutionalChart(values) {
@@ -275,30 +384,6 @@
     state.institutionalChart.data.datasets[0].data = hundredMillionValues;
     state.institutionalChart.data.datasets[0].backgroundColor = values.map((value) => colorForValue(value));
     state.institutionalChart.update();
-  }
-
-  function pushIndexPoint(price, label) {
-    const last = state.indexSeries[state.indexSeries.length - 1];
-
-    if (!last || last.label !== label || last.value !== price) {
-      state.indexSeries.push({ label, value: price });
-      state.indexSeries = state.indexSeries.slice(-20);
-      localStorage.setItem("smartmoney:indexSeries", JSON.stringify(state.indexSeries));
-    }
-  }
-
-  function loadIndexSeries() {
-    try {
-      const stored = JSON.parse(localStorage.getItem("smartmoney:indexSeries") || "[]");
-
-      if (Array.isArray(stored) && stored.length) {
-        return stored;
-      }
-    } catch (error) {
-      localStorage.removeItem("smartmoney:indexSeries");
-    }
-
-    return [];
   }
 
   function setLoading(isLoading) {
