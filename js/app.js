@@ -28,6 +28,12 @@
       "index-high",
       "index-low",
       "index-yesterday",
+      "sentiment-date",
+      "sentiment-score",
+      "sentiment-level",
+      "sentiment-marker",
+      "sentiment-interpretation",
+      "sentiment-components",
       "institutional-date",
       "foreign-net",
       "investment-net",
@@ -54,14 +60,16 @@
   async function loadDashboard() {
     setLoading(true);
 
-    const [indexQuote, institutional, quotes, dailyHistory] = await Promise.all([
+    const [indexQuote, institutional, quotes, dailyHistory, sentiment] = await Promise.all([
       window.TwseApi.getRealtimeIndex(),
       window.TwseApi.getInstitutionalInvestors(),
       window.TwseApi.getWatchlistQuotes(),
       window.TwseApi.getDailyHistory(),
+      window.TwseApi.getSentiment(),
     ]);
 
     state.dailyHistory = Array.isArray(dailyHistory) ? dailyHistory : [];
+    renderSentiment(sentiment);
     renderIndex(indexQuote);
     renderInstitutional(institutional);
     renderWatchlist(quotes);
@@ -99,6 +107,82 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
+  }
+
+  function renderSentiment(sentiment) {
+    const card = els.sentimentScore ? els.sentimentScore.closest(".sentiment-card") : null;
+    if (!sentiment || !Number.isFinite(sentiment.score)) {
+      if (els.sentimentScore) els.sentimentScore.textContent = "--";
+      if (els.sentimentLevel) els.sentimentLevel.textContent = "暫無資料";
+      if (els.sentimentInterpretation) {
+        els.sentimentInterpretation.textContent = "尚未取得散戶情緒資料，等待下次盤後更新。";
+      }
+      if (els.sentimentComponents) els.sentimentComponents.innerHTML = "";
+      if (els.sentimentDate) els.sentimentDate.textContent = "--";
+      return;
+    }
+
+    const color = sentiment.color || "#ff9f43";
+    const score = Math.max(0, Math.min(100, Math.round(sentiment.score)));
+
+    els.sentimentScore.textContent = String(score);
+    els.sentimentLevel.textContent = sentiment.level || "--";
+    els.sentimentMarker.style.left = `${score}%`;
+    els.sentimentInterpretation.textContent = sentiment.interpretation || "";
+
+    if (card) {
+      card.style.setProperty("--sentiment-color", color);
+      card.style.setProperty("--sentiment-glow", hexToGlow(color));
+      card.style.borderColor = hexToBorder(color);
+    }
+
+    const comps = Array.isArray(sentiment.components) ? sentiment.components : [];
+    els.sentimentComponents.innerHTML = comps
+      .map((c) => {
+        const s = Number.isFinite(c.score) ? Math.max(0, Math.min(100, c.score)) : 0;
+        const fillColor = scoreColor(s);
+        const pct = Math.round(c.weight * 100);
+        return `
+          <li class="sentiment-comp">
+            <span class="comp-label">${escapeHtml(c.label || c.key)} <span class="muted">${pct}%</span></span>
+            <span class="comp-raw">${escapeHtml(c.raw || "")}</span>
+            <span class="comp-track"><span class="comp-fill" style="width:${s}%;background:${fillColor}"></span></span>
+            <span class="comp-score">${Math.round(s)}</span>
+          </li>
+        `;
+      })
+      .join("");
+
+    // 資料日期（優先用 margin/dayTrade 抓到的交易日，退回 interpretation 無日期）
+    if (els.sentimentDate) {
+      const d = sentiment.date || "";
+      els.sentimentDate.textContent = d ? formatDate(d) : "最新盤後";
+    }
+  }
+
+  function scoreColor(score) {
+    // 對應溫度計漸層：藍→綠→黃→橘→紅
+    if (score < 20) return "#4a9eff";
+    if (score < 40) return "#00d4aa";
+    if (score < 60) return "#ffd166";
+    if (score < 80) return "#ff9f43";
+    return "#ff4757";
+  }
+
+  function hexToGlow(hex) {
+    const rgb = hexToRgb(hex);
+    return rgb ? `rgba(${rgb}, 0.45)` : "transparent";
+  }
+
+  function hexToBorder(hex) {
+    const rgb = hexToRgb(hex);
+    return rgb ? `rgba(${rgb}, 0.4)` : "var(--border)";
+  }
+
+  function hexToRgb(hex) {
+    const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(String(hex));
+    if (!m) return null;
+    return `${parseInt(m[1], 16)}, ${parseInt(m[2], 16)}, ${parseInt(m[3], 16)}`;
   }
 
   function renderIndex(quote) {

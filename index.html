@@ -34,6 +34,33 @@
     </header>
 
     <main class="dashboard">
+      <section class="card sentiment-card" aria-labelledby="sentiment-title">
+        <div class="card-heading">
+          <div>
+            <p class="section-label">散戶情緒指數</p>
+            <h2 id="sentiment-title">🌶️ 韭菜溫度計</h2>
+          </div>
+          <span id="sentiment-date" class="muted">--</span>
+        </div>
+        <div class="sentiment-main">
+          <div class="sentiment-score-box">
+            <strong id="sentiment-score">--</strong>
+            <span id="sentiment-level" class="sentiment-level-pill">讀取中</span>
+          </div>
+          <div class="sentiment-gauge">
+            <div class="sentiment-bar">
+              <span id="sentiment-marker" class="sentiment-marker" style="left:0%"></span>
+            </div>
+            <div class="sentiment-scale">
+              <span>冰凍</span><span>觀望</span><span>溫熱</span><span>過熱</span><span>沸騰</span>
+            </div>
+          </div>
+        </div>
+        <p id="sentiment-interpretation" class="sentiment-interpretation">讀取情緒指數中...</p>
+        <ul id="sentiment-components" class="sentiment-components"></ul>
+        <p class="note sentiment-foot">成分：融資槓桿·35% – 當沖投機·30% – 散戶反法人·20% – 大盤助燃·15%。僅供參考，不構成投資建議。</p>
+      </section>
+
       <section class="card market-card" aria-labelledby="market-title">
         <div class="card-heading">
           <div>

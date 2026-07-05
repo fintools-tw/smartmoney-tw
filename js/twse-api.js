@@ -302,6 +302,14 @@
     return { ...SAMPLE_ANALYSIS, isSample: true };
   }
 
+  async function getSentiment() {
+    const snapshot = await loadSnapshot();
+    if (snapshot && snapshot.sentiment && typeof snapshot.sentiment.score === "number") {
+      return { ...snapshot.sentiment };
+    }
+    return null;
+  }
+
   async function getDailyHistory() {
     const snapshot = await loadSnapshot();
     if (snapshot && Array.isArray(snapshot.dailyHistory) && snapshot.dailyHistory.length) {
@@ -370,6 +378,7 @@
     getRealtimeIndex,
     getWatchlistQuotes,
     getInstitutionalInvestors,
+    getSentiment,
     getDailyHistory,
     getAnalysis,
     getGeneratedAt,

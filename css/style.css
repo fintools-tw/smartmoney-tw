@@ -355,6 +355,10 @@ tbody tr:hover {
     padding: 1.25rem;
   }
 
+  .sentiment-card {
+    grid-column: span 6;
+  }
+
   .market-card,
   .institutional-card {
     grid-column: span 3;
@@ -384,6 +388,10 @@ tbody tr:hover {
     padding: 1.5rem;
   }
 
+  .sentiment-card {
+    grid-column: span 12;
+  }
+
   .market-card {
     grid-column: span 4;
   }
@@ -402,6 +410,162 @@ tbody tr:hover {
 
   .analysis-card {
     grid-column: span 4;
+  }
+}
+
+/* 韭菜溫度計 sentiment card */
+.sentiment-card {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(255, 159, 67, 0.28);
+}
+
+.sentiment-main {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.sentiment-score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 6.5rem;
+}
+
+.sentiment-score-box strong {
+  font-size: clamp(3rem, 16vw, 4.6rem);
+  line-height: 1;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--sentiment-color, var(--text));
+  text-shadow: 0 0 26px var(--sentiment-glow, transparent);
+}
+
+.sentiment-level-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0d1117;
+  background: var(--sentiment-color, var(--flat));
+}
+
+.sentiment-gauge {
+  flex: 1 1 240px;
+  min-width: 200px;
+}
+
+.sentiment-bar {
+  position: relative;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #4a9eff 0%,
+    #00d4aa 25%,
+    #ffd166 50%,
+    #ff9f43 75%,
+    #ff4757 100%
+  );
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.sentiment-marker {
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #0d1117;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sentiment-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.sentiment-interpretation {
+  margin: 1rem 0 0.5rem;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.sentiment-components {
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  grid-template-columns: 1fr;
+}
+
+.sentiment-comp {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(48, 54, 61, 0.82);
+  border-radius: 0.5rem;
+  background: rgba(28, 33, 43, 0.6);
+  font-size: 0.85rem;
+}
+
+.sentiment-comp .comp-label {
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.sentiment-comp .comp-raw {
+  color: var(--muted);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sentiment-comp .comp-track {
+  position: relative;
+  flex: 0 0 68px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(139, 148, 158, 0.22);
+  overflow: hidden;
+}
+
+.sentiment-comp .comp-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+}
+
+.sentiment-comp .comp-score {
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--text);
+  min-width: 2.2rem;
+  text-align: right;
+}
+
+.sentiment-foot {
+  margin-top: 0.9rem;
+}
+
+@media (min-width: 620px) {
+  .sentiment-components {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

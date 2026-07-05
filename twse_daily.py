@@ -349,6 +349,100 @@ def get_institutional_investors():
     return None
 
 
+def get_margin_balance():
+    """全市場融資融券餘額（信用交易統計）。
+
+    來源：TWSE rwd/marginTrading/MI_MARGN?selectType=MS（市場彙總表 MS）。
+    回溯最近 8 個自然日找最近一筆有資料的交易日。
+
+    回傳 dict：
+      date, marginToday (融資今日餘額/仟元), marginPrev (融資前日餘額/仟元),
+      marginChange (仟元), marginChangePct (%),
+      shortToday, shortPrev（融券今日/前日餘額，交易單位）
+    任一步驟失敗回傳 None。
+    """
+    today = now_taipei()
+    for offset in range(0, 8):
+        ref = today - timedelta(days=offset)
+        date_str = ref.strftime("%Y%m%d")
+        url = (
+            "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN"
+            f"?response=json&date={date_str}&selectType=MS"
+        )
+        data = fetch_json(url)
+        if not (data and data.get("stat") == "OK" and data.get("tables")):
+            continue
+        rows = data["tables"][0].get("data") or []
+        if not rows:
+            continue
+        margin_today = margin_prev = short_today = short_prev = None
+        for row in rows:
+            label = str(row[0])
+            # 融資金額(仟元)：前日餘額 = row[4], 今日餘額 = row[5]
+            if "融資金額" in label and len(row) > 5:
+                margin_prev = to_number(row[4])
+                margin_today = to_number(row[5])
+            # 融券(交易單位)：前日餘額 = row[4], 今日餘額 = row[5]
+            elif label.startswith("融券(") and len(row) > 5:
+                short_prev = to_number(row[4])
+                short_today = to_number(row[5])
+        if margin_today is None or margin_prev is None:
+            continue
+        change = round2(margin_today - margin_prev)
+        change_pct = round2((change / margin_prev) * 100) if margin_prev else None
+        return {
+            "date": date_str,
+            "marginToday": margin_today,
+            "marginPrev": margin_prev,
+            "marginChange": change,
+            "marginChangePct": change_pct,
+            "shortToday": short_today,
+            "shortPrev": short_prev,
+        }
+    return None
+
+
+def get_day_trade_stats():
+    """全市場當日沖銷交易統計（投機熱度）。
+
+    來源：TWSE exchangeReport/TWTB4U（市場彙總，stockNo 空字串）。
+    回溯最近 8 個自然日。
+
+    回傳 dict：
+      date, volumeRatio (當沖股數占市場比重%),
+      buyValueRatio (%), sellValueRatio (%)
+    失敗回傳 None。
+    """
+    today = now_taipei()
+    for offset in range(0, 8):
+        ref = today - timedelta(days=offset)
+        date_str = ref.strftime("%Y%m%d")
+        url = (
+            "https://www.twse.com.tw/exchangeReport/TWTB4U"
+            f"?response=json&date={date_str}&stockNo="
+        )
+        data = fetch_json(url)
+        if not (data and data.get("stat") == "OK" and data.get("tables")):
+            continue
+        table_rows = data["tables"][0].get("data") or []
+        if not table_rows:
+            continue
+        row = table_rows[0]
+        # fields: 股數, 股數占比%, 買金額, 買金額占比%, 賣金額, 賣金額占比%
+        vol_ratio = to_number(row[1]) if len(row) > 1 else None
+        buy_ratio = to_number(row[3]) if len(row) > 3 else None
+        sell_ratio = to_number(row[5]) if len(row) > 5 else None
+        if vol_ratio is None:
+            continue
+        return {
+            "date": date_str,
+            "volumeRatio": vol_ratio,
+            "buyValueRatio": buy_ratio,
+            "sellValueRatio": sell_ratio,
+        }
+    return None
+
+
 def get_stock_quotes(watchlist):
     """批量即時報價。"""
     ex_ch = "|".join(f"{m}_{c}.tw" for c, _n, m in watchlist)
@@ -384,6 +478,191 @@ def get_stock_quotes(watchlist):
             "date": raw.get("d", ""),
         })
     return quotes
+
+
+# ============================================================================
+# 韭菜溫度計 (Retail Sentiment Index) — 散戶情緒指數 0-100
+# ============================================================================
+#
+# 合成公式（一句話版）：
+#   散戶槓桿升溫(融資) + 當沖投機熱 + 散戶追高而法人倒貨(背離) + 大盤漲劢助燃
+#   → 加權平均成 0-100，分五檔：冰凍/觀望/溫熱/過熱/沸騰。
+#
+# 詳細公式（各成分先各自映射到 0-100，再依權重加權平均）：
+#
+#   總分 = Σ(wᵢ · scoreᵢ) / Σ(wᵢ)   —— 只對「有資料」的成分加總
+#           （任一 API 掛掉 → 該成分跳過，剩餘權重重新歸一化，不讓整個流程掛）
+#
+#   成分與權重：
+#     1. 融資餘額日變化 (margin)      權重 0.35
+#        散戶槓桿；融資餘額上升 = 散戶加碼追高 = 升溫
+#        score = clamp(50 + 日變化% × 25, 0, 100)   (+2%→100, 0%→50, -2%→0)
+#     2. 當沖成交占比 (daytrade)       權重 0.30
+#        投機熱度；當沖股數占大盤比重越高越投機
+#        score = clamp((占比% - 15) / (40 - 15) × 100, 0, 100)   (15%→0, 40%→100)
+#     3. 散戶 vs 法人方向背離 (divergence) 權重 0.20
+#        散戶方向(融資增減) 對比 三大法人買賣超方向：
+#          散戶買 + 法人賣 → 90 (韭菜接刀，最過熱)
+#          散戶買 + 法人買 → 65 (齊漲，偏熱)
+#          散戶賣 + 法人買 → 40 (法人吸籌、散戶逃，偏冷)
+#          散戶賣 + 法人賣 → 20 (雙殺，冰冷)
+#     4. 大盤漲跌幅 (index)             權重 0.15
+#        助燃；上漲會助長散戶 FOMO
+#        score = clamp(50 + 漲跌% × 20, 0, 100)   (+2.5%→100, 0%→50, -2.5%→0)
+#
+#   檔位：0-20 冰凍 / 20-40 觀望 / 40-60 溫熱 / 60-80 過熱 / 80-100 沸騰(韭菜收割區)
+# ============================================================================
+
+SENTIMENT_WEIGHTS = {
+    "margin": 0.35,
+    "daytrade": 0.30,
+    "divergence": 0.20,
+    "index": 0.15,
+}
+
+SENTIMENT_LEVELS = [
+    (0, 20, "冰凍", "#4a9eff"),      # 藍
+    (20, 40, "觀望", "#00d4aa"),     # 綠
+    (40, 60, "溫熱", "#ffd166"),     # 黃
+    (60, 80, "過熱", "#ff9f43"),     # 橘
+    (80, 100.01, "沸騰", "#ff4757"),  # 紅
+]
+
+
+def _clamp(value, lo=0.0, hi=100.0):
+    return max(lo, min(hi, value))
+
+
+def _sentiment_level(score):
+    for lo, hi, name, color in SENTIMENT_LEVELS:
+        if lo <= score < hi:
+            return name, color
+    return SENTIMENT_LEVELS[-1][2], SENTIMENT_LEVELS[-1][3]
+
+
+def _institutional_total_net(institutional):
+    """三大法人合計淨額（外資+投信+自營商，元）；無資料回 None。"""
+    if not (institutional and institutional.get("data")):
+        return None
+    total = 0.0
+    seen = False
+    for key in ("外資", "投信", "自營商"):
+        row = institutional["data"].get(key)
+        if row and row.get("net") is not None:
+            total += row["net"]
+            seen = True
+    return total if seen else None
+
+
+def build_sentiment(index_change_pct, institutional, margin, day_trade):
+    """計算韭菜溫度計。各成分獨立計算，缺資料則剔除並重新歸一化權重。
+
+    回傳 dict（若完全無任何成分可算則回 None）：
+      score (0-100 int), level, color, components[], interpretation
+    """
+    components = []  # 每項：{key, label, weight, score, raw}
+
+    # 1. 融資餘額日變化
+    margin_pct = margin.get("marginChangePct") if margin else None
+    if margin_pct is not None:
+        s = _clamp(50 + margin_pct * 25)
+        components.append({
+            "key": "margin",
+            "label": "融資槓桿",
+            "weight": SENTIMENT_WEIGHTS["margin"],
+            "score": round2(s),
+            "raw": f"融資餘額日變 {margin_pct:+.2f}%",
+            "rawValue": margin_pct,
+        })
+
+    # 2. 當沖成交占比
+    dt_ratio = day_trade.get("volumeRatio") if day_trade else None
+    if dt_ratio is not None:
+        s = _clamp((dt_ratio - 15.0) / (40.0 - 15.0) * 100.0)
+        components.append({
+            "key": "daytrade",
+            "label": "當沖投機",
+            "weight": SENTIMENT_WEIGHTS["daytrade"],
+            "score": round2(s),
+            "raw": f"當沖成交占比 {dt_ratio:.2f}%",
+            "rawValue": dt_ratio,
+        })
+
+    # 3. 散戶 vs 法人背離（需 margin 方向 + 法人方向兩者都有）
+    inst_net = _institutional_total_net(institutional)
+    if margin_pct is not None and inst_net is not None:
+        retail_buy = margin_pct >= 0     # 融資增 = 散戶偏買
+        inst_buy = inst_net >= 0         # 法人淨額正 = 買超
+        if retail_buy and not inst_buy:
+            s, desc = 90.0, "散戶追高、法人倒貨（接刀）"
+        elif retail_buy and inst_buy:
+            s, desc = 65.0, "散戶法人齊買（齊漲）"
+        elif not retail_buy and inst_buy:
+            s, desc = 40.0, "法人吸籌、散戶逃（偏冷）"
+        else:
+            s, desc = 20.0, "散戶法人齊賣（雙殺）"
+        components.append({
+            "key": "divergence",
+            "label": "散戶反法人",
+            "weight": SENTIMENT_WEIGHTS["divergence"],
+            "score": round2(s),
+            "raw": desc + f"（法人 {inst_net/1e8:+.0f} 億）",
+            "rawValue": round2(inst_net / 1e8),
+        })
+
+    # 4. 大盤漲跌幅
+    if index_change_pct is not None:
+        s = _clamp(50 + index_change_pct * 20)
+        components.append({
+            "key": "index",
+            "label": "大盤助燃",
+            "weight": SENTIMENT_WEIGHTS["index"],
+            "score": round2(s),
+            "raw": f"大盤 {index_change_pct:+.2f}%",
+            "rawValue": index_change_pct,
+        })
+
+    if not components:
+        return None
+
+    total_weight = sum(c["weight"] for c in components)
+    weighted = sum(c["weight"] * c["score"] for c in components)
+    score = int(round(weighted / total_weight)) if total_weight else 0
+    score = int(_clamp(score))
+    level, color = _sentiment_level(score)
+
+    interpretation = _sentiment_interpretation(score, level, components)
+
+    return {
+        "score": score,
+        "level": level,
+        "color": color,
+        "components": components,
+        "interpretation": interpretation,
+        "degraded": len(components) < len(SENTIMENT_WEIGHTS),
+    }
+
+
+def _sentiment_interpretation(score, level, components):
+    """一句白話解讀。"""
+    parts = []
+    by_key = {c["key"]: c for c in components}
+    if "margin" in by_key:
+        parts.append(by_key["margin"]["raw"])
+    if "daytrade" in by_key:
+        parts.append(by_key["daytrade"]["raw"])
+    if "divergence" in by_key:
+        parts.append(by_key["divergence"]["raw"])
+    facts = "、".join(parts) if parts else "部分指標缺失"
+
+    tail = {
+        "冰凍": "市場情緒冰凍，散戶觀望、風險偏低。",
+        "觀望": "情緒偏冷，散戶點火不旺。",
+        "溫熱": "情緒溫熱，多空互搖。",
+        "過熱": "散戶情緒偏過熱，追高需小心回吐。",
+        "沸騰": "情緒沸騰、進入韭菜收割區，注意高檔風險。",
+    }.get(level, "")
+    return f"溫度 {score} 分（{level}）：{facts}。{tail}"
 
 
 # ============================================================================
@@ -597,11 +876,49 @@ def main() -> int:
     except Exception as exc:  # noqa: BLE001
         log(f"institutional error: {exc}")
 
+    # 韭菜溫度計成分：融資餘額 + 當沖統計（各自 fallback，掛了不影響主流程）
+    margin = None
+    try:
+        log("fetching margin balance (MI_MARGN)")
+        margin = get_margin_balance()
+        time.sleep(0.5)
+    except Exception as exc:  # noqa: BLE001
+        log(f"margin error: {exc}")
+
+    day_trade = None
+    try:
+        log("fetching day-trade stats (TWTB4U)")
+        day_trade = get_day_trade_stats()
+        time.sleep(0.5)
+    except Exception as exc:  # noqa: BLE001
+        log(f"day-trade error: {exc}")
+
     try:
         log("fetching watchlist quotes")
         quotes = get_stock_quotes(watchlist)
     except Exception as exc:  # noqa: BLE001
         log(f"watchlist error: {exc}")
+
+    # 合成韭菜溫度計
+    sentiment = None
+    try:
+        idx_pct = None
+        if index_quote and index_quote.get("changePct") is not None:
+            idx_pct = index_quote["changePct"]
+        elif historical and historical.get("close") and historical.get("change") is not None:
+            base = historical["close"] - historical["change"]
+            if base:
+                idx_pct = round2(historical["change"] / base * 100)
+        sentiment = build_sentiment(idx_pct, institutional, margin, day_trade)
+        if sentiment:
+            # 交易日（優先 margin，其次 day_trade）供前端顯示
+            sentiment["date"] = (margin or {}).get("date") or (day_trade or {}).get("date")
+            log(f"sentiment: {sentiment['score']} ({sentiment['level']}), "
+                f"components={len(sentiment['components'])}, degraded={sentiment['degraded']}")
+        else:
+            log("sentiment: no components available")
+    except Exception as exc:  # noqa: BLE001
+        log(f"sentiment error: {exc}")
 
     analysis = None
     if settings.get("ai_analysis", True):
@@ -626,6 +943,9 @@ def main() -> int:
         "historicalIndex": historical,
         "dailyHistory": daily_history,
         "institutional": institutional,
+        "margin": margin,
+        "dayTrade": day_trade,
+        "sentiment": sentiment,
         "watchlist": quotes,
         "analysis": analysis,
     }
@@ -642,6 +962,9 @@ def main() -> int:
         f"historical={'ok' if historical else 'miss'}, "
         f"dailyHistory={len(daily_history)}, "
         f"institutional={'ok' if institutional and institutional.get('data') else 'miss'}, "
+        f"margin={'ok' if margin else 'miss'}, "
+        f"dayTrade={'ok' if day_trade else 'miss'}, "
+        f"sentiment={sentiment['score'] if sentiment else 'miss'}, "
         f"watchlist={sum(1 for q in quotes if q.get('price') is not None)}/{len(watchlist)}"
     )
     return 0
