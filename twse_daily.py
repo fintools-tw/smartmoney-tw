@@ -666,6 +666,237 @@ def _sentiment_interpretation(score, level, components):
 
 
 # ============================================================================
+# 全市場排行榜 + 追蹤清單技術警示
+# ============================================================================
+#
+# 資料來源：
+#   - MI_INDEX?date=D&type=ALLBUT0999 (table「證券代號…收盤價」)：全市場個股
+#     OHLC + 成交股數/金額 + 漲跌，可帶 date 回補歷史交易日。
+#   - T86?date=D&selectType=ALLBUT0999：全市場三大法人買賣超股數。
+#
+# 排行榜（公開、合法的公開數據彙整，非投資建議）：
+#   三大法人買超前十 / 賣超前十（張），成交值前十（億）。
+# 追蹤清單技術警示：對 config watchlist 每檔標記
+#   單日漲跌 >5%、量能爆量(>2×近5日均量)、5日均線乖離 >8%。
+#   歷史資料不足的訊號自動跳過。
+# ============================================================================
+
+import re
+
+RANK_TOP_N = 10
+ALERT_PCT_THRESHOLD = 5.0        # 單日漲跌絕對值 (%)
+ALERT_VOLUME_MULTIPLE = 2.0      # 量能 > N × 近 5 日均量
+ALERT_MA_BIAS_THRESHOLD = 8.0    # 5 日均線乖離絕對值 (%)
+
+
+def _sign_from_change_html(cell) -> int:
+    """MI_INDEX 漲跌欄是 HTML：red/+ = 漲(+1)，green/- = 跌(-1)，其餘 0。"""
+    text = str(cell)
+    if "red" in text or "+" in text:
+        return 1
+    if "green" in text or "-" in text:
+        return -1
+    return 0
+
+
+def fetch_mi_index(date_str: str):
+    """抓取某日全市場個股行情 (MI_INDEX ALLBUT0999)。
+
+    回傳 {code: {name, close, open, high, low, volume(股), value(元), change, changePct}}；
+    非交易日或失敗回傳 None。保留全部代號（含 ETF），由呼叫端各自篩選。
+    """
+    url = (
+        "https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX"
+        f"?response=json&date={date_str}&type=ALLBUT0999"
+    )
+    data = fetch_json(url)
+    if not (data and data.get("stat") == "OK" and data.get("tables")):
+        return None
+    table = None
+    for t in data["tables"]:
+        fields = t.get("fields") or []
+        if "證券代號" in fields and "收盤價" in fields:
+            table = t
+            break
+    if not table or not table.get("data"):
+        return None
+    out = {}
+    for row in table["data"]:
+        if len(row) < 11:
+            continue
+        code = str(row[0]).strip()
+        close = to_number(row[8])
+        diff = to_number(row[10])
+        sign = _sign_from_change_html(row[9])
+        change = round2(sign * diff) if diff is not None else None
+        prev = (close - change) if (close is not None and change is not None) else None
+        change_pct = round2((change / prev) * 100) if (prev and change is not None) else None
+        out[code] = {
+            "name": str(row[1]).strip(),
+            "volume": to_number(row[2]),
+            "value": to_number(row[4]),
+            "open": to_number(row[5]),
+            "high": to_number(row[6]),
+            "low": to_number(row[7]),
+            "close": close,
+            "change": change,
+            "changePct": change_pct,
+        }
+    return out or None
+
+
+def fetch_t86(date_str: str):
+    """抓取某日全市場三大法人買賣超 (T86 ALLBUT0999)。
+
+    回傳 {code: {name, foreign(股), trust(股), total(股)}}；失敗回 None。
+      foreign = 外陸資買賣超股數(idx4)、trust = 投信買賣超股數(idx10)、
+      total   = 三大法人買賣超股數(idx18)。
+    """
+    url = (
+        "https://www.twse.com.tw/rwd/zh/fund/T86"
+        f"?response=json&date={date_str}&selectType=ALLBUT0999"
+    )
+    data = fetch_json(url)
+    if not (data and data.get("stat") == "OK" and data.get("data")):
+        return None
+    out = {}
+    for row in data["data"]:
+        if len(row) < 19:
+            continue
+        code = str(row[0]).strip()
+        out[code] = {
+            "name": str(row[1]).strip(),
+            "foreign": to_number(row[4]),
+            "trust": to_number(row[10]),
+            "total": to_number(row[18]),
+        }
+    return out or None
+
+
+def _is_rankable_code(code: str) -> bool:
+    """排行榜只收一般個股與 ETF 代號（4 碼數字，或 5-6 碼 0 開頭 ETF）。"""
+    return bool(re.match(r"^\d{4,6}$", code))
+
+
+def get_recent_market_series(latest_date: str, trading_days: int):
+    """從 latest_date 往回收集 trading_days 個交易日的 MI_INDEX，新到舊排列。
+
+    回傳 List[(date_str, mi_map)]。非交易日自動跳過。
+    """
+    series = []
+    try:
+        cursor = datetime.strptime(latest_date, "%Y%m%d").replace(tzinfo=TAIPEI_TZ)
+    except (ValueError, TypeError):
+        cursor = now_taipei()
+    tries = 0
+    while len(series) < trading_days and tries < 40:
+        ds = cursor.strftime("%Y%m%d")
+        mi = fetch_mi_index(ds)
+        if mi:
+            series.append((ds, mi))
+        cursor -= timedelta(days=1)
+        tries += 1
+        time.sleep(0.5)
+    return series
+
+
+def build_rankings(t86_map, mi_map, date_str):
+    """組合公開排行榜。缺資料的子項留空陣列，不讓整體掛掉。"""
+    if not t86_map and not mi_map:
+        return None
+
+    def pct_for(code):
+        row = (mi_map or {}).get(code)
+        return row.get("changePct") if row else None
+
+    inst_buy, inst_sell, turnover = [], [], []
+
+    if t86_map:
+        rows = [
+            (c, v.get("name"), v.get("total"))
+            for c, v in t86_map.items()
+            if _is_rankable_code(c) and v.get("total") is not None
+        ]
+        buy_sorted = sorted(rows, key=lambda x: x[2], reverse=True)[:RANK_TOP_N]
+        sell_sorted = sorted(rows, key=lambda x: x[2])[:RANK_TOP_N]
+        inst_buy = [
+            {"code": c, "name": n, "netLots": int(round(net / 1000)), "changePct": pct_for(c)}
+            for c, n, net in buy_sorted if net > 0
+        ]
+        inst_sell = [
+            {"code": c, "name": n, "netLots": int(round(net / 1000)), "changePct": pct_for(c)}
+            for c, n, net in sell_sorted if net < 0
+        ]
+
+    if mi_map:
+        vals = [
+            (c, v.get("name"), v.get("value"), v.get("changePct"))
+            for c, v in mi_map.items()
+            if _is_rankable_code(c) and v.get("value")
+        ]
+        top = sorted(vals, key=lambda x: x[2], reverse=True)[:RANK_TOP_N]
+        turnover = [
+            {"code": c, "name": n, "valueYi": round2(val / 1e8), "changePct": pct}
+            for c, n, val, pct in top
+        ]
+
+    if not (inst_buy or inst_sell or turnover):
+        return None
+    return {
+        "date": date_str,
+        "institutionalBuy": inst_buy,
+        "institutionalSell": inst_sell,
+        "turnoverTop": turnover,
+    }
+
+
+def build_watchlist_alerts(watchlist, series):
+    """對追蹤清單個股計算技術警示徽章。series 為 get_recent_market_series 結果。
+
+    回傳 {code: [ {type, label} , ... ]}；資料不足的訊號略過。
+    """
+    if not series:
+        return {}
+
+    def history(code):
+        # 新到舊
+        return [mi[code] for _ds, mi in series if code in mi]
+
+    alerts_by_code = {}
+    for code, _name, _market in watchlist:
+        hist = history(code)
+        if not hist:
+            continue
+        today = hist[0]
+        alerts = []
+
+        pct = today.get("changePct")
+        if pct is not None and abs(pct) >= ALERT_PCT_THRESHOLD:
+            direction = "急漲" if pct > 0 else "急跌"
+            alerts.append({"type": "move", "label": f"{direction} {pct:+.1f}%"})
+
+        prev_vols = [h.get("volume") for h in hist[1:6] if h.get("volume")]
+        today_vol = today.get("volume")
+        if today_vol and len(prev_vols) >= 3:
+            avg_vol = sum(prev_vols) / len(prev_vols)
+            if avg_vol and today_vol > ALERT_VOLUME_MULTIPLE * avg_vol:
+                alerts.append({"type": "volume", "label": f"爆量 {today_vol / avg_vol:.1f}×"})
+
+        closes = [h.get("close") for h in hist[:5] if h.get("close")]
+        today_close = today.get("close")
+        if today_close and len(closes) >= 5:
+            ma5 = sum(closes) / len(closes)
+            if ma5:
+                bias = (today_close - ma5) / ma5 * 100
+                if abs(bias) >= ALERT_MA_BIAS_THRESHOLD:
+                    alerts.append({"type": "bias", "label": f"5MA乖離 {bias:+.1f}%"})
+
+        if alerts:
+            alerts_by_code[code] = alerts
+    return alerts_by_code
+
+
+# ============================================================================
 # Analysis — AI-powered (GPT) with rule-based fallback
 # ============================================================================
 
@@ -899,6 +1130,54 @@ def main() -> int:
     except Exception as exc:  # noqa: BLE001
         log(f"watchlist error: {exc}")
 
+    # ------------------------------------------------------------------
+    # 全市場排行榜 + 追蹤清單技術警示
+    # 基準交易日：優先用 index.date（實際盤後日），否則當日。
+    # ------------------------------------------------------------------
+    latest_date = None
+    if index_quote and index_quote.get("date"):
+        latest_date = str(index_quote["date"]).replace("/", "").strip()
+    if not latest_date or len(latest_date) != 8:
+        latest_date = now_taipei().strftime("%Y%m%d")
+
+    rankings = None
+    watchlist_alerts = {}
+    try:
+        log(f"fetching recent market series (base={latest_date})")
+        # 6 個交易日足够算 5 日均線 + 近 5 日均量
+        series = get_recent_market_series(latest_date, trading_days=6)
+        if series:
+            latest_trading, mi_latest = series[0]
+            # T86 在連續多次 MI_INDEX 後易遭瞬時限速，對重點資料多試幾次
+            t86_latest = None
+            for attempt in range(3):
+                time.sleep(1.0 + attempt)
+                t86_latest = fetch_t86(latest_trading)
+                if t86_latest:
+                    break
+                log(f"T86 retry {attempt + 1}/3 for {latest_trading}")
+            rankings = build_rankings(t86_latest, mi_latest, latest_trading)
+            watchlist_alerts = build_watchlist_alerts(watchlist, series)
+            if rankings:
+                log(
+                    "rankings: "
+                    f"buy={len(rankings['institutionalBuy'])}, "
+                    f"sell={len(rankings['institutionalSell'])}, "
+                    f"turnover={len(rankings['turnoverTop'])}"
+                )
+            log(f"watchlist alerts: {len(watchlist_alerts)} stocks flagged")
+        else:
+            log("recent market series empty; skip rankings/alerts")
+    except Exception as exc:  # noqa: BLE001
+        log(f"rankings/alerts error: {exc}")
+
+    # 把警示徽章接到對應 watchlist quote 上
+    if watchlist_alerts:
+        for q in quotes:
+            a = watchlist_alerts.get(q.get("code"))
+            if a:
+                q["alerts"] = a
+
     # 合成韭菜溫度計
     sentiment = None
     try:
@@ -946,6 +1225,7 @@ def main() -> int:
         "margin": margin,
         "dayTrade": day_trade,
         "sentiment": sentiment,
+        "rankings": rankings,
         "watchlist": quotes,
         "analysis": analysis,
     }
@@ -965,6 +1245,8 @@ def main() -> int:
         f"margin={'ok' if margin else 'miss'}, "
         f"dayTrade={'ok' if day_trade else 'miss'}, "
         f"sentiment={sentiment['score'] if sentiment else 'miss'}, "
+        f"rankings={'ok' if rankings else 'miss'}, "
+        f"alerts={len(watchlist_alerts)}, "
         f"watchlist={sum(1 for q in quotes if q.get('price') is not None)}/{len(watchlist)}"
     )
     return 0

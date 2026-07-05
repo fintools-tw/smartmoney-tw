@@ -4,6 +4,8 @@
     institutionalChart: null,
     indexSeries: [],
     dailyHistory: [],
+    rankings: null,
+    activeRankTab: "institutionalBuy",
   };
 
   const els = {};
@@ -35,6 +37,10 @@
       "sentiment-marker",
       "sentiment-interpretation",
       "sentiment-components",
+      "rankings-date",
+      "rankings-head",
+      "rankings-body",
+      "rankings-tabs",
       "institutional-date",
       "foreign-net",
       "investment-net",
@@ -60,23 +66,40 @@
       loadAnalysis();
       loadAiReview();
     });
+
+    if (els.rankingsTabs) {
+      els.rankingsTabs.addEventListener("click", (event) => {
+        const btn = event.target.closest(".rank-tab");
+        if (!btn) return;
+        const key = btn.getAttribute("data-rank");
+        if (!key || key === state.activeRankTab) return;
+        state.activeRankTab = key;
+        Array.from(els.rankingsTabs.querySelectorAll(".rank-tab")).forEach((el) => {
+          el.classList.toggle("is-active", el === btn);
+        });
+        renderRankings(state.rankings);
+      });
+    }
   }
 
   async function loadDashboard() {
     setLoading(true);
 
-    const [indexQuote, institutional, quotes, dailyHistory, sentiment] = await Promise.all([
+    const [indexQuote, institutional, quotes, dailyHistory, sentiment, rankings] = await Promise.all([
       window.TwseApi.getRealtimeIndex(),
       window.TwseApi.getInstitutionalInvestors(),
       window.TwseApi.getWatchlistQuotes(),
       window.TwseApi.getDailyHistory(),
       window.TwseApi.getSentiment(),
+      window.TwseApi.getRankings(),
     ]);
 
     state.dailyHistory = Array.isArray(dailyHistory) ? dailyHistory : [];
+    state.rankings = rankings;
     renderSentiment(sentiment);
     renderIndex(indexQuote);
     renderInstitutional(institutional);
+    renderRankings(rankings);
     renderWatchlist(quotes);
     updateIndexChart();
     updateStatus(indexQuote, institutional, quotes);
@@ -250,6 +273,78 @@
     updateInstitutionalChart(values);
   }
 
+  function renderRankings(rankings) {
+    if (!els.rankingsBody || !els.rankingsHead) return;
+
+    if (!rankings || typeof rankings !== "object") {
+      els.rankingsHead.innerHTML = "";
+      els.rankingsBody.innerHTML =
+        '<tr><td colspan="4" class="loading-cell">排行榜資料尚未產生，等待下次盤後更新。</td></tr>';
+      if (els.rankingsDate) els.rankingsDate.textContent = "--";
+      return;
+    }
+
+    if (els.rankingsDate) els.rankingsDate.textContent = formatDate(rankings.date);
+
+    const key = state.activeRankTab;
+    const list = Array.isArray(rankings[key]) ? rankings[key] : [];
+    const isTurnover = key === "turnoverTop";
+    const valueHeader = isTurnover ? "成交值" : "買/賣超";
+
+    els.rankingsHead.innerHTML = `
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">股票</th>
+        <th scope="col">${valueHeader}</th>
+        <th scope="col">漲跌幅</th>
+      </tr>`;
+
+    if (!list.length) {
+      els.rankingsBody.innerHTML =
+        '<tr><td colspan="4" class="loading-cell">此分類今日無資料。</td></tr>';
+      return;
+    }
+
+    els.rankingsBody.innerHTML = list
+      .map((item, i) => {
+        let valueText;
+        let valueClass = "";
+        if (isTurnover) {
+          valueText = `${formatNumber(item.valueYi, 1)} 億`;
+        } else {
+          const lots = Number(item.netLots);
+          valueClass = trendClass(lots);
+          valueText = `${formatSigned(lots, 0)} 張`;
+        }
+        const pctClass = trendClass(item.changePct);
+        return `
+          <tr>
+            <td class="rank-num">${i + 1}</td>
+            <td>
+              <div class="stock-name">
+                ${escapeHtml(shortName(item.name))}
+                <span>${escapeHtml(item.code)}</span>
+              </div>
+            </td>
+            <td class="${valueClass}">${valueText}</td>
+            <td class="${pctClass}">${formatPercent(item.changePct)}</td>
+          </tr>`;
+      })
+      .join("");
+  }
+
+  function renderAlertBadges(alerts) {
+    if (!Array.isArray(alerts) || !alerts.length) return "";
+    const badges = alerts
+      .map((a) => {
+        const cls =
+          a.type === "volume" ? "alert-volume" : a.type === "bias" ? "alert-bias" : "alert-move";
+        return `<span class="alert-badge ${cls}">${escapeHtml(a.label || "")}</span>`;
+      })
+      .join("");
+    return `<div class="stock-alerts">${badges}</div>`;
+  }
+
   function renderWatchlist(quotes) {
     els.quotesTime.textContent = getCurrentTime();
     if (els.watchlistCount) {
@@ -263,6 +358,7 @@
           : quote.source === "daily"
           ? "盤後資料"
           : "TWSE 即時";
+        const alertBadges = renderAlertBadges(quote.alerts);
 
         return `
           <tr>
@@ -271,6 +367,7 @@
               <div class="stock-name">
                 ${escapeHtml(shortName(quote.name))}
                 <span>${badge}</span>
+                ${alertBadges}
               </div>
             </td>
             <td class="${className}">${formatNumber(quote.price, 2)}</td>

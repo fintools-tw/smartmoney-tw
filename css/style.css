@@ -368,6 +368,7 @@ tbody tr:hover {
     grid-column: span 6;
   }
 
+  .rankings-card,
   .watchlist-card,
   .analysis-card,
   .ai-review-card {
@@ -408,6 +409,10 @@ tbody tr:hover {
 
   .watchlist-card {
     grid-column: span 8;
+  }
+
+  .rankings-card {
+    grid-column: span 4;
   }
 
   .analysis-card {
@@ -638,4 +643,112 @@ tbody tr:hover {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 0.82rem;
   color: #c9d1d9;
+}
+
+/* ============================================================
+   全市場排行榜卡片
+   ============================================================ */
+.rankings-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.2rem 0 0.9rem;
+}
+
+.rank-tab {
+  flex: 1 1 auto;
+  min-width: 5.5rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.rank-tab:hover {
+  color: var(--text);
+  border-color: var(--primary);
+}
+
+.rank-tab.is-active {
+  color: #06121f;
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.rankings-table {
+  min-width: 0;
+}
+
+.rankings-table th,
+.rankings-table td {
+  padding: 0.55rem 0.34rem;
+  font-size: 0.82rem;
+}
+
+.rankings-table .stock-name span {
+  font-size: 0.72rem;
+}
+
+.rankings-table .rank-num {
+  color: var(--muted);
+  font-weight: 700;
+  text-align: center;
+  width: 2.2rem;
+}
+
+.rankings-table th:first-child,
+.rankings-table td:first-child {
+  text-align: center;
+}
+
+.rankings-foot {
+  margin-top: 0.9rem;
+}
+
+/* ============================================================
+   追蹤清單技術警示徽章
+   ============================================================ */
+.rankings-table .stock-name {
+  white-space: normal;
+  min-width: 0;
+}
+
+.stock-alerts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+  margin-top: 0.26rem;
+}
+
+.alert-badge {
+  align-self: flex-start;
+  padding: 0.12rem 0.44rem;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.alert-move {
+  color: #ffd7b0;
+  background: rgba(255, 159, 67, 0.16);
+  border: 1px solid rgba(255, 159, 67, 0.4);
+}
+
+.alert-volume {
+  color: #ffb3bf;
+  background: rgba(255, 71, 87, 0.16);
+  border: 1px solid rgba(255, 71, 87, 0.4);
+}
+
+.alert-bias {
+  color: #b8e0ff;
+  background: rgba(74, 158, 255, 0.16);
+  border: 1px solid rgba(74, 158, 255, 0.4);
 }

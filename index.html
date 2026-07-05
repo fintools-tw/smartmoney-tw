@@ -145,6 +145,30 @@
         <p id="institutional-note" class="note"></p>
       </section>
 
+      <section class="card rankings-card" aria-labelledby="rankings-title">
+        <div class="card-heading">
+          <div>
+            <p class="section-label">全市場公開數據彙整</p>
+            <h2 id="rankings-title">🏆 今日排行榜</h2>
+          </div>
+          <span id="rankings-date" class="muted">--</span>
+        </div>
+        <div class="rankings-tabs" id="rankings-tabs" role="tablist">
+          <button class="rank-tab is-active" type="button" data-rank="institutionalBuy" role="tab">三大法人買超</button>
+          <button class="rank-tab" type="button" data-rank="institutionalSell" role="tab">三大法人賣超</button>
+          <button class="rank-tab" type="button" data-rank="turnoverTop" role="tab">成交值</button>
+        </div>
+        <div class="table-shell">
+          <table class="rankings-table">
+            <thead id="rankings-head"></thead>
+            <tbody id="rankings-body">
+              <tr><td colspan="4" class="loading-cell">讀取排行榜中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note rankings-foot">資料僅為公開統計彙整（來源：TWSE），非投資建議。</p>
+      </section>
+
       <section class="card watchlist-card" aria-labelledby="watchlist-title">
         <div class="card-heading">
           <div>

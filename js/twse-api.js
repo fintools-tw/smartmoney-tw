@@ -310,6 +310,14 @@
     return null;
   }
 
+  async function getRankings() {
+    const snapshot = await loadSnapshot();
+    if (snapshot && snapshot.rankings && typeof snapshot.rankings === "object") {
+      return snapshot.rankings;
+    }
+    return null;
+  }
+
   async function getDailyHistory() {
     const snapshot = await loadSnapshot();
     if (snapshot && Array.isArray(snapshot.dailyHistory) && snapshot.dailyHistory.length) {
@@ -379,6 +387,7 @@
     getWatchlistQuotes,
     getInstitutionalInvestors,
     getSentiment,
+    getRankings,
     getDailyHistory,
     getAnalysis,
     getGeneratedAt,
