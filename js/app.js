@@ -14,6 +14,7 @@
     bindEvents();
     loadDashboard();
     loadAnalysis();
+    loadAiReview();
     window.setInterval(loadDashboard, 60000);
   });
 
@@ -44,6 +45,9 @@
       "watchlist-count",
       "analysis-date",
       "analysis-content",
+      "ai-review-card",
+      "ai-review-date",
+      "ai-review-text",
     ].forEach((id) => {
       els[toCamel(id)] = document.getElementById(id);
     });
@@ -54,6 +58,7 @@
       window.TwseApi.refresh();
       loadDashboard();
       loadAnalysis();
+      loadAiReview();
     });
   }
 
@@ -87,6 +92,30 @@
     } catch (error) {
       els.analysisDate.textContent = "範例";
       els.analysisContent.innerHTML = markdownToHtml("### 盤後分析\n目前無法讀取分析資料，請稍後再試。");
+    }
+  }
+
+  async function loadAiReview() {
+    const card = els.aiReviewCard;
+    if (!card) return;
+    try {
+      const res = await fetch(`data/ai_review.json?ts=${Date.now()}`, { cache: "no-store" });
+      if (!res.ok) {
+        card.hidden = true;
+        return;
+      }
+      const data = await res.json();
+      const text = (data && typeof data.text === "string") ? data.text.trim() : "";
+      if (!text) {
+        card.hidden = true;
+        return;
+      }
+      if (els.aiReviewText) els.aiReviewText.textContent = text;
+      if (els.aiReviewDate) els.aiReviewDate.textContent = data.date ? formatDate(data.date) : "最新盤後";
+      card.hidden = false;
+    } catch (error) {
+      // 檔案不存在或解析失敗：靜默隱藏，不干擾其他卡片
+      card.hidden = true;
     }
   }
 

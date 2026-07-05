@@ -369,7 +369,8 @@ tbody tr:hover {
   }
 
   .watchlist-card,
-  .analysis-card {
+  .analysis-card,
+  .ai-review-card {
     grid-column: span 6;
   }
 
@@ -388,7 +389,8 @@ tbody tr:hover {
     padding: 1.5rem;
   }
 
-  .sentiment-card {
+  .sentiment-card,
+  .ai-review-card {
     grid-column: span 12;
   }
 
@@ -411,6 +413,36 @@ tbody tr:hover {
   .analysis-card {
     grid-column: span 4;
   }
+}
+
+/* AI 盤後點評 card */
+.ai-review-card {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(124, 130, 255, 0.34);
+  background: linear-gradient(180deg, rgba(30, 27, 46, 0.96), rgba(22, 22, 34, 0.9));
+}
+
+.ai-review-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 120% at 12% 0%, rgba(124, 130, 255, 0.16), transparent 55%);
+  pointer-events: none;
+}
+
+.ai-review-text {
+  position: relative;
+  margin: 0;
+  color: #e8ecf6;
+  font-size: 1.02rem;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+  text-align: justify;
+}
+
+.ai-review-foot {
+  position: relative;
 }
 
 /* 韭菜溫度計 sentiment card */
