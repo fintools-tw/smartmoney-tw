@@ -1,36 +1,29 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-05 16:49:59 +0800",
+  "generatedAt": "2026-07-06 19:13:28 +0800",
   "timezone": "Asia/Taipei",
   "index": {
     "code": "t00",
     "name": "發行量加權股價指數",
-    "price": 46780.62,
-    "yesterday": 46744.16,
-    "open": 46545.14,
-    "high": 46948.83,
-    "low": 45880.69,
-    "change": 36.46,
-    "changePct": 0.08,
+    "price": 46556.39,
+    "yesterday": 46780.62,
+    "open": 46897.18,
+    "high": 47395.3,
+    "low": 46431.38,
+    "change": -224.23,
+    "changePct": -0.48,
     "time": "13:33:00",
-    "date": "20260703"
+    "date": "20260706"
   },
   "historicalIndex": {
-    "date_roc": "115/07/03",
-    "volume_shares": 12189040098.0,
-    "volume_amount": 1078028137102.0,
-    "transactions": 5526867.0,
-    "close": 46780.62,
-    "change": 36.46
+    "date_roc": "115/07/06",
+    "volume_shares": 12910602003.0,
+    "volume_amount": 1064431906064.0,
+    "transactions": 6006874.0,
+    "close": 46556.39,
+    "change": -224.23
   },
   "dailyHistory": [
-    {
-      "date": "2026/05/22",
-      "close": 42267.97,
-      "change": 899.76,
-      "volume": 14518650616.0,
-      "transactions": 6155116.0
-    },
     {
       "date": "2026/05/25",
       "close": 43644.4,
@@ -233,25 +226,32 @@
       "change": 36.46,
       "volume": 12189040098.0,
       "transactions": 5526867.0
+    },
+    {
+      "date": "2026/07/06",
+      "close": 46556.39,
+      "change": -224.23,
+      "volume": 12910602003.0,
+      "transactions": 6006874.0
     }
   ],
   "institutional": {
-    "date": "20260703",
+    "date": "20260706",
     "data": {
       "自營商": {
-        "buy": 10836616605.0,
-        "sell": 8003013085.0,
-        "net": 2833603520.0
+        "buy": 10562018511.0,
+        "sell": 10484919674.0,
+        "net": 77098837.0
       },
       "投信": {
-        "buy": 37936432498.0,
-        "sell": 30434262479.0,
-        "net": 7502170019.0
+        "buy": 29728493398.0,
+        "sell": 22820930984.0,
+        "net": 6907562414.0
       },
       "外資": {
-        "buy": 362222374165.0,
-        "sell": 440004986780.0,
-        "net": -77782612615.0
+        "buy": 344190808680.0,
+        "sell": 369695305000.0,
+        "net": -25504496320.0
       }
     },
     "note": "自營商表示證券自營商專戶。"
@@ -272,7 +272,7 @@
     "sellValueRatio": 37.91
   },
   "sentiment": {
-    "score": 70,
+    "score": 68,
     "level": "過熱",
     "color": "#ff9f43",
     "components": [
@@ -297,208 +297,208 @@
         "label": "散戶反法人",
         "weight": 0.2,
         "score": 90.0,
-        "raw": "散戶追高、法人倒貨（接刀）（法人 -674 億）",
-        "rawValue": -674.47
+        "raw": "散戶追高、法人倒貨（接刀）（法人 -185 億）",
+        "rawValue": -185.2
       },
       {
         "key": "index",
         "label": "大盤助燃",
         "weight": 0.15,
-        "score": 51.6,
-        "raw": "大盤 +0.08%",
-        "rawValue": 0.08
+        "score": 40.4,
+        "raw": "大盤 -0.48%",
+        "rawValue": -0.48
       }
     ],
-    "interpretation": "溫度 70 分（過熱）：融資餘額日變 +1.61%、當沖成交占比 25.53%、散戶追高、法人倒貨（接刀）（法人 -674 億）。散戶情緒偏過熱，追高需小心回吐。",
+    "interpretation": "溫度 68 分（過熱）：融資餘額日變 +1.61%、當沖成交占比 25.53%、散戶追高、法人倒貨（接刀）（法人 -185 億）。散戶情緒偏過熱，追高需小心回吐。",
     "degraded": false,
     "date": "20260703"
   },
   "rankings": {
-    "date": "20260703",
+    "date": "20260706",
     "institutionalBuy": [
-      {
-        "code": "2887",
-        "name": "台新新光金",
-        "netLots": 44059,
-        "changePct": 3.48
-      },
-      {
-        "code": "1314",
-        "name": "中石化",
-        "netLots": 35588,
-        "changePct": 9.9
-      },
-      {
-        "code": "2303",
-        "name": "聯電",
-        "netLots": 23270,
-        "changePct": 3.02
-      },
-      {
-        "code": "2883",
-        "name": "凱基金",
-        "netLots": 22709,
-        "changePct": 1.97
-      },
-      {
-        "code": "2834",
-        "name": "臺企銀",
-        "netLots": 19856,
-        "changePct": 1.13
-      },
-      {
-        "code": "00919",
-        "name": "群益台灣精選高息",
-        "netLots": 16067,
-        "changePct": 1.13
-      },
-      {
-        "code": "1717",
-        "name": "長興",
-        "netLots": 14953,
-        "changePct": 9.97
-      },
-      {
-        "code": "00918",
-        "name": "大華優利高填息30",
-        "netLots": 14757,
-        "changePct": 0.41
-      },
-      {
-        "code": "2609",
-        "name": "陽明",
-        "netLots": 14192,
-        "changePct": 2.75
-      },
-      {
-        "code": "2002",
-        "name": "中鋼",
-        "netLots": 13792,
-        "changePct": 1.88
-      }
-    ],
-    "institutionalSell": [
       {
         "code": "3481",
         "name": "群創",
-        "netLots": -59811,
-        "changePct": -2.37
-      },
-      {
-        "code": "00927",
-        "name": "群益半導體收益",
-        "netLots": -48290,
-        "changePct": -0.72
-      },
-      {
-        "code": "009816",
-        "name": "凱基台灣TOP50",
-        "netLots": -42969,
-        "changePct": -0.19
-      },
-      {
-        "code": "0050",
-        "name": "元大台灣50",
-        "netLots": -35219,
-        "changePct": -0.41
-      },
-      {
-        "code": "2344",
-        "name": "華邦電",
-        "netLots": -26729,
-        "changePct": 0.54
+        "netLots": 123297,
+        "changePct": 4.85
       },
       {
         "code": "2409",
         "name": "友達",
-        "netLots": -24757,
-        "changePct": -1.64
+        "netLots": 98513,
+        "changePct": 5.67
+      },
+      {
+        "code": "1717",
+        "name": "長興",
+        "netLots": 25413,
+        "changePct": 4.66
+      },
+      {
+        "code": "2890",
+        "name": "永豐金",
+        "netLots": 24857,
+        "changePct": 3.27
+      },
+      {
+        "code": "1314",
+        "name": "中石化",
+        "netLots": 22266,
+        "changePct": 5.26
+      },
+      {
+        "code": "2883",
+        "name": "凱基金",
+        "netLots": 18594,
+        "changePct": 1.93
+      },
+      {
+        "code": "8150",
+        "name": "南茂",
+        "netLots": 17878,
+        "changePct": 10.0
+      },
+      {
+        "code": "2882",
+        "name": "國泰金",
+        "netLots": 17874,
+        "changePct": -0.21
+      },
+      {
+        "code": "2449",
+        "name": "京元電子",
+        "netLots": 17492,
+        "changePct": 4.78
+      },
+      {
+        "code": "00918",
+        "name": "大華優利高填息30",
+        "netLots": 14338,
+        "changePct": 0.34
+      }
+    ],
+    "institutionalSell": [
+      {
+        "code": "1714",
+        "name": "和桐",
+        "netLots": -38995,
+        "changePct": -8.13
+      },
+      {
+        "code": "00927",
+        "name": "群益半導體收益",
+        "netLots": -35641,
+        "changePct": 0.19
       },
       {
         "code": "6770",
         "name": "力積電",
-        "netLots": -18174,
-        "changePct": -1.74
+        "netLots": -34062,
+        "changePct": -1.09
       },
       {
-        "code": "1301",
-        "name": "台塑",
-        "netLots": -17714,
-        "changePct": 4.02
+        "code": "2344",
+        "name": "華邦電",
+        "netLots": -26294,
+        "changePct": -0.81
       },
       {
-        "code": "3711",
-        "name": "日月光投控",
-        "netLots": -17521,
-        "changePct": 0.0
+        "code": "009816",
+        "name": "凱基台灣TOP50",
+        "netLots": -25354,
+        "changePct": -0.63
       },
       {
-        "code": "00830",
-        "name": "國泰費城半導體",
-        "netLots": -16586,
-        "changePct": -3.08
+        "code": "0050",
+        "name": "元大台灣50",
+        "netLots": -22255,
+        "changePct": -0.09
+      },
+      {
+        "code": "1718",
+        "name": "中纖",
+        "netLots": -17781,
+        "changePct": 1.67
+      },
+      {
+        "code": "1326",
+        "name": "台化",
+        "netLots": -15682,
+        "changePct": -0.59
+      },
+      {
+        "code": "3042",
+        "name": "晶技",
+        "netLots": -15007,
+        "changePct": -9.84
+      },
+      {
+        "code": "00961",
+        "name": "FT臺灣永續高息",
+        "netLots": -14234,
+        "changePct": 1.02
       }
     ],
     "turnoverTop": [
       {
         "code": "2330",
         "name": "台積電",
-        "valueYi": 800.83,
+        "valueYi": 520.23,
+        "changePct": 0.61
+      },
+      {
+        "code": "2327",
+        "name": "國巨*",
+        "valueYi": 433.71,
+        "changePct": -3.83
+      },
+      {
+        "code": "3481",
+        "name": "群創",
+        "valueYi": 357.43,
+        "changePct": 4.85
+      },
+      {
+        "code": "2344",
+        "name": "華邦電",
+        "valueYi": 312.53,
         "changePct": -0.81
       },
       {
         "code": "2454",
         "name": "聯發科",
-        "valueYi": 532.0,
-        "changePct": -3.45
-      },
-      {
-        "code": "2327",
-        "name": "國巨*",
-        "valueYi": 462.75,
-        "changePct": -0.95
-      },
-      {
-        "code": "2308",
-        "name": "台達電",
-        "valueYi": 305.85,
-        "changePct": 5.33
-      },
-      {
-        "code": "3711",
-        "name": "日月光投控",
-        "valueYi": 267.13,
-        "changePct": 0.0
-      },
-      {
-        "code": "2344",
-        "name": "華邦電",
-        "valueYi": 261.18,
-        "changePct": 0.54
+        "valueYi": 289.3,
+        "changePct": -1.67
       },
       {
         "code": "2408",
         "name": "南亞科",
-        "valueYi": 253.41,
-        "changePct": 0.61
+        "valueYi": 268.67,
+        "changePct": 2.69
       },
       {
-        "code": "3042",
-        "name": "晶技",
-        "valueYi": 219.9,
-        "changePct": 9.93
+        "code": "3037",
+        "name": "欣興",
+        "valueYi": 231.93,
+        "changePct": 0.0
       },
       {
-        "code": "3481",
-        "name": "群創",
-        "valueYi": 199.93,
-        "changePct": -2.37
+        "code": "4958",
+        "name": "臻鼎-KY",
+        "valueYi": 199.84,
+        "changePct": -5.55
       },
       {
         "code": "2383",
         "name": "台光電",
-        "valueYi": 186.92,
-        "changePct": 7.52
+        "valueYi": 196.66,
+        "changePct": -9.95
+      },
+      {
+        "code": "3026",
+        "name": "禾伸堂",
+        "valueYi": 194.33,
+        "changePct": -2.53
       }
     ]
   },
@@ -506,255 +506,249 @@
     {
       "code": "2330",
       "name": "台積電",
-      "price": 2445.0,
-      "yesterday": 2465.0,
-      "open": 2415.0,
-      "high": 2465.0,
-      "low": 2415.0,
-      "volume": 26403.0,
-      "change": -20.0,
-      "changePct": -0.81,
+      "price": 2460.0,
+      "yesterday": 2445.0,
+      "open": 2465.0,
+      "high": 2500.0,
+      "low": 2455.0,
+      "volume": 19209.0,
+      "change": 15.0,
+      "changePct": 0.61,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     },
     {
       "code": "2317",
       "name": "鴻海",
-      "price": 240.5,
-      "yesterday": 239.0,
-      "open": 237.0,
-      "high": 241.0,
-      "low": 236.0,
-      "volume": 48969.0,
+      "price": 242.0,
+      "yesterday": 240.5,
+      "open": 243.5,
+      "high": 247.5,
+      "low": 240.5,
+      "volume": 42156.0,
       "change": 1.5,
-      "changePct": 0.63,
+      "changePct": 0.62,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     },
     {
       "code": "2454",
       "name": "聯發科",
-      "price": 4195.0,
-      "yesterday": 4345.0,
-      "open": 4160.0,
-      "high": 4230.0,
-      "low": 4120.0,
-      "volume": 11122.0,
-      "change": -150.0,
-      "changePct": -3.45,
+      "price": 4125.0,
+      "yesterday": 4195.0,
+      "open": 4250.0,
+      "high": 4325.0,
+      "low": 4110.0,
+      "volume": 6288.0,
+      "change": -70.0,
+      "changePct": -1.67,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     },
     {
       "code": "2382",
       "name": "廣達",
-      "price": 377.0,
-      "yesterday": 369.0,
-      "open": 369.0,
-      "high": 378.0,
-      "low": 368.5,
-      "volume": 12717.0,
-      "change": 8.0,
-      "changePct": 2.17,
+      "price": 378.0,
+      "yesterday": 377.0,
+      "open": 381.5,
+      "high": 393.0,
+      "low": 378.0,
+      "volume": 23761.0,
+      "change": 1.0,
+      "changePct": 0.27,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706",
+      "alerts": [
+        {
+          "type": "volume",
+          "label": "爆量 2.1×"
+        }
+      ]
     },
     {
       "code": "3443",
       "name": "創意",
-      "price": 5040.0,
-      "yesterday": 5330.0,
-      "open": 5225.0,
-      "high": 5310.0,
-      "low": 5015.0,
-      "volume": 1770.0,
-      "change": -290.0,
-      "changePct": -5.44,
+      "price": 4605.0,
+      "yesterday": 5040.0,
+      "open": 5105.0,
+      "high": 5105.0,
+      "low": 4555.0,
+      "volume": 2260.0,
+      "change": -435.0,
+      "changePct": -8.63,
       "time": "13:30:00",
-      "date": "20260703",
+      "date": "20260706",
       "alerts": [
         {
           "type": "move",
-          "label": "急跌 -5.4%"
+          "label": "急跌 -8.6%"
         }
       ]
     },
     {
       "code": "2603",
       "name": "長榮",
-      "price": 195.0,
-      "yesterday": 185.5,
-      "open": 185.5,
-      "high": 197.5,
-      "low": 185.5,
-      "volume": 24499.0,
-      "change": 9.5,
-      "changePct": 5.12,
+      "price": 195.5,
+      "yesterday": 195.0,
+      "open": 197.0,
+      "high": 198.5,
+      "low": 194.5,
+      "volume": 8300.0,
+      "change": 0.5,
+      "changePct": 0.26,
       "time": "13:30:00",
-      "date": "20260703",
-      "alerts": [
-        {
-          "type": "move",
-          "label": "急漲 +5.1%"
-        }
-      ]
+      "date": "20260706"
     },
     {
       "code": "6770",
       "name": "力積電",
-      "price": 73.4,
-      "yesterday": 74.7,
-      "open": 73.3,
-      "high": 75.1,
-      "low": 72.1,
-      "volume": 100578.0,
-      "change": -1.3,
-      "changePct": -1.74,
+      "price": 72.6,
+      "yesterday": 73.4,
+      "open": 74.2,
+      "high": 77.4,
+      "low": 72.5,
+      "volume": 152302.0,
+      "change": -0.8,
+      "changePct": -1.09,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     },
     {
       "code": "3661",
       "name": "世芯-KY",
-      "price": 4650.0,
-      "yesterday": 4895.0,
-      "open": 4880.0,
-      "high": 4890.0,
-      "low": 4630.0,
-      "volume": 2689.0,
-      "change": -245.0,
-      "changePct": -5.01,
+      "price": 4215.0,
+      "yesterday": 4650.0,
+      "open": 4700.0,
+      "high": 4700.0,
+      "low": 4210.0,
+      "volume": 1954.0,
+      "change": -435.0,
+      "changePct": -9.35,
       "time": "13:30:00",
-      "date": "20260703",
+      "date": "20260706",
       "alerts": [
         {
           "type": "move",
-          "label": "急跌 -5.0%"
+          "label": "急跌 -9.3%"
         }
       ]
     },
     {
       "code": "2615",
       "name": "萬海",
-      "price": 82.8,
-      "yesterday": 78.9,
-      "open": 78.5,
-      "high": 84.4,
-      "low": 78.5,
-      "volume": 24802.0,
-      "change": 3.9,
-      "changePct": 4.94,
+      "price": 80.0,
+      "yesterday": 79.8,
+      "open": 80.2,
+      "high": 81.5,
+      "low": 79.4,
+      "volume": 11356.0,
+      "change": 0.2,
+      "changePct": 0.25,
       "time": "13:30:00",
-      "date": "20260703",
-      "alerts": [
-        {
-          "type": "volume",
-          "label": "爆量 4.4×"
-        }
-      ]
+      "date": "20260706"
     },
     {
       "code": "2881",
       "name": "富邦金",
-      "price": 121.0,
-      "yesterday": 119.5,
-      "open": 118.5,
-      "high": 121.5,
-      "low": 118.5,
-      "volume": 29610.0,
-      "change": 1.5,
-      "changePct": 1.26,
+      "price": 121.5,
+      "yesterday": 121.0,
+      "open": 122.0,
+      "high": 123.0,
+      "low": 120.5,
+      "volume": 15311.0,
+      "change": 0.5,
+      "changePct": 0.41,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     },
     {
       "code": "2882",
       "name": "國泰金",
-      "price": 93.6,
-      "yesterday": 93.5,
-      "open": 92.8,
-      "high": 94.8,
-      "low": 92.8,
-      "volume": 37395.0,
-      "change": 0.1,
-      "changePct": 0.11,
+      "price": 93.4,
+      "yesterday": 93.6,
+      "open": 94.2,
+      "high": 94.9,
+      "low": 93.1,
+      "volume": 44123.0,
+      "change": -0.2,
+      "changePct": -0.21,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     },
     {
       "code": "2891",
       "name": "中信金",
-      "price": 70.6,
-      "yesterday": 69.9,
-      "open": 69.8,
-      "high": 71.4,
-      "low": 69.7,
-      "volume": 35282.0,
-      "change": 0.7,
-      "changePct": 1.0,
+      "price": 71.4,
+      "yesterday": 70.6,
+      "open": 71.0,
+      "high": 72.0,
+      "low": 70.7,
+      "volume": 31508.0,
+      "change": 0.8,
+      "changePct": 1.13,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     },
     {
       "code": "2886",
       "name": "兆豐金",
-      "price": 45.5,
-      "yesterday": 46.0,
-      "open": 45.4,
-      "high": 46.8,
-      "low": 45.4,
-      "volume": 21652.0,
-      "change": -0.5,
-      "changePct": -1.09,
+      "price": 46.3,
+      "yesterday": 45.5,
+      "open": 45.35,
+      "high": 46.6,
+      "low": 45.35,
+      "volume": 21134.0,
+      "change": 0.8,
+      "changePct": 1.76,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     },
     {
       "code": "00878",
       "name": "國泰永續高股息",
-      "price": 33.33,
-      "yesterday": 33.22,
-      "open": 32.98,
-      "high": 33.38,
-      "low": 32.88,
-      "volume": 21580.0,
-      "change": 0.11,
-      "changePct": 0.33,
+      "price": 33.49,
+      "yesterday": 33.33,
+      "open": 33.53,
+      "high": 33.79,
+      "low": 33.36,
+      "volume": 33442.0,
+      "change": 0.16,
+      "changePct": 0.48,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     },
     {
       "code": "00929",
       "name": "復華台灣科技優息",
-      "price": 31.34,
-      "yesterday": 31.19,
-      "open": 30.89,
-      "high": 31.41,
-      "low": 30.81,
-      "volume": 21420.0,
-      "change": 0.15,
-      "changePct": 0.48,
+      "price": 31.36,
+      "yesterday": 31.34,
+      "open": 31.62,
+      "high": 31.81,
+      "low": 31.17,
+      "volume": 26874.0,
+      "change": 0.02,
+      "changePct": 0.06,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     },
     {
       "code": "00940",
       "name": "元大台灣價值高息",
-      "price": 12.73,
-      "yesterday": 12.65,
-      "open": 12.6,
-      "high": 12.77,
-      "low": 12.6,
-      "volume": 14144.0,
-      "change": 0.08,
-      "changePct": 0.63,
+      "price": 12.74,
+      "yesterday": 12.73,
+      "open": 12.76,
+      "high": 12.86,
+      "low": 12.7,
+      "volume": 16664.0,
+      "change": 0.01,
+      "changePct": 0.08,
       "time": "13:30:00",
-      "date": "20260703"
+      "date": "20260706"
     }
   ],
   "analysis": {
-    "date": "2026/07/05",
-    "markdown": "### 今日盤勢總結\n今天台股小幅收漲，指數上揚0.08%，但整體表現不算強勁，特別是科技股的疲軟拖累了大盤。\n\n### 三大法人解讀\n外資今天大舉拋售，淨賣超777.83億元，顯示他們對市場的信心有所減弱，可能是受到全球經濟不確定性影響。相反的，投信和自營商則相對活躍，分別淨買進75.02億元和28.34億元，顯示本地資金仍有進場意願，可能是在尋找相對便宜的股票進行布局。這樣的資金流向顯示出一種短期內的保守與防禦策略。\n\n### 個股亮點\n今天的漲幅王是長榮（2603），上漲5.12%，主要受惠於航運需求回暖，市場對於其未來的獲利展望較為樂觀。萬海（2615）緊隨其後，漲幅也接近5%。反觀科技股表現不佳，特別是聯發科（2454）下跌了3.45%，原因可能是市場對半導體產業的前景仍抱持謹慎態度，特別是全球需求未見回升。創意（3443）和世芯-KY（3661）也因為技術面和基本面壓力，分別下滑5.44%和5.01%。\n\n### 明天觀察重點\n明天市場將持續關注外資的動向，特別是如果外資持續賣超，可能會影響整個市場的信心。此外，科技股的走勢將是另一個關鍵指標，投資者要留意業績公布及相關消息帶來的影響。如果外資能夠回流，可能會對大盤形成支撐，反之則需提防進一步的調整壓力。\n\n---\n\n「本分析由 AI 自動生成，僅供參考，不構成投資建議。」",
+    "date": "2026/07/06",
+    "markdown": "### 今天盤勢總結\n今天台股表現不佳，加權指數收在 46556.39 點，跌幅達 0.48%，顯示投資人情緒偏向保守。\n\n### 三大法人解讀\n從三大法人的動向來看，外資今天淨賣出 255.04 億元，顯示他們對市場的信心有所動搖，可能是因為國際局勢或經濟數據不佳影響。而投信則逆勢買入 69.08 億元，顯示內部資金仍在尋找機會，可能是針對某些長期成長股的布局。自營商小幅淨買入 0.77 億元，代表他們對短期波動的看法較為謹慎。\n\n### 個股亮點\n在個股方面，兆豐金 (2886) 漲幅最高，達 1.76%，可能受惠於金融股的穩定表現。中信金 (2891) 也表現不錯，漲 1.13%。相對地，創意 (3443) 和世芯-KY (3661) 則是跌幅最重，分別下跌 8.63% 和 9.35%。這可能和市場對於半導體產業前景的擔憂有關，尤其是近期競爭加劇及需求放緩的消息影響。\n\n### 明天觀察重點\n展望明天，投資者應密切關注外資的動向，特別是是否會持續賣超。此外，國際市場的波動也可能影響台股表現，特別是科技股的反彈機會。若外資能轉為買超，可能為市場帶來反彈動能。投資人在選股時，建議留意金融股及防禦型股票的表現，因為在不確定的市場中，這類個股相對穩定。\n\n---\n\n本分析由 AI 自動生成，僅供參考，不構成投資建議。",
     "source": "ai"
   }
 }
