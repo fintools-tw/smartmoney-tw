@@ -752,3 +752,211 @@ tbody tr:hover {
   background: rgba(74, 158, 255, 0.16);
   border: 1px solid rgba(74, 158, 255, 0.4);
 }
+
+/* ============================================================
+   盤前環境模組（美股 / 台指期夜盤 / 均線 / 燈號）
+   ============================================================ */
+.market-context-card {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(88, 166, 255, 0.28);
+  background: linear-gradient(180deg, rgba(18, 26, 40, 0.96), rgba(16, 20, 30, 0.9));
+}
+
+.mc-light-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  border: 1px solid var(--border);
+  background: rgba(183, 192, 202, 0.12);
+  color: var(--text);
+}
+
+.mc-light-green {
+  border-color: rgba(0, 212, 170, 0.5);
+  background: rgba(0, 212, 170, 0.14);
+  color: #00d4aa;
+}
+
+.mc-light-yellow {
+  border-color: rgba(255, 209, 102, 0.5);
+  background: rgba(255, 209, 102, 0.14);
+  color: #ffd166;
+}
+
+.mc-light-red {
+  border-color: rgba(255, 71, 87, 0.5);
+  background: rgba(255, 71, 87, 0.14);
+  color: #ff6b7a;
+}
+
+.mc-section {
+  margin-top: 0.35rem;
+}
+
+.mc-subtitle {
+  margin: 0 0 0.5rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* 美股四小卡 */
+.mc-us-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.mc-us-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid rgba(48, 54, 61, 0.82);
+  border-radius: 0.5rem;
+  background: rgba(28, 33, 43, 0.72);
+}
+
+.mc-us-name {
+  color: var(--muted);
+  font-size: 0.76rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mc-us-price {
+  font-size: 1.06rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.mc-us-pct {
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 台指期 + 均線 兩欄 */
+.mc-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.mc-tx-wrap,
+.mc-ma-wrap {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.mc-tx-row,
+.mc-ma-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(48, 54, 61, 0.82);
+  border-radius: 0.5rem;
+  background: rgba(28, 33, 43, 0.6);
+  font-size: 0.88rem;
+}
+
+.mc-tx-label,
+.mc-ma-label {
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mc-tx-last,
+.mc-ma-val {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.mc-tx-last {
+  text-align: right;
+}
+
+.mc-ma-val {
+  color: var(--text);
+  text-align: right;
+}
+
+.mc-ma-current {
+  padding: 0.4rem 0.2rem 0.1rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.mc-ma-current strong {
+  color: var(--text);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.mc-ma-ok {
+  color: #00d4aa;
+  font-weight: 700;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.mc-ma-bad {
+  color: #ff9f43;
+  font-weight: 700;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.mc-empty {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.mc-message {
+  margin: 1rem 0 0;
+  padding: 0.7rem 0.85rem;
+  border-radius: 0.5rem;
+  background: rgba(88, 166, 255, 0.08);
+  border: 1px solid rgba(88, 166, 255, 0.22);
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.mc-foot {
+  margin-top: 0.8rem;
+}
+
+@media (min-width: 620px) {
+  .mc-us-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .mc-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 760px) {
+  .market-context-card {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 1120px) {
+  .market-context-card {
+    grid-column: span 12;
+  }
+}

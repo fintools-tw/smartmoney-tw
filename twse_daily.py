@@ -1249,6 +1249,17 @@ def main() -> int:
         f"alerts={len(watchlist_alerts)}, "
         f"watchlist={sum(1 for q in quotes if q.get('price') is not None)}/{len(watchlist)}"
     )
+
+    # ------------------------------------------------------------------
+    # 盤前環境模組（美股 / 台指期夜盤 / 均線 / 燈號）→ data/market_context.json
+    # 獨立檔案；失敗不影響 daily.json 主流程。
+    # ------------------------------------------------------------------
+    try:
+        import gen_market_context
+        gen_market_context.write_market_context()
+    except Exception as exc:  # noqa: BLE001
+        log(f"market context error (non-fatal): {exc}")
+
     return 0
 
 

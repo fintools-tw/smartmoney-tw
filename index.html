@@ -34,6 +34,32 @@
     </header>
 
     <main class="dashboard">
+      <section id="market-context-card" class="card market-context-card" aria-labelledby="market-context-title" hidden>
+        <div class="card-heading">
+          <div>
+            <p class="section-label">盤前環境</p>
+            <h2 id="market-context-title">🌅 開盤前參考</h2>
+          </div>
+          <span id="mc-light" class="mc-light-badge">--</span>
+        </div>
+        <div class="mc-section">
+          <p class="mc-subtitle">美股前一交易日</p>
+          <div id="mc-us" class="mc-us-grid"></div>
+        </div>
+        <div class="mc-cols">
+          <div class="mc-section">
+            <p class="mc-subtitle">台指期近月 (TX)</p>
+            <div id="mc-tx" class="mc-tx-wrap"></div>
+          </div>
+          <div class="mc-section">
+            <p class="mc-subtitle">加權指數均線</p>
+            <div id="mc-ma" class="mc-ma-wrap"></div>
+          </div>
+        </div>
+        <p id="mc-message" class="mc-message"></p>
+        <p class="note mc-foot" id="mc-disclaimer"></p>
+      </section>
+
       <section class="card sentiment-card" aria-labelledby="sentiment-title">
         <div class="card-heading">
           <div>

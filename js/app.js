@@ -14,6 +14,7 @@
     bindElements();
     setupCharts();
     bindEvents();
+    loadMarketContext();
     loadDashboard();
     loadAnalysis();
     loadAiReview();
@@ -62,6 +63,7 @@
   function bindEvents() {
     els.refreshButton.addEventListener("click", () => {
       window.TwseApi.refresh();
+      loadMarketContext();
       loadDashboard();
       loadAnalysis();
       loadAiReview();
@@ -140,6 +142,126 @@
       // 檔案不存在或解析失敗：靜默隱藏，不干擾其他卡片
       card.hidden = true;
     }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 盤前環境模組（美股 / 台指期夜盤 / 均線 / 燈號）
+  // 讀取 data/market_context.json；檔案不存在或解析失敗時靜默隱藏區塊。
+  // ---------------------------------------------------------------------------
+  async function loadMarketContext() {
+    const card = document.getElementById("market-context-card");
+    if (!card) return;
+    try {
+      const res = await fetch(`data/market_context.json?ts=${Date.now()}`, { cache: "no-store" });
+      if (!res.ok) {
+        card.hidden = true;
+        return;
+      }
+      const data = await res.json();
+      renderMarketContext(data, card);
+    } catch (error) {
+      card.hidden = true;
+    }
+  }
+
+  function renderMarketContext(data, card) {
+    if (!data || typeof data !== "object") {
+      card.hidden = true;
+      return;
+    }
+
+    const usEl = document.getElementById("mc-us");
+    const txEl = document.getElementById("mc-tx");
+    const maEl = document.getElementById("mc-ma");
+    const lightEl = document.getElementById("mc-light");
+    const msgEl = document.getElementById("mc-message");
+    const discEl = document.getElementById("mc-disclaimer");
+
+    // 美股四大指數
+    const us = Array.isArray(data.usIndices) ? data.usIndices : [];
+    if (usEl) {
+      usEl.innerHTML = us
+        .map((x) => {
+          const cls = trendClass(x.changePct);
+          const price = Number.isFinite(x.price) ? formatNumber(x.price, 2) : "--";
+          const pct = Number.isFinite(x.changePct) ? formatPercent(x.changePct) : "--";
+          return `
+            <div class="mc-us-item">
+              <span class="mc-us-name">${escapeHtml(x.name)}</span>
+              <strong class="mc-us-price ${cls}">${price}</strong>
+              <span class="mc-us-pct ${cls}">${pct}</span>
+            </div>`;
+        })
+        .join("");
+    }
+
+    // 台指期近月：日盤 + 夜盤
+    if (txEl) {
+      const tx = data.taifexTX || {};
+      txEl.innerHTML = [mcTxRow("日盤", tx.day), mcTxRow("夜盤", tx.night)].join("");
+    }
+
+    // 加權指數均線
+    if (maEl) {
+      const ma = data.taiexMA;
+      if (!ma) {
+        maEl.innerHTML = '<p class="mc-empty">均線資料暫缺</p>';
+      } else {
+        const cur = Number.isFinite(ma.current) ? formatNumber(ma.current, 2) : "--";
+        const rows = [
+          mcMaRow("MA5", ma.ma5, ma.above_ma5),
+          mcMaRow("MA10", ma.ma10, ma.above_ma10),
+          mcMaRow("MA20", ma.ma20, ma.above_ma20),
+        ];
+        maEl.innerHTML =
+          `<div class="mc-ma-current">加權指數 <strong>${cur}</strong></div>` + rows.join("");
+      }
+    }
+
+    // 綜合燈號
+    const sig = data.signal || {};
+    if (lightEl) {
+      const light = sig.light === "green" || sig.light === "red" ? sig.light : "yellow";
+      lightEl.className = `mc-light-badge mc-light-${light}`;
+      const dot = light === "green" ? "🟢" : light === "red" ? "🔴" : "🟡";
+      lightEl.textContent = `${dot} ${sig.label || "--"}`;
+    }
+    if (msgEl) msgEl.textContent = sig.message || "";
+    if (discEl) discEl.textContent = data.disclaimer || "";
+
+    card.hidden = false;
+  }
+
+  function mcTxRow(label, r) {
+    if (!r || !Number.isFinite(r.last)) {
+      return `
+        <div class="mc-tx-row">
+          <span class="mc-tx-label">${label}</span>
+          <span class="mc-empty">${label === "夜盤" ? "夜盤資料暫缺" : "資料暫缺"}</span>
+        </div>`;
+    }
+    const cls = trendClass(r.changePct);
+    const pct = Number.isFinite(r.changePct) ? formatPercent(r.changePct) : "--";
+    return `
+      <div class="mc-tx-row">
+        <span class="mc-tx-label">${label}</span>
+        <strong class="mc-tx-last ${cls}">${formatNumber(r.last, 0)}</strong>
+        <span class="${cls}">${pct}</span>
+      </div>`;
+  }
+
+  function mcMaRow(label, value, above) {
+    const v = Number.isFinite(value) ? formatNumber(value, 0) : "--";
+    let mark;
+    if (above === true) mark = '<span class="mc-ma-ok">✓ 站上</span>';
+    else if (above === false) mark = '<span class="mc-ma-bad">✗ 跌破</span>';
+    else mark = '<span class="mc-empty">--</span>';
+    return `
+      <div class="mc-ma-row">
+        <span class="mc-ma-label">${label}</span>
+        <span class="mc-ma-val">${v}</span>
+        ${mark}
+      </div>`;
   }
 
   function renderAnalysisBadge(source) {
