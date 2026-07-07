@@ -960,3 +960,9 @@ tbody tr:hover {
     grid-column: span 12;
   }
 }
+
+.mc-datenote {
+  margin-top: 0.7rem;
+  color: #e3b341;
+  font-size: 0.8rem;
+}

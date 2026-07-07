@@ -124,6 +124,10 @@ def get_us_indices():
                 for i, c in enumerate(raw_closes)
                 if c is not None and i < len(timestamps)
             ]
+            # 不用進行中的盤中 K 棒：日 K 時間戳為開盤時間，一般時段約 6.5 小時，
+            # 若現在還沒過「開盤+6.5h+40m 緩衝」視為未收盤，改用前一根（確保顯示的是收盤價）
+            if pairs and time.time() < pairs[-1][0] + 6.5 * 3600 + 40 * 60:
+                pairs.pop()
             if len(pairs) >= 2:
                 last_ts, last_close = pairs[-1]
                 _, prev_close = pairs[-2]
@@ -186,6 +190,13 @@ def get_taifex_tx():
         elif "盤後" in session and result["night"] is None:
             result["night"] = parse_session(row)
 
+    # ISO 日期（前端標示用）：20260706 → 2026-07-06
+    raw_d = result["date"] or ""
+    if len(raw_d) == 8 and raw_d.isdigit():
+        result["dateIso"] = f"{raw_d[:4]}-{raw_d[4:6]}-{raw_d[6:]}"
+    else:
+        result["dateIso"] = None
+
     if result["night"] is None:
         log("TAIFEX: after-hours (夜盤) session not present → graceful degrade")
     return result
@@ -194,6 +205,15 @@ def get_taifex_tx():
 # ============================================================================
 # c. 加權指數 MA5 / MA10 / MA20 (TWSE FMTQIK)
 # ============================================================================
+
+def _roc_to_iso(roc):
+    """115/07/07 → 2026-07-07；解不出來回 None。"""
+    try:
+        y, m, d = str(roc).split("/")
+        return f"{int(y) + 1911:04d}-{int(m):02d}-{int(d):02d}"
+    except Exception:
+        return None
+
 
 def get_taiex_ma():
     """抓近兩個月 FMTQIK 收盤指數，算 MA5/10/20，並標記站上/跌破。"""
@@ -243,6 +263,7 @@ def get_taiex_ma():
     return {
         "current": round2(current),
         "date": current_date,  # 民國年格式 e.g. 115/07/07
+        "dateIso": _roc_to_iso(current_date),
         "ma5": ma5,
         "ma10": ma10,
         "ma20": ma20,

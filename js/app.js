@@ -177,8 +177,34 @@
     const msgEl = document.getElementById("mc-message");
     const discEl = document.getElementById("mc-disclaimer");
 
-    // 美股四大指數
+    // 各區資料日期標示（避免不同天的數據擺在一起看起來像壞掉）
+    const fmtMD = (iso) => {
+      if (!iso || typeof iso !== "string") return "";
+      const p = iso.split("-");
+      return p.length === 3 ? `${Number(p[1])}/${Number(p[2])}` : "";
+    };
     const us = Array.isArray(data.usIndices) ? data.usIndices : [];
+    const txData = data.taifexTX || {};
+    const maData = data.taiexMA || null;
+    const usDate = fmtMD(us.length ? us[0].date : "");
+    const txDate = fmtMD(txData.dateIso);
+    const maDate = fmtMD(maData ? maData.dateIso : "");
+    const usTitle = document.getElementById("mc-us-title");
+    if (usTitle) usTitle.textContent = usDate ? `美股收盤（${usDate}）` : "美股最近收盤";
+    const txTitle = document.getElementById("mc-tx-title");
+    if (txTitle) txTitle.textContent = txDate ? `台指期近月 TX（${txDate} 結算）` : "台指期近月 (TX)";
+    const maTitle = document.getElementById("mc-ma-title");
+    if (maTitle) maTitle.textContent = maDate ? `加權指數均線（${maDate} 收盤）` : "加權指數均線";
+    const noteEl = document.getElementById("mc-datenote");
+    if (noteEl) {
+      if (txData.dateIso && maData && maData.dateIso && txData.dateIso !== maData.dateIso) {
+        noteEl.textContent = `注意：台指期為 ${txDate} 結算資料（期交所於次日清晨更新），與大盤（${maDate}）日期不同，兩者數字不宜直接比較。`;
+        noteEl.hidden = false;
+      } else {
+        noteEl.hidden = true;
+      }
+    }
+
     if (usEl) {
       usEl.innerHTML = us
         .map((x) => {
