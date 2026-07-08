@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-08 17:06:28 +0800",
+  "generatedAt": "2026-07-08 17:43:12 +0800",
   "timezone": "Asia/Taipei",
   "index": {
     "code": "t00",
@@ -17,9 +17,9 @@
   },
   "historicalIndex": {
     "date_roc": "115/07/08",
-    "volume_shares": 11299665893.0,
-    "volume_amount": 992695930305.0,
-    "transactions": 5251995.0,
+    "volume_shares": 11331191739.0,
+    "volume_amount": 1004560446696.0,
+    "transactions": 5252043.0,
     "close": 45734.41,
     "change": 255.3
   },
@@ -231,8 +231,8 @@
       "date": "2026/07/08",
       "close": 45734.41,
       "change": 255.3,
-      "volume": 11299665893.0,
-      "transactions": 5251995.0
+      "volume": 11331191739.0,
+      "transactions": 5252043.0
     }
   ],
   "institutional": {
@@ -314,191 +314,191 @@
     "date": "20260707"
   },
   "rankings": {
-    "date": "20260708",
+    "date": "20260707",
     "institutionalBuy": [
-      {
-        "code": "2618",
-        "name": "長榮航",
-        "netLots": 43193,
-        "changePct": 0.0
-      },
-      {
-        "code": "00919",
-        "name": "群益台灣精選高息",
-        "netLots": 35180,
-        "changePct": 1.08
-      },
-      {
-        "code": "2892",
-        "name": "第一金",
-        "netLots": 21600,
-        "changePct": 2.4
-      },
       {
         "code": "00712",
         "name": "復華富時不動產",
-        "netLots": 17772,
-        "changePct": -0.23
+        "netLots": 53852,
+        "changePct": 0.34
       },
       {
-        "code": "2353",
-        "name": "宏碁",
-        "netLots": 15950,
-        "changePct": 0.94
+        "code": "2883",
+        "name": "凱基金",
+        "netLots": 25834,
+        "changePct": 3.79
       },
       {
         "code": "2887",
         "name": "台新新光金",
-        "netLots": 15947,
-        "changePct": 2.72
+        "netLots": 24246,
+        "changePct": 1.75
       },
       {
-        "code": "3481",
-        "name": "群創",
-        "netLots": 15566,
-        "changePct": 1.56
+        "code": "2618",
+        "name": "長榮航",
+        "netLots": 20690,
+        "changePct": -2.64
       },
       {
-        "code": "2303",
-        "name": "聯電",
-        "netLots": 15461,
-        "changePct": 0.0
+        "code": "2892",
+        "name": "第一金",
+        "netLots": 19990,
+        "changePct": 0.76
       },
       {
-        "code": "2884",
-        "name": "玉山金",
-        "netLots": 15166,
-        "changePct": 0.72
+        "code": "00919",
+        "name": "群益台灣精選高息",
+        "netLots": 15041,
+        "changePct": -0.47
+      },
+      {
+        "code": "2834",
+        "name": "臺企銀",
+        "netLots": 14639,
+        "changePct": 0.56
+      },
+      {
+        "code": "2882",
+        "name": "國泰金",
+        "netLots": 13893,
+        "changePct": 3.85
+      },
+      {
+        "code": "2886",
+        "name": "兆豐金",
+        "netLots": 12871,
+        "changePct": 1.08
       },
       {
         "code": "2890",
         "name": "永豐金",
-        "netLots": 15018,
-        "changePct": 1.95
+        "netLots": 12761,
+        "changePct": 0.24
       }
     ],
     "institutionalSell": [
       {
-        "code": "1314",
-        "name": "中石化",
-        "netLots": -57363,
-        "changePct": -0.72
+        "code": "3481",
+        "name": "群創",
+        "netLots": -127238,
+        "changePct": -7.23
       },
       {
-        "code": "0050",
-        "name": "元大台灣50",
-        "netLots": -40646,
-        "changePct": -0.14
-      },
-      {
-        "code": "009816",
-        "name": "凱基台灣TOP50",
-        "netLots": -26335,
-        "changePct": -0.2
-      },
-      {
-        "code": "00927",
-        "name": "群益半導體收益",
-        "netLots": -23867,
-        "changePct": 0.0
-      },
-      {
-        "code": "00929",
-        "name": "復華台灣科技優息",
-        "netLots": -20543,
-        "changePct": -1.54
+        "code": "2409",
+        "name": "友達",
+        "netLots": -80360,
+        "changePct": -7.41
       },
       {
         "code": "0056",
         "name": "元大高股息",
-        "netLots": -20265,
-        "changePct": 0.38
+        "netLots": -60991,
+        "changePct": -2.07
       },
       {
-        "code": "8112",
-        "name": "至上",
-        "netLots": -16438,
-        "changePct": -5.32
+        "code": "00927",
+        "name": "群益半導體收益",
+        "netLots": -59821,
+        "changePct": -3.38
       },
       {
-        "code": "1326",
-        "name": "台化",
-        "netLots": -15024,
-        "changePct": 2.21
+        "code": "009816",
+        "name": "凱基台灣TOP50",
+        "netLots": -56106,
+        "changePct": -2.3
       },
       {
-        "code": "2352",
-        "name": "佳世達",
-        "netLots": -13834,
-        "changePct": -0.15
+        "code": "0050",
+        "name": "元大台灣50",
+        "netLots": -52661,
+        "changePct": -1.89
       },
       {
-        "code": "1409",
-        "name": "新纖",
-        "netLots": -13420,
-        "changePct": -7.73
+        "code": "00929",
+        "name": "復華台灣科技優息",
+        "netLots": -23283,
+        "changePct": -2.93
+      },
+      {
+        "code": "2303",
+        "name": "聯電",
+        "netLots": -19810,
+        "changePct": -6.63
+      },
+      {
+        "code": "2002",
+        "name": "中鋼",
+        "netLots": -19120,
+        "changePct": -2.11
+      },
+      {
+        "code": "1714",
+        "name": "和桐",
+        "netLots": -19071,
+        "changePct": -9.81
       }
     ],
     "turnoverTop": [
       {
-        "code": "2327",
-        "name": "國巨*",
-        "valueYi": 632.87,
-        "changePct": -1.55
-      },
-      {
         "code": "2330",
         "name": "台積電",
-        "valueYi": 609.89,
-        "changePct": 1.02
+        "valueYi": 776.17,
+        "changePct": -0.81
       },
       {
-        "code": "3037",
-        "name": "欣興",
-        "valueYi": 281.99,
-        "changePct": 2.74
+        "code": "2327",
+        "name": "國巨*",
+        "valueYi": 624.69,
+        "changePct": -9.95
       },
       {
         "code": "3481",
         "name": "群創",
-        "valueYi": 269.1,
-        "changePct": 1.56
+        "valueYi": 500.29,
+        "changePct": -7.23
+      },
+      {
+        "code": "3037",
+        "name": "欣興",
+        "valueYi": 389.87,
+        "changePct": -8.4
       },
       {
         "code": "2454",
         "name": "聯發科",
-        "valueYi": 265.26,
-        "changePct": -0.87
+        "valueYi": 369.66,
+        "changePct": 0.0
       },
       {
         "code": "2408",
         "name": "南亞科",
-        "valueYi": 253.46,
-        "changePct": -1.74
+        "valueYi": 342.55,
+        "changePct": 0.0
       },
       {
         "code": "2344",
         "name": "華邦電",
-        "valueYi": 248.02,
-        "changePct": -3.16
+        "valueYi": 254.54,
+        "changePct": -4.92
+      },
+      {
+        "code": "4958",
+        "name": "臻鼎-KY",
+        "valueYi": 222.06,
+        "changePct": -5.35
+      },
+      {
+        "code": "2383",
+        "name": "台光電",
+        "valueYi": 216.4,
+        "changePct": -4.66
       },
       {
         "code": "8046",
         "name": "南電",
-        "valueYi": 216.92,
-        "changePct": 7.28
-      },
-      {
-        "code": "2308",
-        "name": "台達電",
-        "valueYi": 205.83,
-        "changePct": -0.26
-      },
-      {
-        "code": "3026",
-        "name": "禾伸堂",
-        "valueYi": 191.62,
-        "changePct": 9.92
+        "valueYi": 201.46,
+        "changePct": -4.19
       }
     ]
   },
@@ -571,7 +571,13 @@
       "change": -80.0,
       "changePct": -1.79,
       "time": "13:30:00",
-      "date": "20260708"
+      "date": "20260708",
+      "alerts": [
+        {
+          "type": "bias",
+          "label": "5MA乖離 -8.6%"
+        }
+      ]
     },
     {
       "code": "2603",
@@ -613,7 +619,13 @@
       "change": 30.0,
       "changePct": 0.74,
       "time": "13:30:00",
-      "date": "20260708"
+      "date": "20260708",
+      "alerts": [
+        {
+          "type": "bias",
+          "label": "5MA乖離 -9.3%"
+        }
+      ]
     },
     {
       "code": "2615",
@@ -730,7 +742,7 @@
   ],
   "analysis": {
     "date": "2026/07/08",
-    "markdown": "### 今日台股盤後分析\n\n今天台股表現穩健，加權指數上漲255.3點，收在45734.41點，顯示出市場的韌性與投資者的信心。\n\n### 三大法人解讀\n\n外資今天持續出現賣超，淨額為-379.49億元，顯示出他們對近期市場走勢的謹慎態度，可能是基於全球經濟不確定性或是對某些個股的評估有所保留。相對之下，投信則逆勢買進，淨額達119.61億元，顯示本地資金仍對部分優質股票有信心，這也許反映了對未來市場的樂觀預期。自營商也輕微減碼，淨額-33.43億元，顯示出他們在操作上較為保守。\n\n### 個股亮點\n\n今天表現最強的個股是長榮（2603），漲幅達4.26%，這可能受到貨運需求回升的帶動。萬海（2615）也不遑多讓，上漲3.12%，顯示出航運股的熱度依然不減，市場對於運輸需求的期待仍在。另一方面，聯發科（2454）今天表現不佳，跌幅-0.87%，可能受到市場對於半導體需求放緩的擔憂影響。而創意（3443）更是下跌1.79%，這可能與近期相關產業的競爭加劇有關。\n\n### 明天觀察重點\n\n明天的市場走向將受到外資動向的影響，若外資持續賣超，可能會對指數形成壓力，反之若有回籠資金，則可能促進指數上漲。此外，投資者應關注全球經濟數據的公布，特別是美國的經濟指標，這會直接影響市場情緒與資金流向。\n\n本分析由 AI 自動生成，僅供參考，不構成投資建議。",
+    "markdown": "### 今天盤勢總結\n今天台股小幅上漲，收盤指數45734.41點，漲幅0.56%，顯示出市場在多頭走勢中的韌性，但整體成交量仍需關注。\n\n### 三大法人解讀\n今天外資淨賣超379.49億元，這是個不小的數字，顯示出外資對當前市場的謹慎態度。相對而言，投信則逆勢增持，淨買進119.61億元，這可能反映出本土機構對於市場未來的信心，特別是在某些具成長潛力的個股上。自營商則小幅賣超33.43億元，顯示出他們在短期操作上的保守。\n\n### 個股亮點\n在個股表現上，長榮(2603)以4.26%的漲幅榮登漲幅榜首，可能受到航運市場需求回升的驅動。萬海(2615)也表現不俗，上漲3.12%。這兩檔航運股的強勁表現，讓市場對航運業的復甦抱有期待。相比之下，創意(3443)以-1.79%成為今天的最弱股，可能受到市場對於半導體產業前景的擔憂影響，尤其是在全球需求放緩的背景下。聯發科(2454)小幅下跌0.87%，也顯示出半導體股的壓力。\n\n### 明天觀察重點\n明天需要特別留意外資的動向，若持續賣超可能影響市場情緒，投信的買盤能否維持也是一大關鍵。此外，市場對於即將公布的經濟數據和企業獲利報告的反應，也將成為影響盤勢的重要因素。若航運股持續走強，或許能帶動整體市場的信心回升。\n\n本分析由 AI 自動生成，僅供參考，不構成投資建議。",
     "source": "ai"
   }
 }
