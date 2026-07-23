@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-23 07:15:07 +0800",
+  "generatedAt": "2026-07-23 16:01:01 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
@@ -31,39 +31,39 @@
       "key": "^SOX",
       "name": "費城半導體",
       "price": 12410.67,
-      "change": 54.5,
+      "change": 54.51,
       "changePct": 0.44,
       "date": "2026-07-22"
     }
   ],
   "taifexTX": {
     "contractMonth": "202608",
-    "date": "20260721",
+    "date": "20260722",
     "day": {
-      "last": 44377.0,
-      "change": 1715.0,
-      "changePct": 4.02,
+      "last": 44631.0,
+      "change": 256.0,
+      "changePct": 0.58,
       "session": "一般"
     },
     "night": {
-      "last": 42979.0,
-      "change": 317.0,
-      "changePct": 0.74,
+      "last": 44961.0,
+      "change": 586.0,
+      "changePct": 1.32,
       "session": "盤後"
     },
-    "dateIso": "2026-07-21"
+    "dateIso": "2026-07-22"
   },
   "taiexMA": {
-    "current": 44825.78,
-    "date": "115/07/22",
-    "dateIso": "2026-07-22",
-    "ma5": 43960.92,
-    "ma10": 44664.37,
-    "ma20": 45360.97,
+    "current": 44850.81,
+    "date": "115/07/23",
+    "dateIso": "2026-07-23",
+    "ma5": 43806.09,
+    "ma10": 44576.01,
+    "ma20": 45301.33,
     "above_ma5": true,
     "above_ma10": true,
     "above_ma20": false,
-    "samples": 36
+    "samples": 37
   },
   "signal": {
     "light": "green",
