@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-24 07:15:07 +0800",
+  "generatedAt": "2026-07-24 16:00:42 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
@@ -38,38 +38,38 @@
   ],
   "taifexTX": {
     "contractMonth": "202608",
-    "date": "20260722",
+    "date": "20260723",
     "day": {
-      "last": 44631.0,
-      "change": 256.0,
-      "changePct": 0.58,
+      "last": 44930.0,
+      "change": 285.0,
+      "changePct": 0.64,
       "session": "一般"
     },
     "night": {
-      "last": 44961.0,
-      "change": 586.0,
-      "changePct": 1.32,
+      "last": 45034.0,
+      "change": 389.0,
+      "changePct": 0.87,
       "session": "盤後"
     },
-    "dateIso": "2026-07-22"
+    "dateIso": "2026-07-23"
   },
   "taiexMA": {
-    "current": 44850.81,
-    "date": "115/07/23",
-    "dateIso": "2026-07-23",
-    "ma5": 43806.09,
-    "ma10": 44576.01,
-    "ma20": 45301.33,
-    "above_ma5": true,
-    "above_ma10": true,
+    "current": 43654.84,
+    "date": "115/07/24",
+    "dateIso": "2026-07-24",
+    "ma5": 44002.8,
+    "ma10": 44406.03,
+    "ma20": 45171.31,
+    "above_ma5": false,
+    "above_ma10": false,
     "above_ma20": false,
-    "samples": 37
+    "samples": 38
   },
   "signal": {
-    "light": "yellow",
-    "label": "訊號分歧",
-    "message": "參考訊號分歧，進場宜少量分批、控制部位並留意變盤。",
-    "bull": 3,
+    "light": "red",
+    "label": "環境偏空",
+    "message": "多數參考訊號偏空，進場宜少量分批、控制部位並嚴設停損。",
+    "bull": 1,
     "total": 5
   },
   "disclaimer": "本區塊為美股、台指期與均線等公開數據彙整，僅供參考，不構成投資建議。市場有風險，進出請自負盈虧。"
