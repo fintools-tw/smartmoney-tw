@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-25 07:15:07 +0800",
+  "generatedAt": "2026-07-27 16:00:37 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
@@ -30,46 +30,46 @@
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 11818.89,
-      "change": -524.95,
+      "price": 11818.88,
+      "change": -524.96,
       "changePct": -4.25,
       "date": "2026-07-24"
     }
   ],
   "taifexTX": {
     "contractMonth": "202608",
-    "date": "20260723",
+    "date": "20260724",
     "day": {
-      "last": 44930.0,
-      "change": 285.0,
-      "changePct": 0.64,
+      "last": 43905.0,
+      "change": -1007.0,
+      "changePct": -2.24,
       "session": "一般"
     },
     "night": {
-      "last": 45034.0,
-      "change": 389.0,
-      "changePct": 0.87,
+      "last": 44391.0,
+      "change": -521.0,
+      "changePct": -1.16,
       "session": "盤後"
     },
-    "dateIso": "2026-07-23"
+    "dateIso": "2026-07-24"
   },
   "taiexMA": {
-    "current": 43654.84,
-    "date": "115/07/24",
-    "dateIso": "2026-07-24",
-    "ma5": 44002.8,
-    "ma10": 44406.03,
-    "ma20": 45171.31,
+    "current": 43634.19,
+    "date": "115/07/27",
+    "dateIso": "2026-07-27",
+    "ma5": 44239.7,
+    "ma10": 44231.4,
+    "ma20": 45124.43,
     "above_ma5": false,
     "above_ma10": false,
     "above_ma20": false,
-    "samples": 38
+    "samples": 39
   },
   "signal": {
-    "light": "yellow",
-    "label": "訊號分歧",
-    "message": "參考訊號分歧，進場宜少量分批、控制部位並留意變盤。",
-    "bull": 2,
+    "light": "red",
+    "label": "環境偏空",
+    "message": "多數參考訊號偏空，進場宜少量分批、控制部位並嚴設停損。",
+    "bull": 1,
     "total": 5
   },
   "disclaimer": "本區塊為美股、台指期與均線等公開數據彙整，僅供參考，不構成投資建議。市場有風險，進出請自負盈虧。"
