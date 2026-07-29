@@ -1,57 +1,46 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-29 16:00:44 +0800",
+  "generatedAt": "2026-07-30 07:15:09 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
       "key": "^GSPC",
       "name": "S&P 500",
-      "price": 7428.78,
-      "change": 15.6,
-      "changePct": 0.21,
-      "date": "2026-07-28"
+      "price": 7316.15,
+      "change": -112.63,
+      "changePct": -1.52,
+      "date": "2026-07-29"
     },
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 24876.91,
-      "change": -55.17,
-      "changePct": -0.22,
-      "date": "2026-07-28"
+      "price": 24442.94,
+      "change": -433.97,
+      "changePct": -1.74,
+      "date": "2026-07-29"
     },
     {
       "key": "^DJI",
       "name": "道瓊工業",
-      "price": 52747.32,
-      "change": 537.24,
-      "changePct": 1.03,
-      "date": "2026-07-28"
+      "price": 51594.14,
+      "change": -1153.18,
+      "changePct": -2.19,
+      "date": "2026-07-29"
     },
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 11035.68,
-      "change": -519.2,
-      "changePct": -4.49,
-      "date": "2026-07-28"
+      "price": 10447.49,
+      "change": -588.19,
+      "changePct": -5.33,
+      "date": "2026-07-29"
     }
   ],
   "taifexTX": {
-    "contractMonth": "202608",
-    "date": "20260728",
-    "day": {
-      "last": 41613.0,
-      "change": -2267.0,
-      "changePct": -5.17,
-      "session": "一般"
-    },
-    "night": {
-      "last": 43172.0,
-      "change": -708.0,
-      "changePct": -1.61,
-      "session": "盤後"
-    },
-    "dateIso": "2026-07-28"
+    "contractMonth": null,
+    "date": null,
+    "day": null,
+    "night": null
   },
   "taiexMA": {
     "current": 40039.18,
@@ -69,8 +58,8 @@
     "light": "red",
     "label": "環境偏空",
     "message": "多數參考訊號偏空，進場宜少量分批、控制部位並嚴設停損。",
-    "bull": 1,
-    "total": 5
+    "bull": 0,
+    "total": 4
   },
   "disclaimer": "本區塊為美股、台指期與均線等公開數據彙整，僅供參考，不構成投資建議。市場有風險，進出請自負盈虧。"
 }
