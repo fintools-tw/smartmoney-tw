@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-05 07:15:06 +0800",
+  "generatedAt": "2026-08-05 16:00:49 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
@@ -54,16 +54,16 @@
     "dateIso": "2026-08-04"
   },
   "taiexMA": {
-    "current": 43360.66,
-    "date": "115/08/04",
-    "dateIso": "2026-08-04",
-    "ma5": 41967.86,
-    "ma10": 42840.83,
-    "ma20": 43785.26,
+    "current": 44611.6,
+    "date": "115/08/05",
+    "dateIso": "2026-08-05",
+    "ma5": 42882.34,
+    "ma10": 42819.41,
+    "ma20": 43741.89,
     "above_ma5": true,
     "above_ma10": true,
-    "above_ma20": false,
-    "samples": 24
+    "above_ma20": true,
+    "samples": 25
   },
   "signal": {
     "light": "green",
