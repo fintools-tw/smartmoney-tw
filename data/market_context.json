@@ -1,75 +1,75 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-18 07:15:07 +0800",
+  "generatedAt": "2026-08-18 16:00:35 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
       "key": "^GSPC",
       "name": "S&P 500",
-      "price": 7745.06,
-      "change": -40.7,
-      "changePct": -0.52,
-      "date": "2026-08-17"
+      "price": 7785.76,
+      "change": -13.23,
+      "changePct": -0.17,
+      "date": "2026-08-14"
     },
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 26644.91,
-      "change": -84.25,
-      "changePct": -0.32,
-      "date": "2026-08-17"
+      "price": 26729.16,
+      "change": -73.87,
+      "changePct": -0.28,
+      "date": "2026-08-14"
     },
     {
       "key": "^DJI",
       "name": "道瓊工業",
-      "price": 53459.78,
-      "change": -272.63,
-      "changePct": -0.51,
-      "date": "2026-08-17"
+      "price": 53732.41,
+      "change": -107.58,
+      "changePct": -0.2,
+      "date": "2026-08-14"
     },
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 12621.0,
-      "change": 203.96,
-      "changePct": 1.64,
-      "date": "2026-08-17"
+      "price": 12417.05,
+      "change": -38.95,
+      "changePct": -0.31,
+      "date": "2026-08-14"
     }
   ],
   "taifexTX": {
     "contractMonth": "202608",
-    "date": "20260814",
+    "date": "20260817",
     "day": {
-      "last": 45841.0,
-      "change": -184.0,
-      "changePct": -0.4,
+      "last": 45888.0,
+      "change": 76.0,
+      "changePct": 0.17,
       "session": "一般"
     },
     "night": {
-      "last": 46389.0,
-      "change": 364.0,
-      "changePct": 0.79,
+      "last": 45727.0,
+      "change": -85.0,
+      "changePct": -0.19,
       "session": "盤後"
     },
-    "dateIso": "2026-08-14"
+    "dateIso": "2026-08-17"
   },
   "taiexMA": {
-    "current": 45857.27,
-    "date": "115/08/17",
-    "dateIso": "2026-08-17",
-    "ma5": 45665.71,
-    "ma10": 44985.22,
-    "ma20": 43956.63,
-    "above_ma5": true,
+    "current": 45308.68,
+    "date": "115/08/18",
+    "dateIso": "2026-08-18",
+    "ma5": 45703.3,
+    "ma10": 45180.02,
+    "ma20": 44010.42,
+    "above_ma5": false,
     "above_ma10": true,
     "above_ma20": true,
-    "samples": 33
+    "samples": 34
   },
   "signal": {
-    "light": "green",
-    "label": "環境偏多",
-    "message": "多數參考訊號偏多，環境偏多；仍建議分批進場、嚴控部位。",
-    "bull": 4,
+    "light": "red",
+    "label": "環境偏空",
+    "message": "多數參考訊號偏空，進場宜少量分批、控制部位並嚴設停損。",
+    "bull": 1,
     "total": 5
   },
   "disclaimer": "本區塊為美股、台指期與均線等公開數據彙整，僅供參考，不構成投資建議。市場有風險，進出請自負盈虧。"
