@@ -1,39 +1,39 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-20 16:00:57 +0800",
+  "generatedAt": "2026-08-21 07:15:07 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
       "key": "^GSPC",
       "name": "S&P 500",
-      "price": 7707.98,
-      "change": 16.22,
-      "changePct": 0.21,
-      "date": "2026-08-19"
+      "price": 7641.16,
+      "change": -66.82,
+      "changePct": -0.87,
+      "date": "2026-08-20"
     },
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 26331.09,
-      "change": 41.38,
-      "changePct": 0.16,
-      "date": "2026-08-19"
+      "price": 26067.17,
+      "change": -263.92,
+      "changePct": -1.0,
+      "date": "2026-08-20"
     },
     {
       "key": "^DJI",
       "name": "道瓊工業",
-      "price": 53463.05,
-      "change": 119.65,
-      "changePct": 0.22,
-      "date": "2026-08-19"
+      "price": 52759.21,
+      "change": -703.84,
+      "changePct": -1.32,
+      "date": "2026-08-20"
     },
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 11738.23,
-      "change": -254.23,
-      "changePct": -2.12,
-      "date": "2026-08-19"
+      "price": 11800.02,
+      "change": 61.79,
+      "changePct": 0.53,
+      "date": "2026-08-20"
     }
   ],
   "taifexTX": {
