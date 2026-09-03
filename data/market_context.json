@@ -1,69 +1,69 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-29 07:15:07 +0800",
+  "generatedAt": "2026-09-03 15:45:14 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
       "key": "^GSPC",
       "name": "S&P 500",
-      "price": 7711.76,
-      "change": -19.23,
-      "changePct": -0.25,
-      "date": "2026-08-28"
+      "price": 7666.6,
+      "change": 35.13,
+      "changePct": 0.46,
+      "date": "2026-09-02"
     },
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 26402.42,
-      "change": -138.93,
-      "changePct": -0.52,
-      "date": "2026-08-28"
+      "price": 26217.83,
+      "change": 118.06,
+      "changePct": 0.45,
+      "date": "2026-09-02"
     },
     {
       "key": "^DJI",
       "name": "道瓊工業",
-      "price": 53559.99,
-      "change": -9.45,
-      "changePct": -0.02,
-      "date": "2026-08-28"
+      "price": 53061.95,
+      "change": 295.07,
+      "changePct": 0.56,
+      "date": "2026-09-02"
     },
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 11469.66,
-      "change": -412.51,
-      "changePct": -3.47,
-      "date": "2026-08-28"
+      "price": 11339.25,
+      "change": 50.64,
+      "changePct": 0.45,
+      "date": "2026-09-02"
     }
   ],
   "taifexTX": {
     "contractMonth": "202609",
-    "date": "20260828",
+    "date": "20260902",
     "day": {
-      "last": 46357.0,
-      "change": 293.0,
-      "changePct": 0.64,
+      "last": 46189.0,
+      "change": -1012.0,
+      "changePct": -2.14,
       "session": "一般"
     },
     "night": {
-      "last": 46388.0,
-      "change": 324.0,
-      "changePct": 0.7,
+      "last": 46679.0,
+      "change": -522.0,
+      "changePct": -1.11,
       "session": "盤後"
     },
-    "dateIso": "2026-08-28"
+    "dateIso": "2026-09-02"
   },
   "taiexMA": {
-    "current": 46331.45,
-    "date": "115/08/28",
-    "dateIso": "2026-08-28",
-    "ma5": 45614.21,
-    "ma10": 45411.44,
-    "ma20": 45074.79,
-    "above_ma5": true,
+    "current": 45857.66,
+    "date": "115/09/03",
+    "dateIso": "2026-09-03",
+    "ma5": 46286.2,
+    "ma10": 45839.49,
+    "ma20": 45542.0,
+    "above_ma5": false,
     "above_ma10": true,
     "above_ma20": true,
-    "samples": 42
+    "samples": 24
   },
   "signal": {
     "light": "yellow",
