@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-15 07:15:08 +0800",
+  "generatedAt": "2026-09-15 16:00:43 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
@@ -15,7 +15,7 @@
       "key": "^IXIC",
       "name": "NASDAQ",
       "price": 26186.41,
-      "change": -146.62,
+      "change": -146.63,
       "changePct": -0.56,
       "date": "2026-09-14"
     },
@@ -38,38 +38,38 @@
   ],
   "taifexTX": {
     "contractMonth": "202609",
-    "date": "20260911",
+    "date": "20260914",
     "day": {
-      "last": 46218.0,
-      "change": -651.0,
-      "changePct": -1.39,
+      "last": 45780.0,
+      "change": -407.0,
+      "changePct": -0.88,
       "session": "一般"
     },
     "night": {
-      "last": 46072.0,
-      "change": -797.0,
-      "changePct": -1.7,
+      "last": 46588.0,
+      "change": 401.0,
+      "changePct": 0.87,
       "session": "盤後"
     },
-    "dateIso": "2026-09-11"
+    "dateIso": "2026-09-14"
   },
   "taiexMA": {
-    "current": 45862.52,
-    "date": "115/09/14",
-    "dateIso": "2026-09-14",
-    "ma5": 46655.4,
-    "ma10": 46612.55,
-    "ma20": 46025.56,
+    "current": 45511.49,
+    "date": "115/09/15",
+    "dateIso": "2026-09-15",
+    "ma5": 46336.54,
+    "ma10": 46468.83,
+    "ma20": 46035.7,
     "above_ma5": false,
     "above_ma10": false,
     "above_ma20": false,
-    "samples": 31
+    "samples": 32
   },
   "signal": {
     "light": "red",
     "label": "環境偏空",
     "message": "多數參考訊號偏空，進場宜少量分批、控制部位並嚴設停損。",
-    "bull": 0,
+    "bull": 1,
     "total": 5
   },
   "disclaimer": "本區塊為美股、台指期與均線等公開數據彙整，僅供參考，不構成投資建議。市場有風險，進出請自負盈虧。"
