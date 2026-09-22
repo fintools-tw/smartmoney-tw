@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-22 07:15:08 +0800",
+  "generatedAt": "2026-09-22 16:00:41 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
@@ -38,38 +38,38 @@
   ],
   "taifexTX": {
     "contractMonth": "202610",
-    "date": "20260918",
+    "date": "20260921",
     "day": {
-      "last": 47418.0,
-      "change": 959.0,
-      "changePct": 2.06,
+      "last": 48077.0,
+      "change": 649.0,
+      "changePct": 1.37,
       "session": "一般"
     },
     "night": {
-      "last": 47160.0,
-      "change": 701.0,
-      "changePct": 1.51,
+      "last": 47405.0,
+      "change": -23.0,
+      "changePct": -0.05,
       "session": "盤後"
     },
-    "dateIso": "2026-09-18"
+    "dateIso": "2026-09-21"
   },
   "taiexMA": {
-    "current": 47718.84,
-    "date": "115/09/21",
-    "dateIso": "2026-09-21",
-    "ma5": 46509.6,
-    "ma10": 46582.5,
-    "ma20": 46405.54,
+    "current": 47800.17,
+    "date": "115/09/22",
+    "dateIso": "2026-09-22",
+    "ma5": 46967.33,
+    "ma10": 46651.94,
+    "ma20": 46537.07,
     "above_ma5": true,
     "above_ma10": true,
     "above_ma20": true,
-    "samples": 36
+    "samples": 37
   },
   "signal": {
     "light": "green",
     "label": "環境偏多",
     "message": "多數參考訊號偏多，環境偏多；仍建議分批進場、嚴控部位。",
-    "bull": 5,
+    "bull": 4,
     "total": 5
   },
   "disclaimer": "本區塊為美股、台指期與均線等公開數據彙整，僅供參考，不構成投資建議。市場有風險，進出請自負盈虧。"
