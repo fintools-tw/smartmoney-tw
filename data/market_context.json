@@ -1,57 +1,57 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-30 16:00:57 +0800",
+  "generatedAt": "2026-10-01 07:15:12 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
       "key": "^GSPC",
       "name": "S&P 500",
-      "price": 7670.84,
-      "change": -12.85,
-      "changePct": -0.17,
-      "date": "2026-09-29"
+      "price": 7651.54,
+      "change": -19.3,
+      "changePct": -0.25,
+      "date": "2026-09-30"
     },
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 26797.54,
-      "change": -22.84,
-      "changePct": -0.09,
-      "date": "2026-09-29"
+      "price": 26861.06,
+      "change": 63.53,
+      "changePct": 0.24,
+      "date": "2026-09-30"
     },
     {
       "key": "^DJI",
       "name": "道瓊工業",
-      "price": 51349.92,
-      "change": -131.59,
-      "changePct": -0.26,
-      "date": "2026-09-29"
+      "price": 50906.05,
+      "change": -443.87,
+      "changePct": -0.86,
+      "date": "2026-09-30"
     },
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 12629.16,
-      "change": 163.92,
-      "changePct": 1.32,
-      "date": "2026-09-29"
+      "price": 12628.62,
+      "change": -0.54,
+      "changePct": -0.0,
+      "date": "2026-09-30"
     }
   ],
   "taifexTX": {
     "contractMonth": "202610",
-    "date": "20260929",
+    "date": "20260930",
     "day": {
-      "last": 47767.0,
-      "change": -358.0,
-      "changePct": -0.74,
+      "last": 48330.0,
+      "change": 549.0,
+      "changePct": 1.15,
       "session": "一般"
     },
     "night": {
-      "last": 47956.0,
-      "change": -169.0,
-      "changePct": -0.35,
+      "last": 48479.0,
+      "change": 698.0,
+      "changePct": 1.46,
       "session": "盤後"
     },
-    "dateIso": "2026-09-29"
+    "dateIso": "2026-09-30"
   },
   "taiexMA": {
     "current": 47940.13,
@@ -63,7 +63,7 @@
     "above_ma5": true,
     "above_ma10": true,
     "above_ma20": true,
-    "samples": 41
+    "samples": 20
   },
   "signal": {
     "light": "yellow",
