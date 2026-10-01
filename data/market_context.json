@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-01 07:15:12 +0800",
+  "generatedAt": "2026-10-01 16:01:12 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
@@ -15,7 +15,7 @@
       "key": "^IXIC",
       "name": "NASDAQ",
       "price": 26861.06,
-      "change": 63.53,
+      "change": 63.52,
       "changePct": 0.24,
       "date": "2026-09-30"
     },
@@ -54,16 +54,16 @@
     "dateIso": "2026-09-30"
   },
   "taiexMA": {
-    "current": 47940.13,
-    "date": "115/09/30",
-    "dateIso": "2026-09-30",
-    "ma5": 47910.83,
-    "ma10": 47210.21,
-    "ma20": 46911.38,
+    "current": 48353.49,
+    "date": "115/10/01",
+    "dateIso": "2026-10-01",
+    "ma5": 48021.49,
+    "ma10": 47494.41,
+    "ma20": 46981.62,
     "above_ma5": true,
     "above_ma10": true,
     "above_ma20": true,
-    "samples": 20
+    "samples": 21
   },
   "signal": {
     "light": "yellow",
