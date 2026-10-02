@@ -1,57 +1,57 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-02 16:00:51 +0800",
+  "generatedAt": "2026-10-03 07:15:08 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
       "key": "^GSPC",
       "name": "S&P 500",
-      "price": 7666.45,
-      "change": 14.91,
-      "changePct": 0.19,
-      "date": "2026-10-01"
+      "price": 7722.72,
+      "change": 56.27,
+      "changePct": 0.73,
+      "date": "2026-10-02"
     },
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 26871.6,
-      "change": 10.54,
-      "changePct": 0.04,
-      "date": "2026-10-01"
+      "price": 27190.86,
+      "change": 319.26,
+      "changePct": 1.19,
+      "date": "2026-10-02"
     },
     {
       "key": "^DJI",
       "name": "道瓊工業",
-      "price": 50926.56,
-      "change": 20.51,
-      "changePct": 0.04,
-      "date": "2026-10-01"
+      "price": 51176.96,
+      "change": 250.4,
+      "changePct": 0.49,
+      "date": "2026-10-02"
     },
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 12829.0,
-      "change": 200.38,
-      "changePct": 1.59,
-      "date": "2026-10-01"
+      "price": 13136.67,
+      "change": 307.67,
+      "changePct": 2.4,
+      "date": "2026-10-02"
     }
   ],
   "taifexTX": {
     "contractMonth": "202610",
-    "date": "20261001",
+    "date": "20261002",
     "day": {
-      "last": 48685.0,
-      "change": 355.0,
-      "changePct": 0.73,
+      "last": 48671.0,
+      "change": -27.0,
+      "changePct": -0.06,
       "session": "一般"
     },
     "night": {
-      "last": 48298.0,
-      "change": -32.0,
-      "changePct": -0.07,
+      "last": 48475.0,
+      "change": -223.0,
+      "changePct": -0.46,
       "session": "盤後"
     },
-    "dateIso": "2026-10-01"
+    "dateIso": "2026-10-02"
   },
   "taiexMA": {
     "current": 48475.74,
