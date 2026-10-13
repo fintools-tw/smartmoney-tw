@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-13 07:15:10 +0800",
+  "generatedAt": "2026-10-13 16:00:32 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
@@ -54,22 +54,22 @@
     "dateIso": "2026-10-12"
   },
   "taiexMA": {
-    "current": 49301.96,
-    "date": "115/10/12",
-    "dateIso": "2026-10-12",
-    "ma5": 49591.27,
-    "ma10": 48838.23,
-    "ma20": 47793.78,
+    "current": 48341.31,
+    "date": "115/10/13",
+    "dateIso": "2026-10-13",
+    "ma5": 49317.13,
+    "ma10": 48869.9,
+    "ma20": 47863.82,
     "above_ma5": false,
-    "above_ma10": true,
+    "above_ma10": false,
     "above_ma20": true,
-    "samples": 27
+    "samples": 28
   },
   "signal": {
     "light": "red",
     "label": "環境偏空",
     "message": "多數參考訊號偏空，進場宜少量分批、控制部位並嚴設停損。",
-    "bull": 1,
+    "bull": 0,
     "total": 5
   },
   "disclaimer": "本區塊為美股、台指期與均線等公開數據彙整，僅供參考，不構成投資建議。市場有風險，進出請自負盈虧。"
