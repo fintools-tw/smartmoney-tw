@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-14 20:13:08 +0800",
+  "generatedAt": "2026-10-14 20:56:55 +0800",
   "timezone": "Asia/Taipei",
   "index": {
     "code": "t00",
@@ -257,13 +257,13 @@
     "note": "自營商表示證券自營商專戶。"
   },
   "margin": {
-    "date": "20261013",
-    "marginToday": 644978625.0,
-    "marginPrev": 653329500.0,
-    "marginChange": -8350875.0,
-    "marginChangePct": -1.28,
-    "shortToday": 225459.0,
-    "shortPrev": 216189.0
+    "date": "20261014",
+    "marginToday": 651567390.0,
+    "marginPrev": 644978625.0,
+    "marginChange": 6588765.0,
+    "marginChangePct": 1.02,
+    "shortToday": 228653.0,
+    "shortPrev": 225459.0
   },
   "dayTrade": {
     "date": "20261014",
@@ -272,17 +272,17 @@
     "sellValueRatio": 39.17
   },
   "sentiment": {
-    "score": 27,
-    "level": "觀望",
-    "color": "#00d4aa",
+    "score": 61,
+    "level": "過熱",
+    "color": "#ff9f43",
     "components": [
       {
         "key": "margin",
         "label": "融資槓桿",
         "weight": 0.35,
-        "score": 18.0,
-        "raw": "融資餘額日變 -1.28%",
-        "rawValue": -1.28
+        "score": 75.5,
+        "raw": "融資餘額日變 +1.02%",
+        "rawValue": 1.02
       },
       {
         "key": "daytrade",
@@ -296,8 +296,8 @@
         "key": "divergence",
         "label": "散戶反法人",
         "weight": 0.2,
-        "score": 20.0,
-        "raw": "散戶法人齊賣（雙殺）（法人 -65 億）",
+        "score": 90.0,
+        "raw": "散戶追高、法人倒貨（接刀）（法人 -65 億）",
         "rawValue": -65.2
       },
       {
@@ -309,9 +309,9 @@
         "rawValue": 0.59
       }
     ],
-    "interpretation": "溫度 27 分（觀望）：融資餘額日變 -1.28%、當沖成交占比 21.15%、散戶法人齊賣（雙殺）（法人 -65 億）。情緒偏冷，散戶點火不旺。",
+    "interpretation": "溫度 61 分（過熱）：融資餘額日變 +1.02%、當沖成交占比 21.15%、散戶追高、法人倒貨（接刀）（法人 -65 億）。散戶情緒偏過熱，追高需小心回吐。",
     "degraded": false,
-    "date": "20261013"
+    "date": "20261014"
   },
   "rankings": {
     "date": "20261014",
