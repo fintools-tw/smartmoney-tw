@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-14 16:00:31 +0800",
+  "generatedAt": "2026-10-14 20:13:08 +0800",
   "timezone": "Asia/Taipei",
   "index": {
     "code": "t00",
@@ -17,9 +17,9 @@
   },
   "historicalIndex": {
     "date_roc": "115/10/14",
-    "volume_shares": 11344956529.0,
-    "volume_amount": 966568257708.0,
-    "transactions": 4535268.0,
+    "volume_shares": 11376256711.0,
+    "volume_amount": 978137416296.0,
+    "transactions": 4535347.0,
     "close": 48625.83,
     "change": 284.52
   },
@@ -231,8 +231,8 @@
       "date": "2026/10/14",
       "close": 48625.83,
       "change": 284.52,
-      "volume": 11344956529.0,
-      "transactions": 4535268.0
+      "volume": 11376256711.0,
+      "transactions": 4535347.0
     }
   ],
   "institutional": {
@@ -244,13 +244,13 @@
         "net": -2509629033.0
       },
       "投信": {
-        "buy": 30424948132.0,
-        "sell": 14313481813.0,
-        "net": 16111466319.0
+        "buy": 31976782021.0,
+        "sell": 15949649313.0,
+        "net": 16027132708.0
       },
       "外資": {
-        "buy": 372412574170.0,
-        "sell": 392449914798.0,
+        "buy": 383378736978.0,
+        "sell": 403416077606.0,
         "net": -20037340628.0
       }
     },
@@ -266,13 +266,13 @@
     "shortPrev": 216189.0
   },
   "dayTrade": {
-    "date": "20261013",
-    "volumeRatio": 17.04,
-    "buyValueRatio": 33.85,
-    "sellValueRatio": 33.97
+    "date": "20261014",
+    "volumeRatio": 21.15,
+    "buyValueRatio": 39.02,
+    "sellValueRatio": 39.17
   },
   "sentiment": {
-    "score": 22,
+    "score": 27,
     "level": "觀望",
     "color": "#00d4aa",
     "components": [
@@ -288,17 +288,17 @@
         "key": "daytrade",
         "label": "當沖投機",
         "weight": 0.3,
-        "score": 8.16,
-        "raw": "當沖成交占比 17.04%",
-        "rawValue": 17.04
+        "score": 24.6,
+        "raw": "當沖成交占比 21.15%",
+        "rawValue": 21.15
       },
       {
         "key": "divergence",
         "label": "散戶反法人",
         "weight": 0.2,
         "score": 20.0,
-        "raw": "散戶法人齊賣（雙殺）（法人 -64 億）",
-        "rawValue": -64.36
+        "raw": "散戶法人齊賣（雙殺）（法人 -65 億）",
+        "rawValue": -65.2
       },
       {
         "key": "index",
@@ -309,19 +309,141 @@
         "rawValue": 0.59
       }
     ],
-    "interpretation": "溫度 22 分（觀望）：融資餘額日變 -1.28%、當沖成交占比 17.04%、散戶法人齊賣（雙殺）（法人 -64 億）。情緒偏冷，散戶點火不旺。",
+    "interpretation": "溫度 27 分（觀望）：融資餘額日變 -1.28%、當沖成交占比 21.15%、散戶法人齊賣（雙殺）（法人 -65 億）。情緒偏冷，散戶點火不旺。",
     "degraded": false,
     "date": "20261013"
   },
   "rankings": {
     "date": "20261014",
-    "institutionalBuy": [],
-    "institutionalSell": [],
+    "institutionalBuy": [
+      {
+        "code": "2002",
+        "name": "中鋼",
+        "netLots": 79580,
+        "changePct": 1.83
+      },
+      {
+        "code": "1301",
+        "name": "台塑",
+        "netLots": 56692,
+        "changePct": 9.89
+      },
+      {
+        "code": "1802",
+        "name": "台玻",
+        "netLots": 49315,
+        "changePct": 8.41
+      },
+      {
+        "code": "1605",
+        "name": "華新",
+        "netLots": 36804,
+        "changePct": 5.58
+      },
+      {
+        "code": "1326",
+        "name": "台化",
+        "netLots": 27668,
+        "changePct": 9.9
+      },
+      {
+        "code": "00961",
+        "name": "FT臺灣永續高息",
+        "netLots": 25844,
+        "changePct": 1.05
+      },
+      {
+        "code": "1314",
+        "name": "中石化",
+        "netLots": 22860,
+        "changePct": 2.98
+      },
+      {
+        "code": "2885",
+        "name": "元大金",
+        "netLots": 22112,
+        "changePct": 2.27
+      },
+      {
+        "code": "6770",
+        "name": "力積電",
+        "netLots": 19568,
+        "changePct": 5.19
+      },
+      {
+        "code": "1303",
+        "name": "南亞",
+        "netLots": 19531,
+        "changePct": 9.4
+      }
+    ],
+    "institutionalSell": [
+      {
+        "code": "00927",
+        "name": "群益半導體收益",
+        "netLots": -39600,
+        "changePct": 0.5
+      },
+      {
+        "code": "009816",
+        "name": "凱基台灣TOP50",
+        "netLots": -35926,
+        "changePct": 0.24
+      },
+      {
+        "code": "2408",
+        "name": "南亞科",
+        "netLots": -25076,
+        "changePct": -1.54
+      },
+      {
+        "code": "2449",
+        "name": "京元電子",
+        "netLots": -24397,
+        "changePct": -2.79
+      },
+      {
+        "code": "2303",
+        "name": "聯電",
+        "netLots": -22085,
+        "changePct": 0.35
+      },
+      {
+        "code": "0050",
+        "name": "元大台灣50",
+        "netLots": -17028,
+        "changePct": 0.53
+      },
+      {
+        "code": "009829",
+        "name": "大華韓國KOSPI50",
+        "netLots": -16169,
+        "changePct": 0.31
+      },
+      {
+        "code": "009821",
+        "name": "野村稀土關鍵資源",
+        "netLots": -13015,
+        "changePct": -1.8
+      },
+      {
+        "code": "009828",
+        "name": "中信台日韓PCB",
+        "netLots": -12361,
+        "changePct": 1.32
+      },
+      {
+        "code": "00712",
+        "name": "復華富時不動產",
+        "netLots": -12018,
+        "changePct": 0.28
+      }
+    ],
     "turnoverTop": [
       {
         "code": "2330",
         "name": "台積電",
-        "valueYi": 624.31,
+        "valueYi": 704.86,
         "changePct": 0.0
       },
       {
@@ -333,7 +455,7 @@
       {
         "code": "2454",
         "name": "聯發科",
-        "valueYi": 351.63,
+        "valueYi": 355.35,
         "changePct": -1.1
       },
       {
@@ -614,7 +736,7 @@
   ],
   "analysis": {
     "date": "2026/10/14",
-    "markdown": "### 今日盤勢摘要\n加權指數收於 **48625.83**，上漲 284.52 點 (+0.59%)。\n\n### 三大法人動向\n- **外資**：賣超 200.37 億元\n- **投信**：買超 161.11 億元\n- **自營商**：賣超 25.10 億元\n\n### 追蹤個股觀察\n- **強勢**：力積電 (+5.19%)、萬海 (+2.88%)、創意 (+1.85%)\n- **弱勢**：世芯-KY (-2.84%)、聯發科 (-1.10%)、國泰金 (-0.44%)\n\n### 策略提醒\n本報告由規則式模板自動產生，僅供參考。投資決策請結合即時新聞、籌碼面與基本面，並務必設定停損。\n",
+    "markdown": "### 今日盤勢摘要\n加權指數收於 **48625.83**，上漲 284.52 點 (+0.59%)。\n\n### 三大法人動向\n- **外資**：賣超 200.37 億元\n- **投信**：買超 160.27 億元\n- **自營商**：賣超 25.10 億元\n\n### 追蹤個股觀察\n- **強勢**：力積電 (+5.19%)、萬海 (+2.88%)、創意 (+1.85%)\n- **弱勢**：世芯-KY (-2.84%)、聯發科 (-1.10%)、國泰金 (-0.44%)\n\n### 策略提醒\n本報告由規則式模板自動產生，僅供參考。投資決策請結合即時新聞、籌碼面與基本面，並務必設定停損。\n",
     "source": "rule-based"
   }
 }
