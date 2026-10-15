@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-15 16:00:48 +0800",
+  "generatedAt": "2026-10-15 19:53:11 +0800",
   "timezone": "Asia/Taipei",
   "index": {
     "code": "t00",
@@ -17,9 +17,9 @@
   },
   "historicalIndex": {
     "date_roc": "115/10/15",
-    "volume_shares": 18686650920.0,
-    "volume_amount": 1431283807384.0,
-    "transactions": 9846446.0,
+    "volume_shares": 18709108648.0,
+    "volume_amount": 1435755219704.0,
+    "transactions": 9846504.0,
     "close": 46969.87,
     "change": -1655.96
   },
@@ -231,8 +231,8 @@
       "date": "2026/10/15",
       "close": 46969.87,
       "change": -1655.96,
-      "volume": 18686650920.0,
-      "transactions": 9846446.0
+      "volume": 18709108648.0,
+      "transactions": 9846504.0
     }
   ],
   "institutional": {
@@ -266,13 +266,13 @@
     "shortPrev": 225459.0
   },
   "dayTrade": {
-    "date": "20261014",
-    "volumeRatio": 21.15,
-    "buyValueRatio": 39.02,
-    "sellValueRatio": 39.17
+    "date": "20261015",
+    "volumeRatio": 14.71,
+    "buyValueRatio": 30.33,
+    "sellValueRatio": 30.39
   },
   "sentiment": {
-    "score": 52,
+    "score": 44,
     "level": "溫熱",
     "color": "#ffd166",
     "components": [
@@ -288,9 +288,9 @@
         "key": "daytrade",
         "label": "當沖投機",
         "weight": 0.3,
-        "score": 24.6,
-        "raw": "當沖成交占比 21.15%",
-        "rawValue": 21.15
+        "score": 0.0,
+        "raw": "當沖成交占比 14.71%",
+        "rawValue": 14.71
       },
       {
         "key": "divergence",
@@ -309,25 +309,147 @@
         "rawValue": -3.41
       }
     ],
-    "interpretation": "溫度 52 分（溫熱）：融資餘額日變 +1.02%、當沖成交占比 21.15%、散戶追高、法人倒貨（接刀）（法人 -2829 億）。情緒溫熱，多空互搖。",
+    "interpretation": "溫度 44 分（溫熱）：融資餘額日變 +1.02%、當沖成交占比 14.71%、散戶追高、法人倒貨（接刀）（法人 -2829 億）。情緒溫熱，多空互搖。",
     "degraded": false,
     "date": "20261014"
   },
   "rankings": {
     "date": "20261015",
-    "institutionalBuy": [],
-    "institutionalSell": [],
+    "institutionalBuy": [
+      {
+        "code": "2886",
+        "name": "兆豐金",
+        "netLots": 33753,
+        "changePct": 2.74
+      },
+      {
+        "code": "1216",
+        "name": "統一",
+        "netLots": 32361,
+        "changePct": 1.66
+      },
+      {
+        "code": "5880",
+        "name": "合庫金",
+        "netLots": 29688,
+        "changePct": 1.29
+      },
+      {
+        "code": "00961",
+        "name": "FT臺灣永續高息",
+        "netLots": 24792,
+        "changePct": -0.3
+      },
+      {
+        "code": "2890",
+        "name": "永豐金",
+        "netLots": 24625,
+        "changePct": 3.52
+      },
+      {
+        "code": "2884",
+        "name": "玉山金",
+        "netLots": 23418,
+        "changePct": 3.17
+      },
+      {
+        "code": "2891",
+        "name": "中信金",
+        "netLots": 16827,
+        "changePct": 2.1
+      },
+      {
+        "code": "00713",
+        "name": "元大台灣高息低波",
+        "netLots": 16418,
+        "changePct": 1.08
+      },
+      {
+        "code": "2412",
+        "name": "中華電",
+        "netLots": 15708,
+        "changePct": 2.69
+      },
+      {
+        "code": "2885",
+        "name": "元大金",
+        "netLots": 14293,
+        "changePct": 0.69
+      }
+    ],
+    "institutionalSell": [
+      {
+        "code": "0050",
+        "name": "元大台灣50",
+        "netLots": -355252,
+        "changePct": -3.63
+      },
+      {
+        "code": "009816",
+        "name": "凱基台灣TOP50",
+        "netLots": -301757,
+        "changePct": -2.76
+      },
+      {
+        "code": "00927",
+        "name": "群益半導體收益",
+        "netLots": -165799,
+        "changePct": -4.47
+      },
+      {
+        "code": "0056",
+        "name": "元大高股息",
+        "netLots": -147832,
+        "changePct": -2.27
+      },
+      {
+        "code": "6770",
+        "name": "力積電",
+        "netLots": -95839,
+        "changePct": -6.76
+      },
+      {
+        "code": "009828",
+        "name": "中信台日韓PCB",
+        "netLots": -88550,
+        "changePct": -6.72
+      },
+      {
+        "code": "009829",
+        "name": "大華韓國KOSPI50",
+        "netLots": -76996,
+        "changePct": -9.89
+      },
+      {
+        "code": "00929",
+        "name": "復華台灣科技優息",
+        "netLots": -64839,
+        "changePct": -1.59
+      },
+      {
+        "code": "1301",
+        "name": "台塑",
+        "netLots": -50001,
+        "changePct": -8.1
+      },
+      {
+        "code": "0052",
+        "name": "富邦科技",
+        "netLots": -46085,
+        "changePct": -3.88
+      }
+    ],
     "turnoverTop": [
       {
         "code": "2330",
         "name": "台積電",
-        "valueYi": 1418.76,
+        "valueYi": 1426.3,
         "changePct": -2.01
       },
       {
         "code": "2454",
         "name": "聯發科",
-        "valueYi": 783.23,
+        "valueYi": 785.65,
         "changePct": -6.93
       },
       {
@@ -339,7 +461,7 @@
       {
         "code": "2308",
         "name": "台達電",
-        "valueYi": 416.63,
+        "valueYi": 418.79,
         "changePct": -8.68
       },
       {
@@ -351,7 +473,7 @@
       {
         "code": "1303",
         "name": "南亞",
-        "valueYi": 335.75,
+        "valueYi": 342.1,
         "changePct": -9.89
       },
       {
@@ -369,13 +491,13 @@
       {
         "code": "3037",
         "name": "欣興",
-        "valueYi": 316.06,
+        "valueYi": 316.21,
         "changePct": -9.28
       },
       {
         "code": "2383",
         "name": "台光電",
-        "valueYi": 303.18,
+        "valueYi": 303.34,
         "changePct": -7.25
       }
     ]
@@ -589,7 +711,7 @@
       "alerts": [
         {
           "type": "volume",
-          "label": "爆量 2.1×"
+          "label": "爆量 2.2×"
         }
       ]
     },
