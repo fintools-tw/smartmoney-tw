@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-19 16:00:51 +0800",
+  "generatedAt": "2026-10-19 21:46:45 +0800",
   "timezone": "Asia/Taipei",
   "index": {
     "code": "t00",
@@ -17,9 +17,9 @@
   },
   "historicalIndex": {
     "date_roc": "115/10/19",
-    "volume_shares": 12249379421.0,
-    "volume_amount": 864444044683.0,
-    "transactions": 5507115.0,
+    "volume_shares": 12253221834.0,
+    "volume_amount": 866711859964.0,
+    "transactions": 5507146.0,
     "close": 46822.08,
     "change": -289.18
   },
@@ -231,8 +231,8 @@
       "date": "2026/10/19",
       "close": 46822.08,
       "change": -289.18,
-      "volume": 12249379421.0,
-      "transactions": 5507115.0
+      "volume": 12253221834.0,
+      "transactions": 5507146.0
     }
   ],
   "institutional": {
@@ -244,35 +244,35 @@
         "net": -6022889603.0
       },
       "投信": {
-        "buy": 49301602720.0,
-        "sell": 26250608658.0,
-        "net": 23050994062.0
+        "buy": 50699118560.0,
+        "sell": 26557490609.0,
+        "net": 24141627951.0
       },
       "外資": {
-        "buy": 274192856655.0,
-        "sell": 350935592424.0,
+        "buy": 276460340925.0,
+        "sell": 353203076694.0,
         "net": -76742735769.0
       }
     },
     "note": "自營商表示證券自營商專戶。"
   },
   "margin": {
-    "date": "20261016",
-    "marginToday": 645594048.0,
-    "marginPrev": 646415871.0,
-    "marginChange": -821823.0,
-    "marginChangePct": -0.13,
-    "shortToday": 233602.0,
-    "shortPrev": 229150.0
+    "date": "20261019",
+    "marginToday": 640618432.0,
+    "marginPrev": 645594048.0,
+    "marginChange": -4975616.0,
+    "marginChangePct": -0.77,
+    "shortToday": 201916.0,
+    "shortPrev": 233602.0
   },
   "dayTrade": {
-    "date": "20261016",
-    "volumeRatio": 20.24,
-    "buyValueRatio": 38.03,
-    "sellValueRatio": 38.12
+    "date": "20261019",
+    "volumeRatio": 20.97,
+    "buyValueRatio": 40.84,
+    "sellValueRatio": 41.0
   },
   "sentiment": {
-    "score": 32,
+    "score": 28,
     "level": "觀望",
     "color": "#00d4aa",
     "components": [
@@ -280,25 +280,25 @@
         "key": "margin",
         "label": "融資槓桿",
         "weight": 0.35,
-        "score": 46.75,
-        "raw": "融資餘額日變 -0.13%",
-        "rawValue": -0.13
+        "score": 30.75,
+        "raw": "融資餘額日變 -0.77%",
+        "rawValue": -0.77
       },
       {
         "key": "daytrade",
         "label": "當沖投機",
         "weight": 0.3,
-        "score": 20.96,
-        "raw": "當沖成交占比 20.24%",
-        "rawValue": 20.24
+        "score": 23.88,
+        "raw": "當沖成交占比 20.97%",
+        "rawValue": 20.97
       },
       {
         "key": "divergence",
         "label": "散戶反法人",
         "weight": 0.2,
         "score": 20.0,
-        "raw": "散戶法人齊賣（雙殺）（法人 -597 億）",
-        "rawValue": -597.15
+        "raw": "散戶法人齊賣（雙殺）（法人 -586 億）",
+        "rawValue": -586.24
       },
       {
         "key": "index",
@@ -309,25 +309,147 @@
         "rawValue": -0.61
       }
     ],
-    "interpretation": "溫度 32 分（觀望）：融資餘額日變 -0.13%、當沖成交占比 20.24%、散戶法人齊賣（雙殺）（法人 -597 億）。情緒偏冷，散戶點火不旺。",
+    "interpretation": "溫度 28 分（觀望）：融資餘額日變 -0.77%、當沖成交占比 20.97%、散戶法人齊賣（雙殺）（法人 -586 億）。情緒偏冷，散戶點火不旺。",
     "degraded": false,
-    "date": "20261016"
+    "date": "20261019"
   },
   "rankings": {
     "date": "20261019",
-    "institutionalBuy": [],
-    "institutionalSell": [],
+    "institutionalBuy": [
+      {
+        "code": "2409",
+        "name": "友達",
+        "netLots": 15392,
+        "changePct": 2.23
+      },
+      {
+        "code": "2002",
+        "name": "中鋼",
+        "netLots": 9580,
+        "changePct": -0.26
+      },
+      {
+        "code": "2884",
+        "name": "玉山金",
+        "netLots": 8652,
+        "changePct": 0.41
+      },
+      {
+        "code": "2886",
+        "name": "兆豐金",
+        "netLots": 7412,
+        "changePct": 0.37
+      },
+      {
+        "code": "9105",
+        "name": "泰金寶-DR",
+        "netLots": 7160,
+        "changePct": 0.77
+      },
+      {
+        "code": "5880",
+        "name": "合庫金",
+        "netLots": 6979,
+        "changePct": -0.36
+      },
+      {
+        "code": "00961",
+        "name": "FT臺灣永續高息",
+        "netLots": 6913,
+        "changePct": 0.0
+      },
+      {
+        "code": "1216",
+        "name": "統一",
+        "netLots": 6606,
+        "changePct": 0.0
+      },
+      {
+        "code": "2412",
+        "name": "中華電",
+        "netLots": 5976,
+        "changePct": 0.98
+      },
+      {
+        "code": "2887",
+        "name": "台新新光金",
+        "netLots": 5661,
+        "changePct": -0.24
+      }
+    ],
+    "institutionalSell": [
+      {
+        "code": "009816",
+        "name": "凱基台灣TOP50",
+        "netLots": -110414,
+        "changePct": -0.8
+      },
+      {
+        "code": "0056",
+        "name": "元大高股息",
+        "netLots": -98061,
+        "changePct": -1.28
+      },
+      {
+        "code": "0050",
+        "name": "元大台灣50",
+        "netLots": -93171,
+        "changePct": -0.78
+      },
+      {
+        "code": "00929",
+        "name": "復華台灣科技優息",
+        "netLots": -59110,
+        "changePct": -1.64
+      },
+      {
+        "code": "00927",
+        "name": "群益半導體收益",
+        "netLots": -42201,
+        "changePct": 0.0
+      },
+      {
+        "code": "6770",
+        "name": "力積電",
+        "netLots": -35323,
+        "changePct": -2.97
+      },
+      {
+        "code": "1802",
+        "name": "台玻",
+        "netLots": -32423,
+        "changePct": -1.35
+      },
+      {
+        "code": "00878",
+        "name": "國泰永續高股息",
+        "netLots": -31106,
+        "changePct": -1.07
+      },
+      {
+        "code": "00919",
+        "name": "群益台灣精選高息",
+        "netLots": -24147,
+        "changePct": -0.89
+      },
+      {
+        "code": "009828",
+        "name": "中信台日韓PCB",
+        "netLots": -21348,
+        "changePct": -0.2
+      }
+    ],
     "turnoverTop": [
       {
         "code": "2330",
         "name": "台積電",
-        "valueYi": 658.97,
+        "valueYi": 665.19,
         "changePct": 0.0
       },
       {
         "code": "1303",
         "name": "南亞",
-        "valueYi": 311.19,
+        "valueYi": 311.36,
         "changePct": -1.14
       },
       {
@@ -351,7 +473,7 @@
       {
         "code": "2303",
         "name": "聯電",
-        "valueYi": 180.21,
+        "valueYi": 181.48,
         "changePct": -1.13
       },
       {
@@ -608,7 +730,7 @@
   ],
   "analysis": {
     "date": "2026/10/19",
-    "markdown": "### 今日盤勢摘要\n加權指數收於 **46822.08**，下跌 289.18 點 (-0.61%)。\n\n### 三大法人動向\n- **外資**：賣超 767.43 億元\n- **投信**：買超 230.51 億元\n- **自營商**：賣超 60.23 億元\n\n### 追蹤個股觀察\n- **強勢**：創意 (+4.68%)、世芯-KY (+0.81%)、兆豐金 (+0.37%)\n- **弱勢**：萬海 (-3.27%)、力積電 (-2.97%)、廣達 (-2.33%)\n\n### 策略提醒\n本報告由規則式模板自動產生，僅供參考。投資決策請結合即時新聞、籌碼面與基本面，並務必設定停損。\n",
+    "markdown": "### 今日盤勢摘要\n加權指數收於 **46822.08**，下跌 289.18 點 (-0.61%)。\n\n### 三大法人動向\n- **外資**：賣超 767.43 億元\n- **投信**：買超 241.42 億元\n- **自營商**：賣超 60.23 億元\n\n### 追蹤個股觀察\n- **強勢**：創意 (+4.68%)、世芯-KY (+0.81%)、兆豐金 (+0.37%)\n- **弱勢**：萬海 (-3.27%)、力積電 (-2.97%)、廣達 (-2.33%)\n\n### 策略提醒\n本報告由規則式模板自動產生，僅供參考。投資決策請結合即時新聞、籌碼面與基本面，並務必設定停損。\n",
     "source": "rule-based"
   }
 }
