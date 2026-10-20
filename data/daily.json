@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-20 16:00:26 +0800",
+  "generatedAt": "2026-10-20 19:56:17 +0800",
   "timezone": "Asia/Taipei",
   "index": {
     "code": "t00",
@@ -17,9 +17,9 @@
   },
   "historicalIndex": {
     "date_roc": "115/10/20",
-    "volume_shares": 11310496077.0,
-    "volume_amount": 798690781399.0,
-    "transactions": 5155174.0,
+    "volume_shares": 11317471077.0,
+    "volume_amount": 802947441658.0,
+    "transactions": 5155199.0,
     "close": 46292.93,
     "change": -529.15
   },
@@ -231,8 +231,8 @@
       "date": "2026/10/20",
       "close": 46292.93,
       "change": -529.15,
-      "volume": 11310496077.0,
-      "transactions": 5155174.0
+      "volume": 11317471077.0,
+      "transactions": 5155199.0
     }
   ],
   "institutional": {
@@ -244,13 +244,13 @@
         "net": -6855035176.0
       },
       "投信": {
-        "buy": 32977189727.0,
-        "sell": 14662160787.0,
-        "net": 18315028940.0
+        "buy": 34044387977.0,
+        "sell": 15285879547.0,
+        "net": 18758508430.0
       },
       "外資": {
-        "buy": 244419499855.0,
-        "sell": 323959192251.0,
+        "buy": 248675549542.0,
+        "sell": 328215241938.0,
         "net": -79539692396.0
       }
     },
@@ -266,13 +266,13 @@
     "shortPrev": 233602.0
   },
   "dayTrade": {
-    "date": "20261019",
-    "volumeRatio": 20.97,
-    "buyValueRatio": 40.84,
-    "sellValueRatio": 41.0
+    "date": "20261020",
+    "volumeRatio": 19.73,
+    "buyValueRatio": 42.53,
+    "sellValueRatio": 42.62
   },
   "sentiment": {
-    "score": 26,
+    "score": 25,
     "level": "觀望",
     "color": "#00d4aa",
     "components": [
@@ -288,17 +288,17 @@
         "key": "daytrade",
         "label": "當沖投機",
         "weight": 0.3,
-        "score": 23.88,
-        "raw": "當沖成交占比 20.97%",
-        "rawValue": 20.97
+        "score": 18.92,
+        "raw": "當沖成交占比 19.73%",
+        "rawValue": 19.73
       },
       {
         "key": "divergence",
         "label": "散戶反法人",
         "weight": 0.2,
         "score": 20.0,
-        "raw": "散戶法人齊賣（雙殺）（法人 -681 億）",
-        "rawValue": -680.8
+        "raw": "散戶法人齊賣（雙殺）（法人 -676 億）",
+        "rawValue": -676.36
       },
       {
         "key": "index",
@@ -309,19 +309,141 @@
         "rawValue": -1.13
       }
     ],
-    "interpretation": "溫度 26 分（觀望）：融資餘額日變 -0.77%、當沖成交占比 20.97%、散戶法人齊賣（雙殺）（法人 -681 億）。情緒偏冷，散戶點火不旺。",
+    "interpretation": "溫度 25 分（觀望）：融資餘額日變 -0.77%、當沖成交占比 19.73%、散戶法人齊賣（雙殺）（法人 -676 億）。情緒偏冷，散戶點火不旺。",
     "degraded": false,
     "date": "20261019"
   },
   "rankings": {
     "date": "20261020",
-    "institutionalBuy": [],
-    "institutionalSell": [],
+    "institutionalBuy": [
+      {
+        "code": "3231",
+        "name": "緯創",
+        "netLots": 42703,
+        "changePct": 5.0
+      },
+      {
+        "code": "2002",
+        "name": "中鋼",
+        "netLots": 24567,
+        "changePct": 0.51
+      },
+      {
+        "code": "1802",
+        "name": "台玻",
+        "netLots": 18618,
+        "changePct": 2.12
+      },
+      {
+        "code": "2324",
+        "name": "仁寶",
+        "netLots": 15952,
+        "changePct": 1.79
+      },
+      {
+        "code": "2353",
+        "name": "宏碁",
+        "netLots": 12119,
+        "changePct": 1.09
+      },
+      {
+        "code": "00961",
+        "name": "FT臺灣永續高息",
+        "netLots": 8551,
+        "changePct": 0.15
+      },
+      {
+        "code": "2356",
+        "name": "英業達",
+        "netLots": 8526,
+        "changePct": 1.52
+      },
+      {
+        "code": "4938",
+        "name": "和碩",
+        "netLots": 7651,
+        "changePct": 2.94
+      },
+      {
+        "code": "2377",
+        "name": "微星",
+        "netLots": 5985,
+        "changePct": 3.13
+      },
+      {
+        "code": "9904",
+        "name": "寶成",
+        "netLots": 5353,
+        "changePct": 0.57
+      }
+    ],
+    "institutionalSell": [
+      {
+        "code": "009816",
+        "name": "凱基台灣TOP50",
+        "netLots": -132957,
+        "changePct": -0.87
+      },
+      {
+        "code": "0056",
+        "name": "元大高股息",
+        "netLots": -87877,
+        "changePct": -0.95
+      },
+      {
+        "code": "0050",
+        "name": "元大台灣50",
+        "netLots": -82415,
+        "changePct": -0.83
+      },
+      {
+        "code": "00929",
+        "name": "復華台灣科技優息",
+        "netLots": -50351,
+        "changePct": -0.31
+      },
+      {
+        "code": "00919",
+        "name": "群益台灣精選高息",
+        "netLots": -47348,
+        "changePct": -1.11
+      },
+      {
+        "code": "00712",
+        "name": "復華富時不動產",
+        "netLots": -39289,
+        "changePct": -2.82
+      },
+      {
+        "code": "00878",
+        "name": "國泰永續高股息",
+        "netLots": -38264,
+        "changePct": -0.77
+      },
+      {
+        "code": "009828",
+        "name": "中信台日韓PCB",
+        "netLots": -35775,
+        "changePct": -2.96
+      },
+      {
+        "code": "2303",
+        "name": "聯電",
+        "netLots": -31508,
+        "changePct": -3.42
+      },
+      {
+        "code": "2409",
+        "name": "友達",
+        "netLots": -30301,
+        "changePct": -2.59
+      }
+    ],
     "turnoverTop": [
       {
         "code": "2330",
         "name": "台積電",
-        "valueYi": 514.48,
+        "valueYi": 538.57,
         "changePct": -0.62
       },
       {
@@ -373,10 +495,10 @@
         "changePct": 5.0
       },
       {
-        "code": "3037",
-        "name": "欣興",
-        "valueYi": 152.75,
-        "changePct": -5.8
+        "code": "2308",
+        "name": "台達電",
+        "valueYi": 154.95,
+        "changePct": -2.13
       }
     ]
   },
@@ -608,7 +730,7 @@
   ],
   "analysis": {
     "date": "2026/10/20",
-    "markdown": "### 今日盤勢摘要\n加權指數收於 **46292.93**，下跌 529.15 點 (-1.13%)。\n\n### 三大法人動向\n- **外資**：賣超 795.40 億元\n- **投信**：買超 183.15 億元\n- **自營商**：賣超 68.55 億元\n\n### 追蹤個股觀察\n- **強勢**：廣達 (+1.91%)、鴻海 (+0.84%)、復華台灣科技優息 (-0.31%)\n- **弱勢**：國泰金 (-3.93%)、富邦金 (-3.15%)、中信金 (-2.45%)\n\n### 策略提醒\n本報告由規則式模板自動產生，僅供參考。投資決策請結合即時新聞、籌碼面與基本面，並務必設定停損。\n",
+    "markdown": "### 今日盤勢摘要\n加權指數收於 **46292.93**，下跌 529.15 點 (-1.13%)。\n\n### 三大法人動向\n- **外資**：賣超 795.40 億元\n- **投信**：買超 187.59 億元\n- **自營商**：賣超 68.55 億元\n\n### 追蹤個股觀察\n- **強勢**：廣達 (+1.91%)、鴻海 (+0.84%)、復華台灣科技優息 (-0.31%)\n- **弱勢**：國泰金 (-3.93%)、富邦金 (-3.15%)、中信金 (-2.45%)\n\n### 策略提醒\n本報告由規則式模板自動產生，僅供參考。投資決策請結合即時新聞、籌碼面與基本面，並務必設定停損。\n",
     "source": "rule-based"
   }
 }
