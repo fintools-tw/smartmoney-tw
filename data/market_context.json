@@ -1,57 +1,57 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-21 16:00:27 +0800",
+  "generatedAt": "2026-10-22 07:15:09 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
       "key": "^GSPC",
       "name": "S&P 500",
-      "price": 7712.57,
-      "change": 21.84,
-      "changePct": 0.28,
-      "date": "2026-10-20"
+      "price": 7757.17,
+      "change": 44.6,
+      "changePct": 0.58,
+      "date": "2026-10-21"
     },
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 26424.82,
-      "change": -6.07,
-      "changePct": -0.02,
-      "date": "2026-10-20"
+      "price": 26702.86,
+      "change": 278.04,
+      "changePct": 1.05,
+      "date": "2026-10-21"
     },
     {
       "key": "^DJI",
       "name": "道瓊工業",
-      "price": 52495.88,
-      "change": 529.85,
-      "changePct": 1.02,
-      "date": "2026-10-20"
+      "price": 52856.09,
+      "change": 360.21,
+      "changePct": 0.69,
+      "date": "2026-10-21"
     },
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 11283.81,
-      "change": -32.53,
-      "changePct": -0.29,
-      "date": "2026-10-20"
+      "price": 11505.56,
+      "change": 221.75,
+      "changePct": 1.97,
+      "date": "2026-10-21"
     }
   ],
   "taifexTX": {
     "contractMonth": "202610",
-    "date": "20261020",
+    "date": "20261021",
     "day": {
-      "last": 46384.0,
-      "change": -385.0,
-      "changePct": -0.82,
+      "last": 46648.0,
+      "change": 307.0,
+      "changePct": 0.66,
       "session": "一般"
     },
     "night": {
-      "last": 46691.0,
-      "change": -78.0,
-      "changePct": -0.17,
+      "last": 46975.0,
+      "change": 634.0,
+      "changePct": 1.37,
       "session": "盤後"
     },
-    "dateIso": "2026-10-20"
+    "dateIso": "2026-10-21"
   },
   "taiexMA": {
     "current": 46887.77,
@@ -66,10 +66,10 @@
     "samples": 34
   },
   "signal": {
-    "light": "yellow",
-    "label": "訊號分歧",
-    "message": "參考訊號分歧，進場宜少量分批、控制部位並留意變盤。",
-    "bull": 2,
+    "light": "green",
+    "label": "環境偏多",
+    "message": "多數參考訊號偏多，環境偏多；仍建議分批進場、嚴控部位。",
+    "bull": 4,
     "total": 5
   },
   "disclaimer": "本區塊為美股、台指期與均線等公開數據彙整，僅供參考，不構成投資建議。市場有風險，進出請自負盈虧。"
