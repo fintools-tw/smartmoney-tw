@@ -1,46 +1,57 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-23 16:00:27 +0800",
+  "generatedAt": "2026-10-24 07:15:09 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
       "key": "^GSPC",
       "name": "S&P 500",
-      "price": 7663.43,
-      "change": -93.74,
-      "changePct": -1.21,
-      "date": "2026-10-22"
+      "price": 7623.68,
+      "change": -39.75,
+      "changePct": -0.52,
+      "date": "2026-10-23"
     },
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 26008.86,
-      "change": -694.0,
-      "changePct": -2.6,
-      "date": "2026-10-22"
+      "price": 25955.34,
+      "change": -53.52,
+      "changePct": -0.21,
+      "date": "2026-10-23"
     },
     {
       "key": "^DJI",
       "name": "道瓊工業",
-      "price": 52867.98,
-      "change": 11.89,
-      "changePct": 0.02,
-      "date": "2026-10-22"
+      "price": 52215.16,
+      "change": -652.82,
+      "changePct": -1.23,
+      "date": "2026-10-23"
     },
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 10731.98,
-      "change": -773.58,
-      "changePct": -6.72,
-      "date": "2026-10-22"
+      "price": 10779.46,
+      "change": 47.48,
+      "changePct": 0.44,
+      "date": "2026-10-23"
     }
   ],
   "taifexTX": {
-    "contractMonth": null,
-    "date": null,
-    "day": null,
-    "night": null
+    "contractMonth": "202611",
+    "date": "20261022",
+    "day": {
+      "last": 46272.0,
+      "change": -741.0,
+      "changePct": -1.58,
+      "session": "一般"
+    },
+    "night": {
+      "last": 47482.0,
+      "change": 469.0,
+      "changePct": 1.0,
+      "session": "盤後"
+    },
+    "dateIso": "2026-10-22"
   },
   "taiexMA": {
     "current": 46041.43,
@@ -55,11 +66,11 @@
     "samples": 35
   },
   "signal": {
-    "light": "red",
-    "label": "環境偏空",
-    "message": "多數參考訊號偏空，進場宜少量分批、控制部位並嚴設停損。",
-    "bull": 0,
-    "total": 4
+    "light": "yellow",
+    "label": "訊號分歧",
+    "message": "參考訊號分歧，進場宜少量分批、控制部位並留意變盤。",
+    "bull": 2,
+    "total": 5
   },
   "disclaimer": "本區塊為美股、台指期與均線等公開數據彙整，僅供參考，不構成投資建議。市場有風險，進出請自負盈虧。"
 }
