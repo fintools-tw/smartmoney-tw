@@ -1,57 +1,57 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-28 16:00:36 +0800",
+  "generatedAt": "2026-10-29 07:15:10 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
       "key": "^GSPC",
       "name": "S&P 500",
-      "price": 7722.6,
-      "change": 45.83,
-      "changePct": 0.6,
-      "date": "2026-10-27"
+      "price": 7743.98,
+      "change": 21.38,
+      "changePct": 0.28,
+      "date": "2026-10-28"
     },
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 26477.81,
-      "change": 308.43,
-      "changePct": 1.18,
-      "date": "2026-10-27"
+      "price": 26549.85,
+      "change": 72.04,
+      "changePct": 0.27,
+      "date": "2026-10-28"
     },
     {
       "key": "^DJI",
       "name": "道瓊工業",
-      "price": 52377.57,
-      "change": 15.99,
-      "changePct": 0.03,
-      "date": "2026-10-27"
+      "price": 52475.1,
+      "change": 97.53,
+      "changePct": 0.19,
+      "date": "2026-10-28"
     },
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 11482.5,
-      "change": 399.03,
-      "changePct": 3.6,
-      "date": "2026-10-27"
+      "price": 11684.0,
+      "change": 201.5,
+      "changePct": 1.75,
+      "date": "2026-10-28"
     }
   ],
   "taifexTX": {
     "contractMonth": "202611",
-    "date": "20261027",
+    "date": "20261028",
     "day": {
-      "last": 46081.0,
-      "change": -153.0,
-      "changePct": -0.33,
+      "last": 47244.0,
+      "change": 1138.0,
+      "changePct": 2.47,
       "session": "一般"
     },
     "night": {
-      "last": 45654.0,
-      "change": -580.0,
-      "changePct": -1.25,
+      "last": 46880.0,
+      "change": 774.0,
+      "changePct": 1.68,
       "session": "盤後"
     },
-    "dateIso": "2026-10-27"
+    "dateIso": "2026-10-28"
   },
   "taiexMA": {
     "current": 47035.58,
@@ -69,7 +69,7 @@
     "light": "green",
     "label": "環境偏多",
     "message": "多數參考訊號偏多，環境偏多；仍建議分批進場、嚴控部位。",
-    "bull": 4,
+    "bull": 5,
     "total": 5
   },
   "disclaimer": "本區塊為美股、台指期與均線等公開數據彙整，僅供參考，不構成投資建議。市場有風險，進出請自負盈虧。"
