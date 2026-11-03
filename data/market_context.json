@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-03 07:15:07 +0800",
+  "generatedAt": "2026-11-03 16:00:33 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
@@ -14,8 +14,8 @@
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 25164.32,
-      "change": -272.68,
+      "price": 25164.31,
+      "change": -272.69,
       "changePct": -1.07,
       "date": "2026-11-02"
     },
@@ -38,32 +38,32 @@
   ],
   "taifexTX": {
     "contractMonth": "202611",
-    "date": "20261030",
+    "date": "20261102",
     "day": {
-      "last": 45301.0,
-      "change": -1268.0,
-      "changePct": -2.72,
+      "last": 45256.0,
+      "change": -44.0,
+      "changePct": -0.1,
       "session": "一般"
     },
     "night": {
-      "last": 45926.0,
-      "change": -643.0,
-      "changePct": -1.38,
+      "last": 44433.0,
+      "change": -867.0,
+      "changePct": -1.91,
       "session": "盤後"
     },
-    "dateIso": "2026-10-30"
+    "dateIso": "2026-11-02"
   },
   "taiexMA": {
-    "current": 44920.14,
-    "date": "115/11/02",
-    "dateIso": "2026-11-02",
-    "ma5": 45926.42,
-    "ma10": 46278.76,
-    "ma20": 47575.51,
+    "current": 43307.54,
+    "date": "115/11/03",
+    "dateIso": "2026-11-03",
+    "ma5": 45368.68,
+    "ma10": 45898.39,
+    "ma20": 47323.21,
     "above_ma5": false,
     "above_ma10": false,
     "above_ma20": false,
-    "samples": 20
+    "samples": 21
   },
   "signal": {
     "light": "red",
