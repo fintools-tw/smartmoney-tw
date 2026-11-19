@@ -1,69 +1,69 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-19 07:15:06 +0800",
+  "generatedAt": "2026-11-19 16:00:33 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
       "key": "^GSPC",
       "name": "S&P 500",
-      "price": 7303.98,
-      "change": -36.55,
-      "changePct": -0.5,
+      "price": 7323.63,
+      "change": -16.9,
+      "changePct": -0.23,
       "date": "2026-11-18"
     },
     {
       "key": "^IXIC",
       "name": "NASDAQ",
-      "price": 24322.71,
-      "change": -5.67,
-      "changePct": -0.02,
+      "price": 24429.88,
+      "change": 101.5,
+      "changePct": 0.42,
       "date": "2026-11-18"
     },
     {
       "key": "^DJI",
       "name": "道瓊工業",
-      "price": 50089.71,
-      "change": -669.71,
-      "changePct": -1.32,
+      "price": 50198.17,
+      "change": -561.25,
+      "changePct": -1.11,
       "date": "2026-11-18"
     },
     {
       "key": "^SOX",
       "name": "費城半導體",
-      "price": 9607.27,
-      "change": -35.61,
-      "changePct": -0.37,
+      "price": 9652.8,
+      "change": 9.92,
+      "changePct": 0.1,
       "date": "2026-11-18"
     }
   ],
   "taifexTX": {
     "contractMonth": "202611",
-    "date": "20261117",
+    "date": "20261118",
     "day": {
-      "last": 40073.0,
-      "change": -708.0,
-      "changePct": -1.74,
+      "last": 40025.0,
+      "change": 14.0,
+      "changePct": 0.03,
       "session": "一般"
     },
     "night": {
-      "last": 40935.0,
-      "change": 154.0,
-      "changePct": 0.38,
+      "last": 39792.0,
+      "change": -219.0,
+      "changePct": -0.55,
       "session": "盤後"
     },
-    "dateIso": "2026-11-17"
+    "dateIso": "2026-11-18"
   },
   "taiexMA": {
-    "current": 40194.91,
-    "date": "115/11/18",
-    "dateIso": "2026-11-18",
-    "ma5": 41618.82,
-    "ma10": 41800.12,
-    "ma20": 43655.6,
+    "current": 38426.89,
+    "date": "115/11/19",
+    "dateIso": "2026-11-19",
+    "ma5": 40685.82,
+    "ma10": 41485.34,
+    "ma20": 43262.29,
     "above_ma5": false,
     "above_ma10": false,
     "above_ma20": false,
-    "samples": 32
+    "samples": 33
   },
   "signal": {
     "light": "red",
