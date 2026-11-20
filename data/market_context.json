@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-20 07:15:06 +0800",
+  "generatedAt": "2026-11-20 16:02:39 +0800",
   "timezone": "Asia/Taipei",
   "usIndices": [
     {
@@ -37,33 +37,33 @@
     }
   ],
   "taifexTX": {
-    "contractMonth": "202611",
-    "date": "20261118",
+    "contractMonth": "202612",
+    "date": "20261119",
     "day": {
-      "last": 40025.0,
-      "change": 14.0,
-      "changePct": 0.03,
+      "last": 38649.0,
+      "change": -1683.0,
+      "changePct": -4.17,
       "session": "一般"
     },
     "night": {
-      "last": 39792.0,
-      "change": -219.0,
-      "changePct": -0.55,
+      "last": 39987.0,
+      "change": -345.0,
+      "changePct": -0.86,
       "session": "盤後"
     },
-    "dateIso": "2026-11-18"
+    "dateIso": "2026-11-19"
   },
   "taiexMA": {
-    "current": 38426.89,
-    "date": "115/11/19",
-    "dateIso": "2026-11-19",
-    "ma5": 40685.82,
-    "ma10": 41485.34,
-    "ma20": 43262.29,
+    "current": 36033.29,
+    "date": "115/11/20",
+    "dateIso": "2026-11-20",
+    "ma5": 39157.46,
+    "ma10": 41118.5,
+    "ma20": 42719.57,
     "above_ma5": false,
     "above_ma10": false,
     "above_ma20": false,
-    "samples": 33
+    "samples": 34
   },
   "signal": {
     "light": "red",
